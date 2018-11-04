@@ -8,7 +8,7 @@
         tools:context=".LoginScreen">
 
     <Button
-            android:text="Button"
+            android:text="Login"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:id="@+id/login_screen_login_button" app:layout_constraintStart_toStartOf="parent"
