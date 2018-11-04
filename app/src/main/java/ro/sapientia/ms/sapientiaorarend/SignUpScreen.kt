@@ -40,8 +40,6 @@ class SignUpScreen : AppCompatActivity() {
         this.name = this.editextname.toString().trim()
         this.email = this.edittextemail.toString().trim()
         this.password = this.edittextpassword.toString().trim()
-        if(TextUtils.isEmpty(email)){
-
-        }
+        if(TextUtils.isEmpty(email))
     }
 }
