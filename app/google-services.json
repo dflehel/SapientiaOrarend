@@ -1,0 +1,42 @@
+{
+  "project_info": {
+    "project_number": "638375021873",
+    "firebase_url": "https://sapientia-orarend-68b43.firebaseio.com",
+    "project_id": "sapientia-orarend-68b43",
+    "storage_bucket": "sapientia-orarend-68b43.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:638375021873:android:c6c2b5873125f0ef",
+        "android_client_info": {
+          "package_name": "ro.sapientia.ms.sapientiaorarend"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "638375021873-9o3mcmqbko4dq8ble0djhacb9dm4khm5.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCxzcz1xl_Cjto6dSxPlo3x8yWXwBQRAAs"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
