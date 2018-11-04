@@ -8,12 +8,7 @@ import android.widget.Button
 import android.widget.EditText
 import android.widget.ProgressBar
 import android.widget.Toast
-import com.google.android.gms.tasks.TaskExecutors
 import com.google.firebase.auth.FirebaseAuth
-import com.google.firebase.auth.PhoneAuthProvider
-import com.google.firebase.database.DatabaseReference
-import com.google.firebase.database.FirebaseDatabase
-import java.util.concurrent.TimeUnit
 
 class SignUpScreen : AppCompatActivity() {
 
@@ -29,17 +24,11 @@ class SignUpScreen : AppCompatActivity() {
     lateinit var button: Button
     lateinit var progressDialog: ProgressDialog
     private var mAuth: FirebaseAuth? = null
-    private var phoneAuthProvider:PhoneAuthProvider?=null
-    private lateinit var resendToken: PhoneAuthProvider.ForceResendingToken
-    private lateinit var callbacks: PhoneAuthProvider.OnVerificationStateChangedCallbacks
-    private var mDatabaseReference: DatabaseReference? = null
-    private var mDatabase: FirebaseDatabase? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_sign_up_screen)
         mAuth = FirebaseAuth.getInstance()
-        phoneAuthProvider = PhoneAuthProvider.getInstance()
         this.editextname = findViewById<EditText>(R.id.sign_up_screen_name_editText)
         this.edittexphone = findViewById<EditText>(R.id.sign_up_screen_phone_editText)
         this.edittextemail = findViewById<EditText>(R.id.sign_up_screen_email_editText)
@@ -47,8 +36,6 @@ class SignUpScreen : AppCompatActivity() {
         this.edittextpasswordconfirm = findViewById<EditText>(R.id.sign_up_screen_configuration_password_textEdit)
         this.button = findViewById<Button>(R.id.sign_up_screen_sign_up_button)
         this.progressDialog = ProgressDialog(this)
-        mDatabase = FirebaseDatabase.getInstance()
-        mDatabaseReference = mDatabase!!.reference!!.child("Users")
         this.button.setOnClickListener{
             this.registeruser()
         }
@@ -63,7 +50,6 @@ class SignUpScreen : AppCompatActivity() {
         this.name = this.editextname.text.toString()
         this.email = this.edittextemail.text.toString()
         this.password = this.edittextpassword.text.toString()
-        this.phone = this.edittexphone.text.toString()
         this.progressDialog.setMessage("Regisztralas")
         this.progressDialog.show()
        if(TextUtils.isEmpty(email)){
@@ -86,19 +72,14 @@ class SignUpScreen : AppCompatActivity() {
                     // Sign in: success
                     // update UI for current User
                     Toast.makeText(this,"Sikeres Registracio",Toast.LENGTH_LONG).show()
-                    val user = mAuth!!.currentUser!!.uid
-                    val currentUserDb = mDatabaseReference!!.child(user)
-                    currentUserDb.child("fName").setValue(name)
-                    currentUserDb.child("email").setValue(email)
-                    currentUserDb.child("tel").setValue(phone)
+                    val user = mAuth!!.currentUser
                     //updateUI(user)
                 } else {
                     // Sign in: fail
                     // updateUI(null)
-                    Toast.makeText(this,"Sikeretelen Registracio"+task.exception,Toast.LENGTH_LONG).show()
+                    Toast.makeText(this,"Sikeretelen Registracio",Toast.LENGTH_LONG).show()
                 }
             }
         this.progressDialog.dismiss()
     }
-
 }
