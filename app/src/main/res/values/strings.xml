@@ -6,10 +6,10 @@
     <string name="title_notifications">Notifications</string>
 
     <!-- TODO: Remove or change this placeholder text -->
-    <string name="profile_screen_name">Név:</string>
+    <string name="profile_screen_name">Nev:</string>
     <string name="profile_screen_phone">Telefon:</string>
     <string name="profile_screen_email">E-mail:</string>
     <string name="profile_screen_class">Szak:</string>
-    <string name="profile_screen_year">Évfolyam:</string>
+    <string name="profile_screen_year">Evfolyam:</string>
 
 </resources>
