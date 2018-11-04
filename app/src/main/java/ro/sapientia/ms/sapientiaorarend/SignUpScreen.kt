@@ -1,6 +1,7 @@
 package ro.sapientia.ms.sapientiaorarend
 
 import android.app.ProgressDialog
+import android.content.Intent
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import android.text.TextUtils
@@ -73,13 +74,16 @@ class SignUpScreen : AppCompatActivity() {
                     // update UI for current User
                     Toast.makeText(this,"Sikeres Registracio",Toast.LENGTH_LONG).show()
                     val user = mAuth!!.currentUser
+                    this.progressDialog.dismiss()
+                    var intent = Intent(this, MainScreen::class.java)
+                    startActivity(intent)
                     //updateUI(user)
                 } else {
                     // Sign in: fail
                     // updateUI(null)
                     Toast.makeText(this,"Sikeretelen Registracio",Toast.LENGTH_LONG).show()
+                    this.progressDialog.dismiss()
                 }
             }
-        this.progressDialog.dismiss()
     }
 }
