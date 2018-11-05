@@ -4,7 +4,8 @@
     <string name="title_home">Home</string>
     <string name="title_dashboard">Dashboard</string>
     <string name="title_notifications">Notifications</string>
-
+    <string name="open">Open</string>
+    <string name="close">Close</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="profile_screen_name">Név:</string>
     <string name="profile_screen_phone">Telefon:</string>

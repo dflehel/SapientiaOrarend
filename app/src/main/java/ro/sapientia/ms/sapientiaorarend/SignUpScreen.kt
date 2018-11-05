@@ -2,14 +2,15 @@ package ro.sapientia.ms.sapientiaorarend
 
 import android.app.ProgressDialog
 import android.content.Intent
-import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
+import android.support.v7.app.AppCompatActivity
 import android.text.TextUtils
 import android.widget.Button
 import android.widget.EditText
-import android.widget.ProgressBar
 import android.widget.Toast
 import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.auth.FirebaseUser
+import com.google.firebase.auth.UserProfileChangeRequest
 
 class SignUpScreen : AppCompatActivity() {
 
@@ -25,6 +26,7 @@ class SignUpScreen : AppCompatActivity() {
     lateinit var button: Button
     lateinit var progressDialog: ProgressDialog
     private var mAuth: FirebaseAuth? = null
+    private var user: FirebaseUser? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -73,7 +75,9 @@ class SignUpScreen : AppCompatActivity() {
                     // Sign in: success
                     // update UI for current User
                     Toast.makeText(this,"Sikeres Registracio",Toast.LENGTH_LONG).show()
-                    val user = mAuth!!.currentUser
+                    this.user = mAuth!!.currentUser
+                    var userprof = UserProfileChangeRequest.Builder().setDisplayName(this.name).build()
+                    this.user!!.updateProfile(userprof)
                     this.progressDialog.dismiss()
                     var intent = Intent(this, MainScreen::class.java)
                     startActivity(intent)
