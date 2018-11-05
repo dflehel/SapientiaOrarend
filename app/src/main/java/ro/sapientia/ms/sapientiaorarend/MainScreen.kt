@@ -2,18 +2,19 @@ package ro.sapientia.ms.sapientiaorarend
 
 import android.os.Bundle
 import android.support.design.widget.BottomNavigationView
-import android.support.v7.app.AppCompatActivity
-import kotlinx.android.synthetic.main.activity_main_screen.*
 import android.support.v4.app.Fragment
-import android.support.v7.widget.DefaultItemAnimator
-import android.support.v7.widget.LinearLayoutManager
-import android.support.v7.widget.RecyclerView
-import android.view.View
-import kotlinx.android.synthetic.main.fragment_own_time_table.*
-import kotlinx.android.synthetic.main.own_time_table_item.*
-import ro.sapientia.ms.sapientiaorarend.Adapters.OnwTimeTableAdapter
+import android.support.v4.widget.DrawerLayout
+import android.support.v7.app.ActionBarDrawerToggle
+import android.support.v7.app.AppCompatActivity
+import android.view.MenuItem
+import com.google.firebase.auth.FirebaseAuth
+import kotlinx.android.synthetic.main.activity_main_screen.*
 
 class MainScreen : AppCompatActivity() {
+
+    private var drawerLayout: DrawerLayout? = null
+    private var actionBarDrawerToggle: ActionBarDrawerToggle? = null
+    private var mAuth: FirebaseAuth? = null
 
 
     private val mOnNavigationItemSelectedListener = BottomNavigationView.OnNavigationItemSelectedListener { item ->
@@ -49,10 +50,27 @@ class MainScreen : AppCompatActivity() {
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
+        this.mAuth = FirebaseAuth.getInstance()
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main_screen)
+        if (this.mAuth!!.currentUser == null) {
+            setContentView(R.layout.activity_main_screen_guest)
+        } else {
+            setContentView(R.layout.activity_main_screen)
+        }
         val GeneralTimtablefragment  = BlankFragment.newInstance("dfsdfsfd","dfsfdsfds")
         openFragment(GeneralTimtablefragment)
         navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener)
+        this.drawerLayout = findViewById<DrawerLayout>(R.id.cont)
+        this.actionBarDrawerToggle = ActionBarDrawerToggle(this, this.drawerLayout, R.string.open, R.string.close)
+        this.drawerLayout!!.addDrawerListener(this.actionBarDrawerToggle!!)
+        this.actionBarDrawerToggle!!.syncState()
+        supportActionBar!!.setDisplayHomeAsUpEnabled(true)
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem?): Boolean {
+        if (this.actionBarDrawerToggle!!.onOptionsItemSelected(item)) {
+            return true
+        }
+        return super.onOptionsItemSelected(item)
     }
 }
