@@ -18,6 +18,8 @@ class Profil : Fragment() {
 
     private var name: TextView? = null
 
+    private var phone: TextView? = null
+
     private var button: Button? = null
 
     private var user: FirebaseUser? = null
@@ -32,11 +34,13 @@ class Profil : Fragment() {
         this.mAuth = FirebaseAuth.getInstance()
         this.user = this.mAuth!!.currentUser
         val root = inflater.inflate(R.layout.fragment_profil, container, false)
-        this.email = root.findViewById<TextView>(R.id.profile_screen_email_id)
-        this.name = root.findViewById<TextView>(R.id.profile_screen_name_id)
+        this.email = root.findViewById<TextView>(R.id.profile_screen_database_email_id)
+        this.name = root.findViewById<TextView>(R.id.profile_screen_database_name_id)
+        this.phone = root.findViewById<TextView>(R.id.profile_screen_database_phone_id)
         this.button = root.findViewById<Button>(R.id.profile_screen_sign_out_button)
         this.email!!.text = user!!.email
         this.name!!.text = user!!.displayName
+        this.phone!!.text = user!!.phoneNumber
         this.button!!.setOnClickListener {
             this.mAuth!!.signOut()
             Toast.makeText(root.context, "Kijelentkeztel", Toast.LENGTH_LONG).show()
