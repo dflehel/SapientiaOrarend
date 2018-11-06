@@ -2,9 +2,12 @@ package ro.sapientia.ms.sapientiaorarend
 
 import android.app.ProgressDialog
 import android.content.Intent
-import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
-import android.widget.*
+import android.support.v7.app.AppCompatActivity
+import android.widget.Button
+import android.widget.EditText
+import android.widget.TextView
+import android.widget.Toast
 import com.google.firebase.auth.FirebaseAuth
 
 class LoginScreen : AppCompatActivity() {
@@ -18,6 +21,7 @@ class LoginScreen : AppCompatActivity() {
     private var email:String?= null
     private var password:String?=null
     private var mAuth: FirebaseAuth? = null
+    private var guest: TextView? = null
     private var progressDialog: ProgressDialog?=null
 
 
@@ -26,6 +30,11 @@ class LoginScreen : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_login_screen)
         mAuth = FirebaseAuth.getInstance()
+        this.guest = findViewById<TextView>(R.id.log_in_screen_guet_text_view)
+        this.guest!!.setOnClickListener {
+            var intent = Intent(this, MainScreen::class.java)
+            startActivity(intent)
+        }
         this.Email = findViewById(R.id.login_screen_email)
         this.Phone = findViewById(R.id.login_screen_phone)
         this.Password = findViewById(R.id.login_screen_password)
@@ -44,11 +53,11 @@ class LoginScreen : AppCompatActivity() {
 
     override fun onStart() {
         super.onStart()
-      /*  val user = mAuth!!.currentUser
+        val user = mAuth!!.currentUser
         if (user != null){
             var intent = Intent(this, MainScreen::class.java)
             startActivity(intent)
-        }*/
+        }
     }
 
     fun loggingig(){
