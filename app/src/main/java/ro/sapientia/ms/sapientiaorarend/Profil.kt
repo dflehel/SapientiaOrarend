@@ -34,7 +34,7 @@ class Profil : Fragment() {
         val root = inflater.inflate(R.layout.fragment_profil, container, false)
         this.email = root.findViewById<TextView>(R.id.profile_screen_email_id)
         this.name = root.findViewById<TextView>(R.id.profile_screen_name_id)
-        this.button = root.findViewById<Button>(R.id.profil_screen_sign_out_button)
+        this.button = root.findViewById<Button>(R.id.profile_screen_sign_out_button)
         this.email!!.text = user!!.email
         this.name!!.text = user!!.displayName
         this.button!!.setOnClickListener {

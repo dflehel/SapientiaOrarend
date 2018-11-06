@@ -1,6 +1,6 @@
 <resources>
     <string name="app_name">Sapientia Orarend</string>
-    <string name="title_activity_main_screen">MainScreen</string>
+    <string name="title_activity_main_screen">Sapi órarend</string>
     <string name="title_home">Home</string>
     <string name="title_dashboard">Dashboard</string>
     <string name="title_notifications">Notifications</string>
@@ -12,6 +12,8 @@
     <string name="profile_screen_email">E-mail:</string>
     <string name="profile_screen_class">Szak:</string>
     <string name="profile_screen_year">Évfolyam:</string>
+    <string name="profile_screen_signout">Sign Out</string>
+
 
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="title_activity_login">Sign in</string>
@@ -25,4 +27,26 @@
     <string name="error_incorrect_password">This password is incorrect</string>
     <string name="error_field_required">This field is required</string>
     <string name="permission_rationale">"Contacts permissions are needed for providing email completions."</string>
+
+    <!--Login screen strings-->
+    <string name="login_screen_email">E-mail address</string>
+    <string name="login_screen_phone">Phone number</string>
+    <string name="login_screen_password">Password</string>
+    <string name="login_screen_login">Login</string>
+    <string name="login_screen_or">Or</string>
+    <string name="login_screen_guest">Use app as a guest user</string>
+    <string name="login_screen_signup">Sign Up</string>
+
+    <!--Sign up screen strings-->
+    <string name="signup_screen_email">E-mail address</string>
+    <string name="signup_screen_phone">Phone number</string>
+    <string name="signup_screen_password">Password</string>
+    <string name="signup_screen_password2">Re-enter password</string>
+    <string name="signup_screen_signup">Sign up</string>
+    <string name="signup_screen_accept">I Accept</string>
+    <string name="signup_screen_deny">I refuse</string>
+    <string name="signup_screen_name">Name</string>
+    <string name="signup_screen_password_hint">At least 6 characters</string>
+
+
 </resources>
