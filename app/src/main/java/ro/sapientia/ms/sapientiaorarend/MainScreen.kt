@@ -6,6 +6,9 @@ import android.support.v4.app.Fragment
 import android.support.v4.widget.DrawerLayout
 import android.support.v7.app.ActionBarDrawerToggle
 import android.support.v7.app.AppCompatActivity
+import android.view.KeyEvent
+import android.view.Menu
+import android.view.MenuInflater
 import android.view.MenuItem
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.ChildEventListener
@@ -82,6 +85,18 @@ class MainScreen : AppCompatActivity() {
         this.actionBarDrawerToggle!!.syncState()
         supportActionBar!!.setDisplayHomeAsUpEnabled(true)
         var  d:Databuilder? =  Databuilder(GeneralTimtablefragment);
+    }
+
+    override fun onBackPressed() {
+        this.finish()
+        super.onBackPressed()
+    }
+
+
+    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
+        val m:MenuInflater = menuInflater
+        m.inflate(R.menu.optionmenu,menu)
+        return super.onCreateOptionsMenu(menu)
     }
 
     override fun onOptionsItemSelected(item: MenuItem?): Boolean {
