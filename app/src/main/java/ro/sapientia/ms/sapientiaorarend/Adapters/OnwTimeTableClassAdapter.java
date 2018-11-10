@@ -21,6 +21,9 @@ public class OnwTimeTableClassAdapter extends  RecyclerView.Adapter<OnwTimeTable
         this.c = new AdapterContans().makedata();
     }
 
+    public OnwTimeTableClassAdapter(@NonNull ArrayList<Classes> c) {
+        this.c = c;
+    }
 
     @Override
     public OwnTimeTableViewClassHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int i) {
