@@ -12,6 +12,7 @@ import com.google.firebase.database.ChildEventListener
 import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.FirebaseDatabase
 import kotlinx.android.synthetic.main.activity_main_screen.*
+import ro.sapientia.ms.sapientiaorarend.Adapters.GeneralTimeTableAdapter
 import ro.sapientia.ms.sapientiaorarend.models.Classes
 import java.util.ArrayList
 
@@ -31,7 +32,7 @@ class MainScreen : AppCompatActivity() {
             R.id.navigation_general_time_table-> {
                 message.setText(R.string.title_home)
                 if (this.generalTimeTable == null) {
-                    this.generalTimeTable = BlankFragment.newInstance("fdsf", "fdfdsfds")
+                    this.generalTimeTable = BlankFragment.newInstance("fdsf", "fdfdsfds",GeneralTimeTableAdapter())
                 }
                 openFragment(this.generalTimeTable!!)
                 return@OnNavigationItemSelectedListener true
@@ -71,7 +72,8 @@ class MainScreen : AppCompatActivity() {
             setContentView(R.layout.activity_main_screen)
         }
         this.databasereferenc = FirebaseDatabase.getInstance().reference.child("/orarendek/szamitastechnika/4")
-        val GeneralTimtablefragment  = BlankFragment.newInstance("dfsdfsfd","dfsfdsfds")
+        var g:GeneralTimeTableAdapter = GeneralTimeTableAdapter()
+        val GeneralTimtablefragment  = BlankFragment.newInstance("dfsdfsfd","dfsfdsfds",g)
         openFragment(GeneralTimtablefragment)
         navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener)
         this.drawerLayout = findViewById<DrawerLayout>(R.id.cont)
@@ -79,7 +81,7 @@ class MainScreen : AppCompatActivity() {
         this.drawerLayout!!.addDrawerListener(this.actionBarDrawerToggle!!)
         this.actionBarDrawerToggle!!.syncState()
         supportActionBar!!.setDisplayHomeAsUpEnabled(true)
-        var  d:Databuilder? =  Databuilder();
+        var  d:Databuilder? =  Databuilder(GeneralTimtablefragment);
     }
 
     override fun onOptionsItemSelected(item: MenuItem?): Boolean {

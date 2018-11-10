@@ -6,39 +6,41 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
-import ro.sapientia.ms.sapientiaorarend.Contans.AdapterContans;
-import ro.sapientia.ms.sapientiaorarend.OwnTimeTable;
 import ro.sapientia.ms.sapientiaorarend.R;
 import ro.sapientia.ms.sapientiaorarend.models.Classes;
 
 import java.util.ArrayList;
 
-public class OnwTimeTableClassAdapter extends  RecyclerView.Adapter<OnwTimeTableClassAdapter.OwnTimeTableViewClassHolder>{
-    @NonNull
+public class GeneralTimeTableClassAdapter  extends  RecyclerView.Adapter< GeneralTimeTableClassAdapter.OwnTimeTableViewClassHolder> {
+
     private ArrayList<Classes> c = new ArrayList<>();
 
-    public OnwTimeTableClassAdapter(){
-        this.c = new AdapterContans().makedata();
+    public ArrayList<Classes> getC() {
+        return c;
     }
 
-    public OnwTimeTableClassAdapter(@NonNull ArrayList<Classes> c) {
+    public void setC(ArrayList<Classes> c) {
         this.c = c;
     }
 
+    public GeneralTimeTableClassAdapter(ArrayList<Classes> c) {
+        this.c = c;
+    }
+
+    @NonNull
     @Override
-    public OwnTimeTableViewClassHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int i) {
+    public GeneralTimeTableClassAdapter.OwnTimeTableViewClassHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int i) {
         View v = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.own_time_table_class_item,viewGroup,false);
-        return new OwnTimeTableViewClassHolder(v);
+        return new GeneralTimeTableClassAdapter.OwnTimeTableViewClassHolder(v);
     }
 
     @Override
-    public void onBindViewHolder(@NonNull OwnTimeTableViewClassHolder ownTimeTableViewClassHolder, int i) {
+    public void onBindViewHolder(@NonNull GeneralTimeTableClassAdapter.OwnTimeTableViewClassHolder ownTimeTableViewClassHolder, int i) {
         ownTimeTableViewClassHolder.teacher.setText(this.c.get(i).getTeacher());
         ownTimeTableViewClassHolder.material.setText(this.c.get(i).getMaterial());
         ownTimeTableViewClassHolder.classroom.setText(this.c.get(i).getClassroom());
         ownTimeTableViewClassHolder.startt.setText(this.c.get(i).getStart().toString());
         ownTimeTableViewClassHolder.endt.setText(this.c.get(i).getEnd().toString());
-
     }
 
     @Override
@@ -46,7 +48,7 @@ public class OnwTimeTableClassAdapter extends  RecyclerView.Adapter<OnwTimeTable
         return this.c.size();
     }
 
-    public class OwnTimeTableViewClassHolder extends RecyclerView.ViewHolder  {
+    public class OwnTimeTableViewClassHolder  extends RecyclerView.ViewHolder  {
         public TextView teacher;
         public TextView classroom;
         public TextView material;
