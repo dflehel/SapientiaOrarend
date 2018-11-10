@@ -1,13 +1,14 @@
 package ro.sapientia.ms.sapientiaorarend;
 
 import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
 import com.google.firebase.database.*;
+import ro.sapientia.ms.sapientiaorarend.Adapters.GeneralTimeTableAdapter;
 import ro.sapientia.ms.sapientiaorarend.models.Classes;
+import ro.sapientia.ms.sapientiaorarend.models.Days;
+import ro.sapientia.ms.sapientiaorarend.models.Mas;
 
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.Map;
 
 public class Databuilder {
 
@@ -16,14 +17,16 @@ public class Databuilder {
     private ArrayList<Object> sd = new ArrayList<>();
     private ArrayList<String> ds = new ArrayList<>();
     private HashMap<String,String> f = new HashMap<>();
+    private BlankFragment g ;
     //private OwnTimeTableAdapter own = null;
 
     public Databuilder(ArrayList<Classes> classes) {
         this.classes = classes;
     }
 
-    public Databuilder() {
-        this.mdatabase= FirebaseDatabase.getInstance().getReference().child("orarendek/szamitastechnika/4");
+    public Databuilder(BlankFragment g) {
+        this.g = g;
+        this.mdatabase= FirebaseDatabase.getInstance().getReference().child("/timetables/automatizalas/4/b/");
        // this.mdatabase.
       /* mdatabase.addChildEventListener(new ChildEventListener() {
            @Override
@@ -66,9 +69,23 @@ public class Databuilder {
         this.mdatabase.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                for (DataSnapshot s:dataSnapshot.getChildren()){
-                    System.out.println(s.getValue());
-                }
+                Mas m = new Mas();
+
+               for (DataSnapshot s:dataSnapshot.getChildren()) {
+                   for (DataSnapshot ss : s.getChildren()) {
+                       for (DataSnapshot sss : ss.getChildren()) {
+
+                           //System.out.println(sss.getValue());
+                           Classes c = sss.getValue(Classes.class);
+                           m.adClass(s.getKey(),ss.getKey(),c);
+                          // System.out.println(c.toString());
+                       }
+                   }
+
+               }
+               System.out.println(m.toString());
+               Databuilder.this.g.adaptar.setD(m.getD().get("paratlanhet"));
+               Databuilder.this.g.rec.setAdapter(Databuilder.this.g.adaptar);
             }
 
             @Override
