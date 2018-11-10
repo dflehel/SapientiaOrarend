@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+
+    <item
+            android:id="@+id/navigation_general_time_table"
+            android:icon="@drawable/ic_home_black_24dp"
+            android:title="Altalanos Orarend"/>
+
+    <item
+            android:id="@+id/navigation_own_time_table"
+            android:icon="@drawable/ic_dashboard_black_24dp"
+            android:title="Sajat Orarend"/>
+
+    <item
+            android:id="@+id/navigation_notifications"
+            android:icon="@drawable/ic_notifications_black_24dp"
+            android:title="Profil"/>
+</menu>
