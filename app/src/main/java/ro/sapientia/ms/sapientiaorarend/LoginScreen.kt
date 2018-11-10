@@ -57,8 +57,6 @@ class LoginScreen : AppCompatActivity() {
         val user = mAuth!!.currentUser
         if (user != null){
             var intent = Intent(this, MainScreen::class.java)
-            intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
-            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK)
             startActivity(intent)
         }
     }

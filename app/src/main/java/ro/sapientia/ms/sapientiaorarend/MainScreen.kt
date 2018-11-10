@@ -6,16 +6,12 @@ import android.support.v4.app.Fragment
 import android.support.v4.widget.DrawerLayout
 import android.support.v7.app.ActionBarDrawerToggle
 import android.support.v7.app.AppCompatActivity
-import android.view.KeyEvent
-import android.view.Menu
-import android.view.MenuInflater
 import android.view.MenuItem
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.ChildEventListener
 import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.FirebaseDatabase
 import kotlinx.android.synthetic.main.activity_main_screen.*
-import ro.sapientia.ms.sapientiaorarend.Adapters.GeneralTimeTableAdapter
 import ro.sapientia.ms.sapientiaorarend.models.Classes
 import java.util.ArrayList
 
@@ -35,7 +31,7 @@ class MainScreen : AppCompatActivity() {
             R.id.navigation_general_time_table-> {
                 message.setText(R.string.title_home)
                 if (this.generalTimeTable == null) {
-                    this.generalTimeTable = BlankFragment.newInstance("fdsf", "fdfdsfds",GeneralTimeTableAdapter())
+                    this.generalTimeTable = BlankFragment.newInstance("fdsf", "fdfdsfds")
                 }
                 openFragment(this.generalTimeTable!!)
                 return@OnNavigationItemSelectedListener true
@@ -75,8 +71,7 @@ class MainScreen : AppCompatActivity() {
             setContentView(R.layout.activity_main_screen)
         }
         this.databasereferenc = FirebaseDatabase.getInstance().reference.child("/orarendek/szamitastechnika/4")
-        var g:GeneralTimeTableAdapter = GeneralTimeTableAdapter()
-        val GeneralTimtablefragment  = BlankFragment.newInstance("dfsdfsfd","dfsfdsfds",g)
+        val GeneralTimtablefragment  = BlankFragment.newInstance("dfsdfsfd","dfsfdsfds")
         openFragment(GeneralTimtablefragment)
         navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener)
         this.drawerLayout = findViewById<DrawerLayout>(R.id.cont)
@@ -84,19 +79,7 @@ class MainScreen : AppCompatActivity() {
         this.drawerLayout!!.addDrawerListener(this.actionBarDrawerToggle!!)
         this.actionBarDrawerToggle!!.syncState()
         supportActionBar!!.setDisplayHomeAsUpEnabled(true)
-        var  d:Databuilder? =  Databuilder(GeneralTimtablefragment);
-    }
-
-    override fun onBackPressed() {
-        this.finish()
-        super.onBackPressed()
-    }
-
-
-    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
-        val m:MenuInflater = menuInflater
-        m.inflate(R.menu.optionmenu,menu)
-        return super.onCreateOptionsMenu(menu)
+        var  d:Databuilder? =  Databuilder();
     }
 
     override fun onOptionsItemSelected(item: MenuItem?): Boolean {
