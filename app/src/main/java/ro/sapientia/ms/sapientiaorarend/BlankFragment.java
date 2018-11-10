@@ -10,15 +10,13 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import ro.sapientia.ms.sapientiaorarend.Adapters.GeneralTimeTableAdapter;
 import ro.sapientia.ms.sapientiaorarend.Adapters.OnwTimeTableAdapter;
 
 
 public class BlankFragment extends Fragment {
 
-    public RecyclerView rec;
-    public GeneralTimeTableAdapter adaptar;
-
+    private RecyclerView rec;
+    private OnwTimeTableAdapter adaptar;
 
 
     public BlankFragment() {
@@ -34,9 +32,8 @@ public class BlankFragment extends Fragment {
      * @return A new instance of fragment BlankFragment.
      */
     // TODO: Rename and change types and number of parameters
-    public static BlankFragment newInstance(String param1, String param2,GeneralTimeTableAdapter g) {
+    public static BlankFragment newInstance(String param1, String param2) {
         BlankFragment fragment = new BlankFragment();
-        fragment.adaptar = g;
         return fragment;
     }
 
@@ -49,7 +46,7 @@ public class BlankFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        this.adaptar= new GeneralTimeTableAdapter();
+        this.adaptar= new OnwTimeTableAdapter();
         View root = inflater.inflate(R.layout.fragment_blank, container, false);
         this.rec = (RecyclerView)root.findViewById(R.id.own_time_table_rec);
         this.rec.setAdapter(new OnwTimeTableAdapter());

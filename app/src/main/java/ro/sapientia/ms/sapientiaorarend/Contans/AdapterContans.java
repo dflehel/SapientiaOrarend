@@ -9,11 +9,11 @@ public class AdapterContans {
     public AdapterContans() {
     }
 
-    public final static String[] days = {"hetfo","kedd","szerda","csutortok","pentek","szombat"};
+    public final static String[] days = {"Hetfo","Kedd","Szerda","Csutortok","Pentek","Szombat"};
 
     public ArrayList<Classes> makedata(){
         ArrayList<Classes> c = new ArrayList<>();
-        Classes cl = new Classes("Marton Lorincz","Robotika","128","DGDFg","fdgfgfdgfdgfdgfdgdfg");
+        Classes cl = new Classes("Marton Lorincz","Robotika","128",new Date(),new Date());
         for (int i = 0 ; i<10;++i){
             c.add(cl);
         }
