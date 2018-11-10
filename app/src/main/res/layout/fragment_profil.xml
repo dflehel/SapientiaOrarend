@@ -13,19 +13,20 @@
             android:text="@string/profile_screen_name"
             android:id="@+id/profile_screen_name_id"
             app:layout_constraintStart_toStartOf="parent"
-            android:layout_marginLeft="70dp" android:layout_marginStart="70dp" app:layout_constraintTop_toTopOf="parent"
-            android:layout_marginTop="200dp"/>
+            android:layout_marginLeft="70dp" android:layout_marginStart="70dp"
+            android:layout_marginBottom="10dp"
+            app:layout_constraintBottom_toTopOf="@+id/profile_screen_phone_id"/>
 
     <TextView
-        android:id="@+id/profile_screen_database_name_id"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="40dp"
-        android:layout_marginLeft="40dp"
-        android:layout_marginTop="200dp"
-        android:text="@string/profile_screen_null"
-        app:layout_constraintStart_toEndOf="@+id/profile_screen_name_id"
-        app:layout_constraintTop_toTopOf="parent" />
+            android:id="@+id/profile_screen_database_name_id"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="40dp"
+            android:layout_marginLeft="40dp"
+            android:text="@string/profile_screen_null"
+            app:layout_constraintStart_toEndOf="@+id/profile_screen_name_id"
+            android:layout_marginBottom="10dp"
+            app:layout_constraintBottom_toTopOf="@+id/profile_screen_database_phone_id"/>
 
     <TextView
             android:layout_width="wrap_content"
@@ -33,19 +34,20 @@
             android:text="@string/profile_screen_phone"
             android:id="@+id/profile_screen_phone_id"
             app:layout_constraintStart_toStartOf="parent"
-            android:layout_marginLeft="70dp" android:layout_marginStart="70dp" android:layout_marginTop="10dp"
-            app:layout_constraintTop_toBottomOf="@+id/profile_screen_name_id"/>
+            android:layout_marginLeft="70dp" android:layout_marginStart="70dp"
+            android:layout_marginBottom="10dp"
+            app:layout_constraintBottom_toTopOf="@+id/profile_screen_email_id"/>
 
     <TextView
-        android:id="@+id/profile_screen_database_phone_id"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="20dp"
-        android:layout_marginLeft="20dp"
-        android:layout_marginTop="12dp"
-        android:text="@string/profile_screen_null"
-        app:layout_constraintStart_toEndOf="@+id/profile_screen_phone_id"
-        app:layout_constraintTop_toBottomOf="@+id/profile_screen_database_name_id" />
+            android:id="@+id/profile_screen_database_phone_id"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="20dp"
+            android:layout_marginLeft="20dp"
+            android:text="@string/profile_screen_null"
+            app:layout_constraintStart_toEndOf="@+id/profile_screen_phone_id"
+            android:layout_marginBottom="10dp"
+            app:layout_constraintBottom_toTopOf="@+id/profile_screen_database_email_id"/>
 
     <TextView
             android:layout_width="wrap_content"
@@ -53,19 +55,20 @@
             android:text="@string/profile_screen_email"
             android:id="@+id/profile_screen_email_id"
             app:layout_constraintStart_toStartOf="parent" android:layout_marginLeft="70dp"
-            android:layout_marginStart="70dp" android:layout_marginTop="10dp"
-            app:layout_constraintTop_toBottomOf="@+id/profile_screen_phone_id"/>
+            android:layout_marginStart="70dp"
+            android:layout_marginBottom="10dp"
+            app:layout_constraintBottom_toTopOf="@+id/profile_screen_class_id"/>
 
     <TextView
-        android:id="@+id/profile_screen_database_email_id"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="30dp"
-        android:layout_marginLeft="30dp"
-        android:layout_marginTop="10dp"
-        android:text="@string/profile_screen_null"
-        app:layout_constraintStart_toEndOf="@+id/profile_screen_email_id"
-        app:layout_constraintTop_toBottomOf="@+id/profile_screen_database_phone_id" />
+            android:id="@+id/profile_screen_database_email_id"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="30dp"
+            android:layout_marginLeft="30dp"
+            android:text="@string/profile_screen_null"
+            app:layout_constraintStart_toEndOf="@+id/profile_screen_email_id"
+            android:layout_marginBottom="10dp"
+            app:layout_constraintBottom_toTopOf="@+id/profile_screen_database_class_id"/>
 
     <TextView
             android:layout_width="wrap_content"
@@ -73,19 +76,20 @@
             android:text="@string/profile_screen_class"
             android:id="@+id/profile_screen_class_id"
             app:layout_constraintStart_toStartOf="parent"
-            android:layout_marginLeft="70dp" android:layout_marginStart="70dp" android:layout_marginTop="10dp"
-            app:layout_constraintTop_toBottomOf="@+id/profile_screen_email_id"/>
+            android:layout_marginLeft="70dp" android:layout_marginStart="70dp"
+            android:layout_marginBottom="10dp"
+            app:layout_constraintBottom_toTopOf="@+id/profile_screen_year_id"/>
 
     <TextView
-        android:id="@+id/profile_screen_database_class_id"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="38dp"
-        android:layout_marginLeft="38dp"
-        android:layout_marginTop="10dp"
-        android:text="@string/profile_screen_null"
-        app:layout_constraintStart_toEndOf="@+id/profile_screen_class_id"
-        app:layout_constraintTop_toBottomOf="@+id/profile_screen_database_email_id" />
+            android:id="@+id/profile_screen_database_class_id"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="38dp"
+            android:layout_marginLeft="38dp"
+            android:text="@string/profile_screen_null"
+            app:layout_constraintStart_toEndOf="@+id/profile_screen_class_id"
+            android:layout_marginBottom="10dp"
+            app:layout_constraintBottom_toTopOf="@+id/profile_screen_database_year_id"/>
 
     <TextView
             android:layout_width="wrap_content"
@@ -93,19 +97,20 @@
             android:text="@string/profile_screen_year"
             android:id="@+id/profile_screen_year_id"
             app:layout_constraintStart_toStartOf="parent"
-            android:layout_marginLeft="70dp" android:layout_marginStart="70dp" android:layout_marginTop="10dp"
-            app:layout_constraintTop_toBottomOf="@+id/profile_screen_class_id"/>
+            android:layout_marginLeft="70dp" android:layout_marginStart="70dp"
+            android:layout_marginBottom="32dp"
+            app:layout_constraintBottom_toTopOf="@+id/profile_screen_sign_out_button"/>
 
     <TextView
-        android:id="@+id/profile_screen_database_year_id"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="10dp"
-        android:layout_marginLeft="10dp"
-        android:layout_marginTop="10dp"
-        android:text="@string/profile_screen_null"
-        app:layout_constraintStart_toEndOf="@+id/profile_screen_year_id"
-        app:layout_constraintTop_toBottomOf="@+id/profile_screen_database_class_id" />
+            android:id="@+id/profile_screen_database_year_id"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="10dp"
+            android:layout_marginLeft="10dp"
+            android:text="@string/profile_screen_null"
+            app:layout_constraintStart_toEndOf="@+id/profile_screen_year_id"
+            android:layout_marginBottom="32dp"
+            app:layout_constraintBottom_toTopOf="@+id/profile_screen_sign_out_button"/>
 
     <Button
             android:text="@string/profile_screen_signout"
@@ -116,5 +121,15 @@
             android:layout_marginRight="8dp" app:layout_constraintStart_toStartOf="parent"
             android:layout_marginLeft="8dp" android:layout_marginStart="8dp" android:layout_marginBottom="8dp"
             app:layout_constraintBottom_toBottomOf="parent"/>
+    <ImageView
+            android:src="@android:drawable/sym_def_app_icon"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:id="@+id/prifile_screen_image_view" app:layout_constraintTop_toTopOf="parent"
+            android:layout_marginTop="8dp" app:layout_constraintStart_toStartOf="parent"
+            android:layout_marginLeft="8dp" android:layout_marginStart="8dp"
+            app:layout_constraintEnd_toEndOf="parent" android:layout_marginEnd="8dp"
+            android:layout_marginRight="8dp" android:layout_marginBottom="8dp"
+            app:layout_constraintBottom_toTopOf="@+id/profile_screen_database_name_id"/>
 
 </android.support.constraint.ConstraintLayout>
