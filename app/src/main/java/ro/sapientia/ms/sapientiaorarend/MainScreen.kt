@@ -1,15 +1,14 @@
 package ro.sapientia.ms.sapientiaorarend
 
+import android.content.Intent
 import android.os.Bundle
 import android.support.design.widget.BottomNavigationView
 import android.support.v4.app.Fragment
 import android.support.v4.widget.DrawerLayout
 import android.support.v7.app.ActionBarDrawerToggle
 import android.support.v7.app.AppCompatActivity
-import android.view.KeyEvent
-import android.view.Menu
-import android.view.MenuInflater
-import android.view.MenuItem
+import android.support.v7.widget.PopupMenu
+import android.view.*
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.ChildEventListener
 import com.google.firebase.database.DatabaseReference
@@ -59,6 +58,8 @@ class MainScreen : AppCompatActivity() {
         false
     }
 
+
+
     private fun openFragment(fragment : Fragment){
         val transaction = supportFragmentManager.beginTransaction()
         transaction.replace(R.id.con, fragment)
@@ -81,6 +82,12 @@ class MainScreen : AppCompatActivity() {
         navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener)
         this.drawerLayout = findViewById<DrawerLayout>(R.id.cont)
         this.actionBarDrawerToggle = ActionBarDrawerToggle(this, this.drawerLayout, R.string.open, R.string.close)
+        this.actionBarDrawerToggle!!.setToolbarNavigationClickListener {
+            if(it.id == R.id.etkezde){
+                var intent2 = Intent(this, ::class.java)
+                startActivity(intent2)
+            }
+        }
         this.drawerLayout!!.addDrawerListener(this.actionBarDrawerToggle!!)
         this.actionBarDrawerToggle!!.syncState()
         supportActionBar!!.setDisplayHomeAsUpEnabled(true)
@@ -93,10 +100,9 @@ class MainScreen : AppCompatActivity() {
     }
 
 
-    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
-        val m:MenuInflater = menuInflater
-        m.inflate(R.menu.optionmenu,menu)
-        return super.onCreateOptionsMenu(menu)
+    override fun onCreateOptionsMenu(menu: Menu): Boolean {
+        menuInflater.inflate(R.menu.optionmenu, menu)
+        return true
     }
 
     override fun onOptionsItemSelected(item: MenuItem?): Boolean {
