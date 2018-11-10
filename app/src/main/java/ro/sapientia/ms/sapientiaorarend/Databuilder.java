@@ -26,7 +26,7 @@ public class Databuilder {
 
     public Databuilder(BlankFragment g) {
         this.g = g;
-        this.mdatabase= FirebaseDatabase.getInstance().getReference().child("/timetables/automatizalas/4/b/");
+        this.mdatabase= FirebaseDatabase.getInstance().getReference().child("/timetables/szamitastechnika/4/a/");
        // this.mdatabase.
       /* mdatabase.addChildEventListener(new ChildEventListener() {
            @Override
