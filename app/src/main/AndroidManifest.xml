@@ -32,6 +32,8 @@
         </activity>
         <activity android:name=".Etkezde">
         </activity>
+        <activity android:name=".MENU">
+        </activity>
     </application>
 
 </manifest>
