@@ -27,7 +27,6 @@ class LoginScreen : AppCompatActivity() {
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
-        setTheme(R.style.AppTheme)
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_login_screen)
         mAuth = FirebaseAuth.getInstance()
@@ -81,7 +80,6 @@ class LoginScreen : AppCompatActivity() {
                 } else {
                     // Sign in: fail
                     Toast.makeText(this,"Sikeres bejelentkezes",Toast.LENGTH_LONG).show()
-                    this.progressDialog!!.dismiss()
                 }
 
                 // ...
