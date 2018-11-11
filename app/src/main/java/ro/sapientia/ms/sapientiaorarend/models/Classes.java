@@ -5,11 +5,12 @@ import java.util.Date;
 public class Classes {
     private String teacher;
     private String material;
-    private String clas;
-    private Date start;
-    private Date end;
+    private String classroom;
+    private String start;
+    private String end;
 
     public String getTeacher() {
+
         return teacher;
     }
 
@@ -25,40 +26,50 @@ public class Classes {
         this.material = material;
     }
 
-    public String getClas() {
-        return clas;
+    public String getClassroom() {
+        return classroom;
     }
 
-    public void setClas(String clas) {
-        this.clas = clas;
+    public void setClassroom(String classroom) {
+        this.classroom = classroom;
     }
 
-    public Date getStart() {
+    public String getStart() {
         return start;
     }
 
-    public void setStart(Date start) {
+    public void setStart(String start) {
         this.start = start;
     }
 
-    public Date getEnd() {
+    public String getEnd() {
         return end;
     }
 
-    public void setEnd(Date end) {
-        this.end = end;
-    }
-
-    public Classes(String teacher, String material, String clas, Date start, Date end) {
-
-        this.teacher = teacher;
-        this.material = material;
-        this.clas = clas;
-        this.start = start;
+    public void setEnd(String end) {
         this.end = end;
     }
 
     public Classes() {
 
+    }
+
+    public Classes(String teacher, String material, String classroom, String start, String end) {
+        this.teacher = teacher;
+        this.material = material;
+        this.classroom = classroom;
+        this.start = start;
+        this.end = end;
+    }
+
+    @Override
+    public String toString() {
+        return "Classes{" +
+                "teacher='" + teacher + '\'' +
+                ", material='" + material + '\'' +
+                ", classroom='" + classroom + '\'' +
+                ", start='" + start + '\'' +
+                ", end='" + end + '\'' +
+                '}';
     }
 }
