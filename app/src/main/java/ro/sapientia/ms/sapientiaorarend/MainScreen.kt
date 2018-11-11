@@ -170,6 +170,12 @@ class MainScreen : AppCompatActivity() {
         var deparmentext:String?=null
         this.data =  Databuilder(this.generalTimeTable!!,this,deparmentext)
         this.actionBarDrawerToggle = ActionBarDrawerToggle(this, this.drawerLayout, R.string.open, R.string.close)
+        this.actionBarDrawerToggle!!.setToolbarNavigationClickListener {
+            if(it.id == R.id.etkezde){
+                var intent2 = Intent(this, ::class.java)
+                startActivity(intent2)
+            }
+        }
         this.drawerLayout!!.addDrawerListener(this.actionBarDrawerToggle!!)
         this.actionBarDrawerToggle!!.syncState()
         supportActionBar!!.setDisplayHomeAsUpEnabled(true)
