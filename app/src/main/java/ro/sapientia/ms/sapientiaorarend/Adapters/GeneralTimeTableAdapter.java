@@ -10,11 +10,10 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 import ro.sapientia.ms.sapientiaorarend.Contans.AdapterContans;
-import ro.sapientia.ms.sapientiaorarend.Databuilder;
-import ro.sapientia.ms.sapientiaorarend.GeneralTimeTable;
 import ro.sapientia.ms.sapientiaorarend.R;
 import ro.sapientia.ms.sapientiaorarend.models.Classes;
 import ro.sapientia.ms.sapientiaorarend.models.Days;
+import ro.sapientia.ms.sapientiaorarend.models.Mas;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -23,10 +22,24 @@ public class GeneralTimeTableAdapter extends RecyclerView.Adapter<GeneralTimeTab
 
 
     private HashMap<String,Days> d = new HashMap<>();
+    private Mas m = new Mas();
+    private String wichweek = "paratlanhet";
 
+    public String getWichweek() {
+        return wichweek;
+    }
 
+    public void setWichweek(String wichweek) {
+        this.wichweek = wichweek;
+    }
 
+    public Mas getM() {
+        return m;
+    }
 
+    public void setM(Mas m) {
+        this.m = m;
+    }
 
     public GeneralTimeTableAdapter() {
     }
@@ -48,7 +61,7 @@ public class GeneralTimeTableAdapter extends RecyclerView.Adapter<GeneralTimeTab
     @Override
     public void onBindViewHolder(@NonNull GeneralTimeTableAdapter.OwnTimeTableViewHolder ownTimeTableViewHolder, int i) {
         ownTimeTableViewHolder.daytext.setText(AdapterContans.days[i]);
-        ownTimeTableViewHolder.setdata(this.d.get(AdapterContans.days[i]).getClasses());
+        ownTimeTableViewHolder.setdata(this.m.getD().get(this.wichweek).get(AdapterContans.days[i]).getClasses());
     }
 
     @Override
