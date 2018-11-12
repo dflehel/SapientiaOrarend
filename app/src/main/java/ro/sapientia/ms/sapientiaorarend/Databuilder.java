@@ -2,9 +2,7 @@ package ro.sapientia.ms.sapientiaorarend;
 
 import android.support.annotation.NonNull;
 import com.google.firebase.database.*;
-import ro.sapientia.ms.sapientiaorarend.Adapters.GeneralTimeTableAdapter;
 import ro.sapientia.ms.sapientiaorarend.models.Classes;
-import ro.sapientia.ms.sapientiaorarend.models.Days;
 import ro.sapientia.ms.sapientiaorarend.models.Mas;
 
 import java.util.ArrayList;
@@ -26,7 +24,7 @@ public class Databuilder {
 
     public Databuilder(BlankFragment g) {
         this.g = g;
-        this.mdatabase= FirebaseDatabase.getInstance().getReference().child("/timetables/szamitastechnika/4/a/");
+        this.mdatabase = FirebaseDatabase.getInstance().getReference().child("/timetables/szamitastechnika/4/a");
        // this.mdatabase.
       /* mdatabase.addChildEventListener(new ChildEventListener() {
            @Override
@@ -84,7 +82,8 @@ public class Databuilder {
 
                }
                System.out.println(m.toString());
-               Databuilder.this.g.adaptar.setD(m.getD().get("paratlanhet"));
+                Databuilder.this.g.adaptar.setM(m);
+                // Databuilder.this.g.adaptar.setD(m.getD().get("paratlanhet"));
                Databuilder.this.g.rec.setAdapter(Databuilder.this.g.adaptar);
             }
 
