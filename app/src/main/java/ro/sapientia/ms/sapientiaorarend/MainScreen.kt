@@ -147,15 +147,15 @@ class MainScreen : AppCompatActivity(), NavigationView.OnNavigationItemSelectedL
             return true
         }
         if (item.itemId == R.id.switchbetweenweeks) {
-            if (item.title.toString().equals("Masodik het")) {
-                item.title = "Elso het"
+            if (item.title.toString().equals("Második hét")) {
+                item.title = "Első hét"
                 this.generalTimeTable!!.adaptar!!.wichweek = "paratlanhet"
                 this.generalTimeTable!!.adaptar!!.notifyDataSetChanged()
 
             } else {
                 this.generalTimeTable!!.adaptar!!.wichweek = "paroshet"
                 this.generalTimeTable!!.adaptar!!.notifyDataSetChanged()
-                item.title = "Masodik het"
+                item.title = "Második hét"
 
             }
             return true

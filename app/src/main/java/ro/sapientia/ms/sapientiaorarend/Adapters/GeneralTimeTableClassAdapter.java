@@ -1,7 +1,10 @@
 package ro.sapientia.ms.sapientiaorarend.Adapters;
 
+import android.annotation.SuppressLint;
 import android.support.annotation.NonNull;
+import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -10,8 +13,9 @@ import ro.sapientia.ms.sapientiaorarend.R;
 import ro.sapientia.ms.sapientiaorarend.models.Classes;
 
 import java.util.ArrayList;
+import java.util.Objects;
 
-public class GeneralTimeTableClassAdapter  extends  RecyclerView.Adapter< GeneralTimeTableClassAdapter.OwnTimeTableViewClassHolder> {
+public class GeneralTimeTableClassAdapter  extends  RecyclerView.Adapter<GeneralTimeTableClassAdapter.OwnTimeTableViewClassHolder> {
 
     private ArrayList<Classes> c = new ArrayList<>();
 
@@ -41,6 +45,15 @@ public class GeneralTimeTableClassAdapter  extends  RecyclerView.Adapter< Genera
         ownTimeTableViewClassHolder.classroom.setText(this.c.get(i).getClassroom());
         ownTimeTableViewClassHolder.startt.setText(this.c.get(i).getStart().toString());
         ownTimeTableViewClassHolder.endt.setText(this.c.get(i).getEnd().toString());
+        /*String tr = this.c.get(i).getTeacher();
+        View szinek = null;
+        assert szinek != null;
+        CardView testview = szinek.findViewById(R.id.timetableview);
+
+        if(tr.equals("Dr. Szentes Erzsébet"))
+        {
+            testview.setBackgroundColor(0xff23fde1);
+        }*/
     }
 
     @Override
@@ -56,6 +69,7 @@ public class GeneralTimeTableClassAdapter  extends  RecyclerView.Adapter< Genera
         public TextView endt;
 
 
+        @SuppressLint("ResourceAsColor")
         public OwnTimeTableViewClassHolder(@NonNull View itemView) {
             super(itemView);
             this.teacher = (TextView) itemView.findViewById(R.id.teacher_name);
@@ -63,6 +77,12 @@ public class GeneralTimeTableClassAdapter  extends  RecyclerView.Adapter< Genera
             this.material =(TextView) itemView.findViewById(R.id.class_name);
             this.startt = (TextView) itemView.findViewById(R.id.start_time);
             this.endt = (TextView) itemView.findViewById(R.id.end_time);
+            //this.testview = (CardView) itemView.findViewById(R.id.timetableview);
+                //testview.setCardBackgroundColor(0xffa39f8d);
+            //String tt = this.teacher.toString();
+            //Log.d("fasz", tt);
+
+
         }
     }
 }

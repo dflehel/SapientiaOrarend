@@ -24,8 +24,8 @@ public class Databuilder {
 
     public Databuilder(BlankFragment g) {
         this.g = g;
-        this.mdatabase = FirebaseDatabase.getInstance().getReference().child("/timetables/szamitastechnika/4/a");
-       // this.mdatabase.
+        // this.mdatabase = FirebaseDatabase.getInstance().getReference().child("/timetables/szamitastechnika/4/a");
+        this.mdatabase = FirebaseDatabase.getInstance().getReference().child("/timetables/kerteszmernoki/1/a");
       /* mdatabase.addChildEventListener(new ChildEventListener() {
            @Override
             public void onChildAdded(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {

@@ -64,7 +64,7 @@ class LoginScreen : AppCompatActivity() {
     }
 
     fun loggingig(){
-        this.progressDialog!!.setMessage("Bejelentkezes")
+        this.progressDialog!!.setMessage("Bejelentkezés")
         this.progressDialog!!.show()
         this.email = this.Email.text.toString()
         this.password = this.Password.text.toString()
@@ -75,12 +75,12 @@ class LoginScreen : AppCompatActivity() {
                     // update UI for current User
                     val user = mAuth!!.getCurrentUser()
                     this.progressDialog!!.dismiss()
-                    Toast.makeText(this,"Sikeres bejelentkezes", Toast.LENGTH_LONG).show()
+                    Toast.makeText(this,"Sikeres bejelentkezés", Toast.LENGTH_LONG).show()
                     var intent = Intent(this, MainScreen::class.java)
                     startActivity(intent)
                 } else {
                     // Sign in: fail
-                    Toast.makeText(this,"Sikeres bejelentkezes",Toast.LENGTH_LONG).show()
+                    Toast.makeText(this,"Sikertelen bejelentkezés",Toast.LENGTH_LONG).show()
                     this.progressDialog!!.dismiss()
                 }
 

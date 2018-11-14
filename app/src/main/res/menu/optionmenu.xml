@@ -4,17 +4,17 @@
 >
 
     <item android:id="@+id/kereses"
-          android:title="Kereses"
+          android:title="@string/options_screen_search"
           app:showAsAction="always"/>
     <item android:id="@+id/switchbetweenweeks"
-          android:title="Masodik het"
+          android:title="@string/options_screen_second"
           app:showAsAction="always"/>
     <item android:id="@+id/menu"
-          android:title="Napi menu"
+          android:title="@string/options_screen_food"
           app:showAsAction="always"/>
 
     <item android:id="@+id/uzenet"
-          android:title="Uzenet"
+          android:title="@string/options_screen_message"
           app:showAsAction="always"/>
 
 
