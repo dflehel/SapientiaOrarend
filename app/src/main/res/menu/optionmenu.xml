@@ -9,13 +9,6 @@
     <item android:id="@+id/switchbetweenweeks"
           android:title="Masodik het"
           app:showAsAction="always"/>
-    <item android:id="@+id/menu"
-          android:title="Napi menu"
-          app:showAsAction="always"/>
-
-    <item android:id="@+id/uzenet"
-          android:title="Uzenet"
-          app:showAsAction="always"/>
 
 
 </menu>

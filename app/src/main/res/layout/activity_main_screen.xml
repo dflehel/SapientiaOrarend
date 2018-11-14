@@ -9,14 +9,7 @@
         android:layout_height="match_parent"
         tools:context=".MainScreen"
 >
-    <android.support.design.widget.NavigationView android:id="@+id/navigationView"
-                                                  android:layout_width="wrap_content"
-                                                  android:layout_height="match_parent"
-                                                  android:background="@android:color/white"
-                                                  app:menu="@menu/draw_menu"
-                                                  android:layout_gravity="start">
 
-    </android.support.design.widget.NavigationView>
 <android.support.constraint.ConstraintLayout
 
         android:id="@+id/container"
@@ -64,4 +57,12 @@
 
 
 </android.support.constraint.ConstraintLayout>
+    <android.support.design.widget.NavigationView android:id="@+id/navigationView"
+                                                  android:layout_width="wrap_content"
+                                                  android:layout_height="match_parent"
+                                                  android:background="@android:color/white"
+                                                  app:menu="@menu/draw_menu"
+                                                  android:layout_gravity="start">
+
+    </android.support.design.widget.NavigationView>
 </android.support.v4.widget.DrawerLayout>
