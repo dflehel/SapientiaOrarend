@@ -39,6 +39,7 @@ class MainScreen : AppCompatActivity() {
     private var drawmenu: NavigationView? = null
     private var classes:ArrayList<Classes>?=ArrayList<Classes>()
     private var data:Databuilder?=null;
+    private var generalTimeTableAdapter:GeneralTimeTableAdapter? =null
 
     private val mOnNavigationItemSelectedListener = BottomNavigationView.OnNavigationItemSelectedListener { item ->
         when (item.itemId) {
@@ -47,6 +48,8 @@ class MainScreen : AppCompatActivity() {
                 if (this.generalTimeTable == null) {
                     this.generalTimeTable = BlankFragment.newInstance("fdsf", "fdfdsfds",GeneralTimeTableAdapter())
                 }
+               // this.generalTimeTableAdapter!!.notifyDataSetChanged()
+
                 openFragment(this.generalTimeTable!!)
                 return@OnNavigationItemSelectedListener true
             }
@@ -97,7 +100,7 @@ class MainScreen : AppCompatActivity() {
     private fun openFragment(fragment : Fragment){
         val transaction = supportFragmentManager.beginTransaction()
         transaction.replace(R.id.con, fragment)
-        transaction.addToBackStack(null)
+
         transaction.commit()
     }
 
@@ -116,6 +119,7 @@ class MainScreen : AppCompatActivity() {
         navigationView.setNavigationItemSelectedListener(selector)
         this.databasereferenc = FirebaseDatabase.getInstance().reference.child("/orarendek/szamitastechnika/4")
         var g:GeneralTimeTableAdapter = GeneralTimeTableAdapter()
+        //this.generalTimeTableAdapter!! = g
         val GeneralTimtablefragment = BlankFragment.newInstance("dfsdfsfd", "dfsfdsfds", g)
         this.generalTimeTable = GeneralTimtablefragment
         openFragment(this.generalTimeTable!!)

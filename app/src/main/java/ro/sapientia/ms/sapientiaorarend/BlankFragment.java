@@ -20,6 +20,15 @@ public class BlankFragment extends Fragment {
     public GeneralTimeTableAdapter adaptar;
 
 
+    public void reload(){
+        this.adaptar.notifyDataSetChanged();
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        this.adaptar.notifyDataSetChanged();
+    }
 
     public BlankFragment() {
         // Required empty public constructor
@@ -49,15 +58,19 @@ public class BlankFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        this.adaptar= new GeneralTimeTableAdapter();
+        if (this.adaptar == null) {
+            this.adaptar = new GeneralTimeTableAdapter();
+        }
         View root = inflater.inflate(R.layout.fragment_blank, container, false);
         this.rec = (RecyclerView)root.findViewById(R.id.own_time_table_rec);
-        this.rec.setAdapter(new OnwTimeTableAdapter());
+        this.rec.setAdapter(adaptar);
         RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(getActivity(),LinearLayoutManager.HORIZONTAL,false);
         this.rec.setLayoutManager(mLayoutManager);
         this.rec.setItemAnimator(new DefaultItemAnimator() );
         return root;
     }
+
+
 
 
 }
