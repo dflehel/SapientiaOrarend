@@ -8,4 +8,28 @@
         >
 
         </item>
+
+
+        <item
+                android:id="@+id/terkep"
+                android:title="terkep"
+                app:showAsAction="always"
+        >
+
+        </item>
+
+        <item
+                android:id="@+id/uzenet"
+                android:title="Uzenet"
+                app:showAsAction="always"
+        >
+
+        </item>
+        <item
+                android:id="@+id/bealitasok"
+                android:title="Bealitasok"
+                app:showAsAction="always"
+        >
+
+        </item>
 </menu>
