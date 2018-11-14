@@ -55,7 +55,7 @@ class Profil : Fragment() {
         this.phone!!.text = user!!.phoneNumber
         this.button!!.setOnClickListener {
             this.mAuth!!.signOut()
-            Toast.makeText(root.context, "Kijelentkeztel", Toast.LENGTH_LONG).show()
+            Toast.makeText(root.context, "Kijelentkeztél", Toast.LENGTH_LONG).show()
             this.activity!!.finish()
         }
         this.imageView!!.setOnClickListener {
