@@ -1,5 +1,6 @@
 package ro.sapientia.ms.sapientiaorarend
 
+import android.app.Dialog
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
@@ -9,6 +10,10 @@ import android.support.v4.app.Fragment
 import android.support.v4.widget.DrawerLayout
 import android.support.v7.app.ActionBarDrawerToggle
 import android.support.v7.app.AppCompatActivity
+import android.support.v7.widget.LinearLayoutManager
+import android.support.v7.widget.RecyclerView
+import android.util.Log
+import android.view.Gravity
 import android.view.Menu
 import android.view.MenuItem
 import android.widget.Toast
@@ -17,10 +22,12 @@ import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.FirebaseDatabase
 import kotlinx.android.synthetic.main.activity_main_screen.*
 import ro.sapientia.ms.sapientiaorarend.Adapters.GeneralTimeTableAdapter
+import ro.sapientia.ms.sapientiaorarend.Adapters.SearchAdapter
+import ro.sapientia.ms.sapientiaorarend.models.ClassPathBuilder
 import ro.sapientia.ms.sapientiaorarend.models.Classes
 import java.util.*
 
-class MainScreen : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListener {
+class MainScreen : AppCompatActivity() {
 
     private var drawerLayout: DrawerLayout? = null
     private var actionBarDrawerToggle: ActionBarDrawerToggle? = null
@@ -31,6 +38,7 @@ class MainScreen : AppCompatActivity(), NavigationView.OnNavigationItemSelectedL
     private var databasereferenc: DatabaseReference?=null
     private var drawmenu: NavigationView? = null
     private var classes:ArrayList<Classes>?=ArrayList<Classes>()
+    private var data:Databuilder?=null;
 
     private val mOnNavigationItemSelectedListener = BottomNavigationView.OnNavigationItemSelectedListener { item ->
         when (item.itemId) {
@@ -58,25 +66,32 @@ class MainScreen : AppCompatActivity(), NavigationView.OnNavigationItemSelectedL
                 return@OnNavigationItemSelectedListener true
             }
 
-            R.id.etkezde -> {
+
+
+        }
+        false
+    }
+    private var selector:NavigationView.OnNavigationItemSelectedListener = NavigationView.OnNavigationItemSelectedListener{
+        when (it.itemId){
+            R.id.etkezde->{
                 var intent2 = Intent(this, MENU::class.java)
                 startActivity(intent2)
-                return@OnNavigationItemSelectedListener true
+                this.drawerLayout!!.closeDrawer(Gravity.START,false)
+                true
             }
-
         }
         false
     }
 
 
-    override fun onNavigationItemSelected(item: MenuItem): Boolean {
+    /*override fun onNavigationItemSelected(item: MenuItem): Boolean {
 
         when (item.itemId) {
             R.id.etkezde -> Toast.makeText(this, "Clicked item one", Toast.LENGTH_SHORT).show()
-
+            return true
         }
-        return true
-    }
+        return false
+    }*/
 
 
     private fun openFragment(fragment : Fragment){
@@ -98,27 +113,18 @@ class MainScreen : AppCompatActivity(), NavigationView.OnNavigationItemSelectedL
         }
         navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener)
         val navigationView: NavigationView = findViewById(R.id.navigationView)
-        navigationView.setNavigationItemSelectedListener(this)
+        navigationView.setNavigationItemSelectedListener(selector)
         this.databasereferenc = FirebaseDatabase.getInstance().reference.child("/orarendek/szamitastechnika/4")
         var g:GeneralTimeTableAdapter = GeneralTimeTableAdapter()
         val GeneralTimtablefragment = BlankFragment.newInstance("dfsdfsfd", "dfsfdsfds", g)
         this.generalTimeTable = GeneralTimtablefragment
-        openFragment(GeneralTimtablefragment)
-
+        openFragment(this.generalTimeTable!!)
         this.drawerLayout = findViewById<DrawerLayout>(R.id.cont)
+        this.data =  Databuilder(this.generalTimeTable!!,this);
         this.actionBarDrawerToggle = ActionBarDrawerToggle(this, this.drawerLayout, R.string.open, R.string.close)
         this.drawerLayout!!.addDrawerListener(this.actionBarDrawerToggle!!)
-        /*    this.drawerLayout!!.setOnClickListener {
-                if(it.id == R.id.etkezde){
-                    var intent2 = Intent(this, MENU::class.java)
-                    startActivity(intent2)
-                }
-            }*/
-
         this.actionBarDrawerToggle!!.syncState()
-
         supportActionBar!!.setDisplayHomeAsUpEnabled(true)
-        var  d:Databuilder? =  Databuilder(GeneralTimtablefragment);
     }
 
     public fun start() {
@@ -142,24 +148,37 @@ class MainScreen : AppCompatActivity(), NavigationView.OnNavigationItemSelectedL
         return true
     }
 
+
+
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        if (item.itemId == R.id.kereses) {
-            return true
-        }
         if (item.itemId == R.id.switchbetweenweeks) {
-            if (item.title.toString().equals("Második hét")) {
-                item.title = "Első hét"
-                this.generalTimeTable!!.adaptar!!.wichweek = "paratlanhet"
+            if (item.title.toString().equals("Masodik het")) {
+                item.title = "Elso het"
+                this.generalTimeTable!!.adaptar!!.wichweek = "paroshet"
                 this.generalTimeTable!!.adaptar!!.notifyDataSetChanged()
 
             } else {
-                this.generalTimeTable!!.adaptar!!.wichweek = "paroshet"
+                this.generalTimeTable!!.adaptar!!.wichweek = "paratlanhet"
                 this.generalTimeTable!!.adaptar!!.notifyDataSetChanged()
-                item.title = "Második hét"
+                item.title = "Masodik het"
 
             }
             return true
+        }
+        if (item.itemId == R.id.kereses){
+            var dialog:Dialog = Dialog(this)
 
+            dialog.setContentView(R.layout.search_view)
+
+            var recyclerView:RecyclerView = dialog.findViewById<RecyclerView>(R.id.search_screen_rec)
+            var searchAdapter:SearchAdapter = SearchAdapter(dialog.context,dialog)
+            searchAdapter.data = this.data
+            //searchAdapter.dialog = dialog
+            recyclerView.adapter = searchAdapter
+            recyclerView.layoutManager = LinearLayoutManager(dialog.context)
+
+            dialog.show()
+            return true
         }
 
         if (this.actionBarDrawerToggle!!.onOptionsItemSelected(item)) {
