@@ -1,5 +1,7 @@
 package ro.sapientia.ms.sapientiaorarend;
 
+import android.app.ProgressDialog;
+import android.content.Context;
 import android.support.annotation.NonNull;
 import com.google.firebase.database.*;
 import ro.sapientia.ms.sapientiaorarend.models.Classes;
@@ -16,16 +18,58 @@ public class Databuilder {
     private ArrayList<String> ds = new ArrayList<>();
     private HashMap<String,String> f = new HashMap<>();
     private BlankFragment g ;
+    private ProgressDialog progressDialog;
     //private OwnTimeTableAdapter own = null;
 
     public Databuilder(ArrayList<Classes> classes) {
         this.classes = classes;
     }
 
-    public Databuilder(BlankFragment g) {
+
+    public void shearchfortimetable(String s){
+        String path[] = s.split(" ");
+        this.mdatabase = FirebaseDatabase.getInstance().getReference().child("/timetables/"+path[0]+"/"+path[1]+"/"+path[2]);
+        this.progressDialog.setMessage("Betoltes");
+        this.progressDialog.show();
+        this.mdatabase.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                Mas m = new Mas();
+
+                for (DataSnapshot s:dataSnapshot.getChildren()) {
+                    for (DataSnapshot ss : s.getChildren()) {
+                        for (DataSnapshot sss : ss.getChildren()) {
+
+                            //System.out.println(sss.getValue());
+                            Classes c = sss.getValue(Classes.class);
+                            m.adClass(s.getKey(),ss.getKey(),c);
+                            // System.out.println(c.toString());
+                        }
+                    }
+
+                }
+                System.out.println(m.toString());
+                Databuilder.this.g.adaptar.setM(m);
+                // Databuilder.this.g.adaptar.setD(m.getD().get("paratlanhet"));
+                Databuilder.this.g.rec.setAdapter(Databuilder.this.g.adaptar);
+                Databuilder.this.progressDialog.dismiss();
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
+
+    }
+
+
+    public Databuilder(BlankFragment g, Context c) {
         this.g = g;
-        // this.mdatabase = FirebaseDatabase.getInstance().getReference().child("/timetables/szamitastechnika/4/a");
-        this.mdatabase = FirebaseDatabase.getInstance().getReference().child("/timetables/kerteszmernoki/1/a");
+        this.progressDialog = new ProgressDialog(c);
+        this.progressDialog.setMessage("Betöltés");
+        this.progressDialog.show();
+        this.mdatabase = FirebaseDatabase.getInstance().getReference().child("/timetables/szamitastechnika/4/a");
       /* mdatabase.addChildEventListener(new ChildEventListener() {
            @Override
             public void onChildAdded(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
@@ -85,6 +129,7 @@ public class Databuilder {
                 Databuilder.this.g.adaptar.setM(m);
                 // Databuilder.this.g.adaptar.setD(m.getD().get("paratlanhet"));
                Databuilder.this.g.rec.setAdapter(Databuilder.this.g.adaptar);
+               Databuilder.this.progressDialog.dismiss();
             }
 
             @Override

@@ -12,10 +12,10 @@
     <item android:id="@+id/menu"
           android:title="@string/options_screen_food"
           app:showAsAction="always"/>
-
     <item android:id="@+id/uzenet"
           android:title="@string/options_screen_message"
           app:showAsAction="always"/>
+
 
 
 </menu>
