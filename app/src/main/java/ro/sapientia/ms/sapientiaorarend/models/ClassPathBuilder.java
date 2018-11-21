@@ -42,7 +42,6 @@ public class ClassPathBuilder {
                             }
                         }
                     }
-                  System.out.println(ClassPathBuilder.this.toString());
             }
 
             @Override
