@@ -56,5 +56,18 @@
     <string name="nav_header_desc">Navigation header</string>
     <string name="action_settings">Settings</string>
 
+    <!--Navigation screen strings-->
+    <string name="navigation_screen_general">Általános órarend</string>
+    <string name="navigation_screen_own">Saját órarend</string>
+    <string name="navigation_screen_profile">Profil</string>
+
+    <!--Options menu strings-->
+    <string name="options_screen_food">Napi menü</string>
+    <string name="options_screen_second">Második hét</string>
+    <string name="options_screen_message">Üzenet</string>
+    <string name="options_screen_search">Keresés</string>
+
+    <!--Draw menu strings-->
+    <string name="draw_screen_food">Étkezde</string>
 
 </resources>

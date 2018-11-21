@@ -53,19 +53,22 @@ class SignUpScreen : AppCompatActivity() {
         this.name = this.editextname.text.toString()
         this.email = this.edittextemail.text.toString()
         this.password = this.edittextpassword.text.toString()
-        this.progressDialog.setMessage("Regisztralas")
+        this.progressDialog.setMessage("Regisztrálas")
         this.progressDialog.show()
        if(TextUtils.isEmpty(email)){
-            Toast.makeText(this,"Adjon Email cimmet",Toast.LENGTH_LONG).show()
+            Toast.makeText(this,"Adjon E-mail címmet",Toast.LENGTH_LONG).show()
+            this.progressDialog.dismiss()
             return
        }
         if(TextUtils.isEmpty(password)){
-            Toast.makeText(this,"Irjon be passwordot",Toast.LENGTH_LONG).show()
+            Toast.makeText(this,"Írjon be jelszót",Toast.LENGTH_LONG).show()
+            this.progressDialog.dismiss()
             return
         }
 
         if(this.edittextpassword.text.toString().equals(this.edittextpasswordconfirm.text.toString()) == false){
-            Toast.makeText(this,"Nem egyezik meg a jelszo",Toast.LENGTH_LONG).show()
+            Toast.makeText(this,"A jelszavak nem egyeznek",Toast.LENGTH_LONG).show()
+            this.progressDialog.dismiss()
             return
         }
 
@@ -74,7 +77,7 @@ class SignUpScreen : AppCompatActivity() {
                 if (task.isSuccessful) {
                     // Sign in: success
                     // update UI for current User
-                    Toast.makeText(this,"Sikeres Registracio",Toast.LENGTH_LONG).show()
+                    Toast.makeText(this,"Sikeres Regisztráció",Toast.LENGTH_LONG).show()
                     this.user = mAuth!!.currentUser
                     var userprof = UserProfileChangeRequest.Builder().setDisplayName(this.name).build()
                     this.user!!.updateProfile(userprof)
@@ -85,7 +88,7 @@ class SignUpScreen : AppCompatActivity() {
                 } else {
                     // Sign in: fail
                     // updateUI(null)
-                    Toast.makeText(this,"Sikeretelen Registracio",Toast.LENGTH_LONG).show()
+                    Toast.makeText(this,"Sikeretelen Regisztració",Toast.LENGTH_LONG).show()
                     this.progressDialog.dismiss()
                 }
             }

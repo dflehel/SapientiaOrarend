@@ -3,4 +3,17 @@
     <color name="colorPrimary">#008577</color>
     <color name="colorPrimaryDark">#00574B</color>
     <color name="colorAccent">#D81B60</color>
+
+    <!--Teacher colors
+    <color name="martonlorinc">#f442d7</color>
+    <color name="brassaisandortihamer">#a39f8d</color>
+    <color name="domokosjozsef">#62bcb3</color>
+    <color name="bakoslevente">#556efc</color>
+    <color name="kutasinimrod">#a159ff</color>
+    <color name="szilagyilaszlo">#53fcfc</color>
+    <color name="gergelygero">#a5ea1c</color>
+    <color name="haranguskatalin">#ff1692</color>
+    <color name="antalmargit">#ffd816</color>
+    <color name="iclanzandavid">#f2d5b0</color>
+    -->
 </resources>
