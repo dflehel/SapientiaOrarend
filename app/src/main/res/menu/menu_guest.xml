@@ -4,7 +4,7 @@
     <item
             android:id="@+id/navigation_general_time_table"
             android:icon="@drawable/ic_home_black_24dp"
-            android:title="Altalanos Orarend"/>
+            android:title="@string/navigation_screen_general"/>
 
 
 </menu>
