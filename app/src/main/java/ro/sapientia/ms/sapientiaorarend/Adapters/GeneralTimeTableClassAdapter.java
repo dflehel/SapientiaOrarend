@@ -76,11 +76,22 @@ public class GeneralTimeTableClassAdapter  extends  RecyclerView.Adapter<General
             super(itemView);
             this.testview = (CardView) itemView.findViewById(R.id.timetableview);
             if(valto == 1){
-                testview.setCardBackgroundColor(0xffa39f8d);}
+            testview.setCardBackgroundColor(Integer.parseInt("-769321"));}
+           /* testview.setCardBackgroundColor(-6054003)
+            testview.setCardBackgroundColor(-10306381)
+            testview.setCardBackgroundColor(-11178244)
+            testview.setCardBackgroundColor(-6202881)
+            testview.setCardBackgroundColor(-11272964)
+            testview.setCardBackgroundColor(-5903844)
+            testview.setCardBackgroundColor(-59758)
+            testview.setCardBackgroundColor(-10218)
+            testview.setCardBackgroundColor(-862800)*/
+
+
             else if (valto == 2){
-                testview.setCardBackgroundColor(0xff53fcfc);}
+                testview.setCardBackgroundColor(Integer.parseInt("-6054003"));}
             else if (valto == 3){
-                testview.setCardBackgroundColor(0xffa5ea1c);}
+                testview.setCardBackgroundColor(Integer.parseInt("-10306381"));}
             this.teacher = (TextView) itemView.findViewById(R.id.teacher_name);
             this.classroom = (TextView) itemView.findViewById(R.id.class_number);
             this.material =(TextView) itemView.findViewById(R.id.class_name);
