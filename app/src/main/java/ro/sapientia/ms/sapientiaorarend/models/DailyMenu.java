@@ -42,7 +42,6 @@ public class DailyMenu {
                 for (int i=0;i<DailyMenu.this.foods.length;++i){
                     DailyMenu.this.foodsdisplay.append(DailyMenu.this.foods[i]+"\n");
                 }
-                System.out.println(dataSnapshot.getValue(String.class));
                 DailyMenu.this.progressDialog.dismiss();
 
             }
