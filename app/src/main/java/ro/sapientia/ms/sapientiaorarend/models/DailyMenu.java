@@ -32,20 +32,19 @@ public class DailyMenu {
         this.progressDialog.setMessage("Betoltes");
         this.progressDialog.show();
         this.mdatabase = FirebaseDatabase.getInstance().getReference().child("/menu");
+
         this.mdatabase.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-               String  pattern = "yyyy-MM-dd ";
-                SimpleDateFormat simpleDateFormat = new SimpleDateFormat(pattern);
-                Date d = new Date();
-                DailyMenu.this.foods =  dataSnapshot.getValue(String.class).split(",");
-                DailyMenu.this.daydisplay.setText(simpleDateFormat.format(d).toString());
+                DailyMenu.this.daydisplay.setText(dataSnapshot.getValue(String.class).split("&")[0]);
+                DailyMenu.this.foods =  dataSnapshot.getValue(String.class).split("&")[1].split(",");
                 DailyMenu.this.foodsdisplay.setText("");
                 for (int i=0;i<DailyMenu.this.foods.length;++i){
                     DailyMenu.this.foodsdisplay.append(DailyMenu.this.foods[i]+"\n");
                 }
                 System.out.println(dataSnapshot.getValue(String.class));
                 DailyMenu.this.progressDialog.dismiss();
+
             }
 
             @Override
