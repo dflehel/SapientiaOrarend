@@ -29,7 +29,7 @@ public class Databuilder {
     public void shearchfortimetable(String s){
         String path[] = s.split(" ");
         this.mdatabase = FirebaseDatabase.getInstance().getReference().child("/timetables/"+path[0]+"/"+path[1]+"/"+path[2]);
-        this.progressDialog.setMessage("Betoltes");
+        this.progressDialog.setMessage("Betöltés");
         this.progressDialog.show();
         this.mdatabase.addValueEventListener(new ValueEventListener() {
             @Override
@@ -67,10 +67,10 @@ public class Databuilder {
     public Databuilder(BlankFragment g, Context c) {
         this.g = g;
         this.progressDialog = new ProgressDialog(c);
-        this.progressDialog.setMessage("Betoltes");
+        this.progressDialog.setMessage("Betöltés");
         this.progressDialog.show();
-        this.mdatabase = FirebaseDatabase.getInstance().getReference().child("/timetables/szamitastechnika/4/a");
-       // this.mdatabase.
+        //this.mdatabase = FirebaseDatabase.getInstance().getReference().child("/timetables/szamitastechnika/4/a");
+        this.mdatabase = FirebaseDatabase.getInstance().getReference().child("/timetables/kerteszmernoki/1/a");
       /* mdatabase.addChildEventListener(new ChildEventListener() {
            @Override
             public void onChildAdded(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {

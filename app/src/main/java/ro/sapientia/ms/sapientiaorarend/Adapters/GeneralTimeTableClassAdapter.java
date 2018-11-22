@@ -1,8 +1,10 @@
 package ro.sapientia.ms.sapientiaorarend.Adapters;
 
+import android.annotation.SuppressLint;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,11 +14,12 @@ import ro.sapientia.ms.sapientiaorarend.models.ClassColorsBuilder;
 import ro.sapientia.ms.sapientiaorarend.models.Classes;
 
 import java.util.ArrayList;
+import java.util.Objects;
 
-public class GeneralTimeTableClassAdapter  extends  RecyclerView.Adapter< GeneralTimeTableClassAdapter.OwnTimeTableViewClassHolder> {
+public class GeneralTimeTableClassAdapter  extends  RecyclerView.Adapter<GeneralTimeTableClassAdapter.OwnTimeTableViewClassHolder> {
 
     private ArrayList<Classes> c = new ArrayList<>();
-
+    public int valto;
     public ArrayList<Classes> getC() {
         return c;
     }
@@ -45,8 +48,7 @@ public class GeneralTimeTableClassAdapter  extends  RecyclerView.Adapter< Genera
         ownTimeTableViewClassHolder.endt.setText(this.c.get(i).getEnd().toString());
         if (ClassColorsBuilder.colors.get(this.c.get(i).getTeacher()) != null) {
             ownTimeTableViewClassHolder.cardView.setCardBackgroundColor(ClassColorsBuilder.colors.get(this.c.get(i).getTeacher()));
-
-        }
+    }
     }
 
     @Override
@@ -63,15 +65,18 @@ public class GeneralTimeTableClassAdapter  extends  RecyclerView.Adapter< Genera
         public CardView cardView;
 
 
+
+        @SuppressLint("ResourceAsColor")
         public OwnTimeTableViewClassHolder(@NonNull View itemView) {
             super(itemView);
+
             this.cardView = (CardView) itemView.findViewById(R.id.class_view);
             this.teacher = (TextView) itemView.findViewById(R.id.teacher_name);
             this.classroom = (TextView) itemView.findViewById(R.id.class_number);
             this.material =(TextView) itemView.findViewById(R.id.class_name);
             this.startt = (TextView) itemView.findViewById(R.id.start_time);
             this.endt = (TextView) itemView.findViewById(R.id.end_time);
-
+            }
         }
     }
-}
+
