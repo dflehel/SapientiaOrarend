@@ -41,7 +41,7 @@ class Profil : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        // Inflate the layout for this fragment
+        // Inflate the gen_time_table_item for this fragment
         this.mAuth = FirebaseAuth.getInstance()
         this.user = this.mAuth!!.currentUser
         val root = inflater.inflate(R.layout.fragment_profil, container, false)

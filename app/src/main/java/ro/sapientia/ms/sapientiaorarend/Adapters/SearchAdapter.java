@@ -24,6 +24,7 @@ public class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.SearchAdap
     private Context con;
     private Databuilder data;
     private Dialog dialog;
+    private TextView departmentview;
 
 
     public Databuilder getData() {
@@ -46,7 +47,7 @@ public class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.SearchAdap
         this.searchitem = searchitem;
     }
 
-    public SearchAdapter(Context c,Dialog d){
+    public SearchAdapter(Context c,Dialog d,TextView textView){
         for(String deparment:ClassPathBuilder.classPath.keySet()){
             for(String year:ClassPathBuilder.classPath.get(deparment).keySet()){
                 for(String group:ClassPathBuilder.classPath.get(deparment).get(year)){
@@ -56,6 +57,7 @@ public class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.SearchAdap
         }
         this.dialog = d;
         this.con =c;
+        this.departmentview =textView;
     }
 
     public SearchAdapter(ClassPathBuilder classPathBuilder) {
@@ -101,6 +103,7 @@ public class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.SearchAdap
                 @Override
                 public void onClick(View v) {
                         SearchAdapter.this.data.shearchfortimetable(SearchAdapter.this.searchitem.get(SearchAdapterViewHolder.this.pos));
+                        SearchAdapter.this.departmentview.setText(SearchAdapter.this.searchitem.get(SearchAdapterViewHolder.this.pos));
                         SearchAdapter.this.dialog.dismiss();
                 }
             });
