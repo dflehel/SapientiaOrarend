@@ -33,6 +33,7 @@
 
         <activity android:name=".Map">
         </activity>
+        <service android:name=".Services.DatabaseListening"/>
     </application>
 
 </manifest>
