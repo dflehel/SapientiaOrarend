@@ -2,6 +2,8 @@ package ro.sapientia.ms.sapientiaorarend.Services;
 
 import android.app.*;
 import android.content.Intent;
+import android.graphics.BitmapFactory;
+import android.graphics.drawable.Icon;
 import android.os.IBinder;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -51,23 +53,29 @@ public class DatabaseListening extends IntentService {
     protected void onHandleIntent(@Nullable Intent intent) {
         Intent intent1 = new Intent(this,MainScreen.class);
         PendingIntent pendingIntent = PendingIntent.getActivity(this,0,intent1,0);
-
         final Notification noti1 = new Notification.Builder(this)
                 .setContentTitle("Valtozas")
                 .setContentText("Orarendvaltozas tortent")
                 .setSmallIcon(R.drawable.ic_stat_adb )
+                .setLargeIcon(BitmapFactory.decodeResource(getResources(), R.mipmap.ic_launcher_round))
+                .setLargeIcon(BitmapFactory.decodeResource(getResources(), R.mipmap.ic_launcher_round))
                 .setContentIntent(pendingIntent)
                 .build();
         final Notification noti2 = new Notification.Builder(this)
                 .setContentTitle("Valtozas")
                 .setContentText("UJ napi menu")
                 .setSmallIcon(R.drawable.ic_stat_adb )
+                .setLargeIcon(BitmapFactory.decodeResource(getResources(), R.mipmap.ic_launcher_round))
+        .setLargeIcon(BitmapFactory.decodeResource(getResources(), R.mipmap.ic_launcher_round))
                 .setContentIntent(pendingIntent)
+                //.setSound(Notification.DEFAULT_SOUND)
                 .build();
         final Notification noti3 = new Notification.Builder(this)
                 .setContentTitle("Uzeneted erkezet")
                 .setContentText("Orarendvaltozas tortent")
+                .setLargeIcon(BitmapFactory.decodeResource(getResources(), R.mipmap.ic_launcher_round))
                 .setSmallIcon(R.drawable.ic_stat_adb )
+                .setLargeIcon(BitmapFactory.decodeResource(getResources(), R.mipmap.ic_launcher_round))
                 .setContentIntent(pendingIntent)
                 .build();
         final NotificationManagerCompat notificationManager = NotificationManagerCompat.from(this);
