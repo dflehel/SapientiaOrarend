@@ -20,6 +20,7 @@ public class BlankFragment extends Fragment {
     public RecyclerView rec;
     public GeneralTimeTableAdapter adaptar;
     public TextView deparmentview;
+    public String departmenttext;
 
 
     public void reload(){
@@ -66,9 +67,13 @@ public class BlankFragment extends Fragment {
         View root = inflater.inflate(R.layout.fragment_blank, container, false);
         this.rec = (RecyclerView)root.findViewById(R.id.genral_time_table_rec_view);
         this.deparmentview = (TextView) root.findViewById(R.id.gen_time_table_department_text_view);
+        if (this.deparmentview.toString().equalsIgnoreCase("")){
+            this.deparmentview.setText(this.departmenttext);
+        }
         this.rec.setAdapter(adaptar);
         RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(getActivity(),LinearLayoutManager.HORIZONTAL,false);
         this.rec.setLayoutManager(mLayoutManager);
+        this.deparmentview.setText(this.departmenttext);
         this.rec.setItemAnimator(new DefaultItemAnimator() );
         return root;
     }

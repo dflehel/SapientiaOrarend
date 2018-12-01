@@ -103,7 +103,7 @@ public class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.SearchAdap
                 @Override
                 public void onClick(View v) {
                         SearchAdapter.this.data.shearchfortimetable(SearchAdapter.this.searchitem.get(SearchAdapterViewHolder.this.pos));
-                        SearchAdapter.this.departmentview.setText(SearchAdapter.this.searchitem.get(SearchAdapterViewHolder.this.pos));
+                       // SearchAdapter.this.departmentview.setText(SearchAdapter.this.searchitem.get(SearchAdapterViewHolder.this.pos));
                         SearchAdapter.this.dialog.dismiss();
                 }
             });
