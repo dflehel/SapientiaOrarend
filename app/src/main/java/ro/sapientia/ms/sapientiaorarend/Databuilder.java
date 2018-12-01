@@ -31,7 +31,7 @@ public class Databuilder {
     }
 
 
-    public void shearchfortimetable(String s){
+    public void shearchfortimetable(final String s){
         String path[] = s.split(" ");
         this.mdatabase = FirebaseDatabase.getInstance().getReference().child("/timetables/"+path[0]+"/"+path[1]+"/"+path[2]);
         this.progressDialog.setMessage("Betöltés");
@@ -57,6 +57,9 @@ public class Databuilder {
                 Databuilder.this.g.adaptar.setM(m);
                 // Databuilder.this.g.adaptar.setD(m.getD().get("paratlanhet"));
                 Databuilder.this.g.rec.setAdapter(Databuilder.this.g.adaptar);
+                Databuilder.this.g.deparmentview.setText(s);
+                Databuilder.this.g.departmenttext = s;
+
                 Databuilder.this.progressDialog.dismiss();
 
             }
@@ -140,7 +143,8 @@ public class Databuilder {
                             Databuilder.this.g.adaptar.setM(m);
                             // Databuilder.this.g.adaptar.setD(m.getD().get("paratlanhet"));
                             Databuilder.this.g.rec.setAdapter(Databuilder.this.g.adaptar);
-                            Databuilder.this.g.deparmentview.setText( d.getKey()+" "+dd.getKey()+" "+ddd.getKey());
+                            Databuilder.this.g.deparmentview.setText(d.getKey()+" "+dd.getKey()+" "+ddd.getKey());
+                            Databuilder.this.g.departmenttext = d.getKey()+" "+dd.getKey()+" "+ddd.getKey();
                             Databuilder.this.progressDialog.dismiss();
                             break;
                         }

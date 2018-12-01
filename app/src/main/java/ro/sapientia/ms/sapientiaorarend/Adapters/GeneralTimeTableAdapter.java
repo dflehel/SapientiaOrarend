@@ -23,7 +23,16 @@ public class GeneralTimeTableAdapter extends RecyclerView.Adapter<GeneralTimeTab
 
     private HashMap<String,Days> d = new HashMap<>();
     private Mas m = new Mas();
+    private String deparmentext;
     private String wichweek = "paratlanhet";
+
+    public String getDeparmentext() {
+        return deparmentext;
+    }
+
+    public void setDeparmentext(String deparmentext) {
+        this.deparmentext = deparmentext;
+    }
 
     public String getWichweek() {
         return wichweek;
