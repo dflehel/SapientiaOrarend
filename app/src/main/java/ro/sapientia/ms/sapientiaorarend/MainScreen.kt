@@ -22,6 +22,7 @@ import com.google.firebase.database.*
 import kotlinx.android.synthetic.main.activity_main_screen.*
 import ro.sapientia.ms.sapientiaorarend.Adapters.GeneralTimeTableAdapter
 import ro.sapientia.ms.sapientiaorarend.Adapters.SearchAdapter
+import ro.sapientia.ms.sapientiaorarend.Services.DatabaseListening
 import ro.sapientia.ms.sapientiaorarend.models.ClassPathBuilder
 import ro.sapientia.ms.sapientiaorarend.models.Classes
 import ro.sapientia.ms.sapientiaorarend.models.User
@@ -42,6 +43,7 @@ class MainScreen : AppCompatActivity() {
     private var context:Context?= this
     private var databasereferenc2: DatabaseReference?=null
     private var generalTimeTableAdapter:GeneralTimeTableAdapter? =null
+    public var CHANEL:String?="noti"
 
 
 
@@ -165,6 +167,8 @@ class MainScreen : AppCompatActivity() {
         this.drawerLayout!!.addDrawerListener(this.actionBarDrawerToggle!!)
         this.actionBarDrawerToggle!!.syncState()
         supportActionBar!!.setDisplayHomeAsUpEnabled(true)
+        var intent = Intent(this,DatabaseListening::class.java)
+        startService(intent)
     }
 
     public fun start() {

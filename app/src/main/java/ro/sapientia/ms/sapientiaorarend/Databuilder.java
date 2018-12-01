@@ -36,7 +36,7 @@ public class Databuilder {
         this.mdatabase = FirebaseDatabase.getInstance().getReference().child("/timetables/"+path[0]+"/"+path[1]+"/"+path[2]);
         this.progressDialog.setMessage("Betöltés");
         this.progressDialog.show();
-        this.mdatabase.addValueEventListener(new ValueEventListener() {
+        this.mdatabase.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 Mas m = new Mas();
@@ -118,7 +118,7 @@ public class Databuilder {
                 System.out.println("dfgdfh");
             }
         });*/
-        this.mdatabase.addValueEventListener(new ValueEventListener() {
+        this.mdatabase.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 for (DataSnapshot d : dataSnapshot.getChildren()) {
@@ -168,7 +168,7 @@ public class Databuilder {
         this.progressDialog.setMessage("Betöltés");
         this.progressDialog.show();
         this.mdatabase = FirebaseDatabase.getInstance().getReference().child("/timetables/").child(user.getDeparment());
-        this.mdatabase.addValueEventListener(new ValueEventListener() {
+        this.mdatabase.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 Mas m = new Mas();
