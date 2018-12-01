@@ -86,9 +86,15 @@ class MainScreen : AppCompatActivity() {
                 this.drawerLayout!!.closeDrawer(Gravity.START,false)
                 true
             }
+            R.id.terkep->{
+                var intent2 = Intent(this, Map::class.java)
+                startActivity(intent2)
+                this.drawerLayout!!.closeDrawer(Gravity.START,false)
+                true}
         }
         false
     }
+
 
 
     /*override fun onNavigationItemSelected(item: MenuItem): Boolean {
