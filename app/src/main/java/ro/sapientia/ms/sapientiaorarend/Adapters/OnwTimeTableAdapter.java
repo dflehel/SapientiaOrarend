@@ -11,12 +11,44 @@ import android.widget.TextView;
 import ro.sapientia.ms.sapientiaorarend.Contans.AdapterContans;
 import ro.sapientia.ms.sapientiaorarend.R;
 import ro.sapientia.ms.sapientiaorarend.models.Classes;
+import ro.sapientia.ms.sapientiaorarend.models.Days;
+import ro.sapientia.ms.sapientiaorarend.models.Mas;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
 public class OnwTimeTableAdapter extends RecyclerView.Adapter<OnwTimeTableAdapter.OwnTimeTableViewHolder> {
 
     private ArrayList<Classes> c = new ArrayList<>();
+    private HashMap<String,Days> d = new HashMap<>();
+    private String wichweek = "paratlanhet";
+    private Mas m = new Mas();
+
+
+
+    public HashMap<String, Days> getD() {
+        return d;
+    }
+
+    public void setD(HashMap<String, Days> d) {
+        this.d = d;
+    }
+
+    public String getWichweek() {
+        return wichweek;
+    }
+
+    public void setWichweek(String wichweek) {
+        this.wichweek = wichweek;
+    }
+
+    public Mas getM() {
+        return m;
+    }
+
+    public void setM(Mas m) {
+        this.m = m;
+    }
 
     @NonNull
     public ArrayList<Classes> getC() {
@@ -40,7 +72,13 @@ public class OnwTimeTableAdapter extends RecyclerView.Adapter<OnwTimeTableAdapte
 
     @Override
     public void onBindViewHolder(@NonNull OwnTimeTableViewHolder ownTimeTableViewHolder, int i) {
-            ownTimeTableViewHolder.daytext.setText(AdapterContans.days[i]);
+        ownTimeTableViewHolder.daytext.setText(AdapterContans.days[i]);
+        if (this.m.getD().get(this.wichweek).get(AdapterContans.days[i])  != null) {
+            ownTimeTableViewHolder.setdata(this.m.getD().get(this.wichweek).get(AdapterContans.days[i]).getClasses());
+        }
+        else{
+            ownTimeTableViewHolder.setdata(new ArrayList<Classes>());
+        }
     }
 
     @Override
@@ -52,17 +90,20 @@ public class OnwTimeTableAdapter extends RecyclerView.Adapter<OnwTimeTableAdapte
 
         public TextView daytext;
         public RecyclerView rec;
+        public ArrayList<Classes> classes;
 
         public OwnTimeTableViewHolder(@NonNull View itemView,ArrayList<Classes> c) {
             super(itemView);
             this.daytext = itemView.findViewById(R.id.own_time_table_item_day);
             this.rec = itemView.findViewById(R.id.own_time_table_item_rec);
-            OnwTimeTableClassAdapter adapter = new OnwTimeTableClassAdapter(c);
-            this.rec.setAdapter(adapter);
             RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(itemView.getContext());
             this.rec.setLayoutManager(mLayoutManager);
             this.rec.setItemAnimator(new DefaultItemAnimator() );
 
+        }
+        public  void setdata( ArrayList<Classes> c){
+            this.classes = c;
+            this.rec.setAdapter(new OnwTimeTableClassAdapter(this.classes));
         }
     }
 }
