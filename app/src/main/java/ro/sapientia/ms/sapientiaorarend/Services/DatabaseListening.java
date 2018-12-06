@@ -60,15 +60,19 @@ public class DatabaseListening extends IntentService {
                 .setLargeIcon(BitmapFactory.decodeResource(getResources(), R.mipmap.ic_launcher_round))
                 .setLargeIcon(BitmapFactory.decodeResource(getResources(), R.mipmap.ic_launcher_round))
                 .setContentIntent(pendingIntent)
+                .setDefaults(Notification.DEFAULT_VIBRATE)
+                .setDefaults(Notification.DEFAULT_SOUND)
                 .build();
         final Notification noti2 = new Notification.Builder(this)
-                .setContentTitle("Valtozas")
-                .setContentText("UJ napi menu")
+                .setContentTitle("Változás")
+                .setContentText("Új napi menu")
                 .setSmallIcon(R.drawable.ic_stat_adb )
                 .setLargeIcon(BitmapFactory.decodeResource(getResources(), R.mipmap.ic_launcher_round))
         .setLargeIcon(BitmapFactory.decodeResource(getResources(), R.mipmap.ic_launcher_round))
                 .setContentIntent(pendingIntent)
                 //.setSound(Notification.DEFAULT_SOUND)
+                .setDefaults(Notification.DEFAULT_VIBRATE)
+                .setDefaults(Notification.DEFAULT_SOUND)
                 .build();
         final Notification noti3 = new Notification.Builder(this)
                 .setContentTitle("Uzeneted erkezet")
@@ -77,6 +81,8 @@ public class DatabaseListening extends IntentService {
                 .setSmallIcon(R.drawable.ic_stat_adb )
                 .setLargeIcon(BitmapFactory.decodeResource(getResources(), R.mipmap.ic_launcher_round))
                 .setContentIntent(pendingIntent)
+                .setDefaults(Notification.DEFAULT_VIBRATE)
+                .setDefaults(Notification.DEFAULT_SOUND)
                 .build();
         final NotificationManagerCompat notificationManager = NotificationManagerCompat.from(this);
         /*        this.timetable.addValueEventListener(new ValueEventListener() {
