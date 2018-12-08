@@ -7,7 +7,7 @@
         android:id="@+id/cont"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:context=".Activity.MainScreen"
+        tools:context=".MainScreen"
 >
 
 
@@ -30,7 +30,7 @@
                 app:layout_constraintBottom_toBottomOf="@+id/main_screen_panel"/>
 
         <android.support.design.widget.BottomNavigationView
-                android:id="@+id/bottonnavigation"
+                android:id="@+id/navigation"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:background="?android:attr/windowBackground"
@@ -42,7 +42,7 @@
                 android:layout_width="0dp"
                 android:layout_height="0dp"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintBottom_toTopOf="@+id/bottonnavigation" app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintBottom_toTopOf="@+id/navigation" app:layout_constraintStart_toStartOf="parent"
                 android:id="@+id/main_screen_panel">
 
         </android.support.constraint.ConstraintLayout>
@@ -50,7 +50,7 @@
 
     </android.support.constraint.ConstraintLayout>
 
-    <android.support.design.widget.NavigationView android:id="@+id/drawernavigation"
+    <android.support.design.widget.NavigationView android:id="@+id/navigationView"
                                                   android:layout_width="wrap_content"
                                                   android:layout_height="match_parent"
                                                   android:background="@android:color/white"

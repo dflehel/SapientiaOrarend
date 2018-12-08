@@ -13,25 +13,18 @@ import ro.sapientia.ms.sapientiaorarend.Contans.AdapterContans;
 import ro.sapientia.ms.sapientiaorarend.R;
 import ro.sapientia.ms.sapientiaorarend.models.Classes;
 import ro.sapientia.ms.sapientiaorarend.models.Days;
-import ro.sapientia.ms.sapientiaorarend.models.TimeTable;
+import ro.sapientia.ms.sapientiaorarend.models.Mas;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 
-public class GeneralTimeTableAdapter extends RecyclerView.Adapter<GeneralTimeTableAdapter.OwnTimeTableViewHolder> {
+public class GeneralTimeTableAdapter extends RecyclerView.Adapter<GeneralTimeTableAdapter.OwnTimeTableViewHolder>{
 
 
-    private HashMap<String, Days> d = new HashMap<>();
-    private TimeTable m = new TimeTable();
+    private HashMap<String,Days> d = new HashMap<>();
+    private Mas m = new Mas();
     private String deparmentext;
     private String wichweek = "paratlanhet";
-
-    public GeneralTimeTableAdapter() {
-    }
-
-    public GeneralTimeTableAdapter(HashMap<String, Days> d) {
-        this.d = d;
-    }
 
     public String getDeparmentext() {
         return deparmentext;
@@ -49,18 +42,28 @@ public class GeneralTimeTableAdapter extends RecyclerView.Adapter<GeneralTimeTab
         this.wichweek = wichweek;
     }
 
-    public TimeTable getM() {
+    public Mas getM() {
         return m;
     }
 
-    public void setM(TimeTable m) {
+    public void setM(Mas m) {
         this.m = m;
     }
+
+    public GeneralTimeTableAdapter() {
+    }
+
+    public GeneralTimeTableAdapter(HashMap<String, Days> d) {
+        this.d = d;
+    }
+
+
+
 
     @NonNull
     @Override
     public GeneralTimeTableAdapter.OwnTimeTableViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int i) {
-        View v = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.own_time_table_item, viewGroup, false);
+        View v = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.own_time_table_item,viewGroup,false);
         return new GeneralTimeTableAdapter.OwnTimeTableViewHolder(v);
     }
 
@@ -83,7 +86,7 @@ public class GeneralTimeTableAdapter extends RecyclerView.Adapter<GeneralTimeTab
         this.d = d;
     }
 
-    public class OwnTimeTableViewHolder extends RecyclerView.ViewHolder {
+    public class OwnTimeTableViewHolder extends RecyclerView.ViewHolder{
 
         public TextView daytext;
         public RecyclerView rec;
@@ -96,10 +99,9 @@ public class GeneralTimeTableAdapter extends RecyclerView.Adapter<GeneralTimeTab
             this.rec = itemView.findViewById(R.id.own_time_table_item_rec);
             RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(itemView.getContext());
             this.rec.setLayoutManager(mLayoutManager);
-            this.rec.setItemAnimator(new DefaultItemAnimator());
-        }
-
-        public void setdata(ArrayList<Classes> c) {
+            this.rec.setItemAnimator(new DefaultItemAnimator() );
+    }
+        public  void setdata( ArrayList<Classes> c){
             this.classes = c;
             this.rec.setAdapter(new GeneralTimeTableClassAdapter(this.classes));
         }

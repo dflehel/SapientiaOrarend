@@ -4,25 +4,22 @@ import android.annotation.SuppressLint;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 import ro.sapientia.ms.sapientiaorarend.R;
-import ro.sapientia.ms.sapientiaorarend.Util.ClassColorsBuilder;
+import ro.sapientia.ms.sapientiaorarend.models.ClassColorsBuilder;
 import ro.sapientia.ms.sapientiaorarend.models.Classes;
 
 import java.util.ArrayList;
+import java.util.Objects;
 
-public class GeneralTimeTableClassAdapter extends RecyclerView.Adapter<GeneralTimeTableClassAdapter.OwnTimeTableViewClassHolder> {
+public class GeneralTimeTableClassAdapter  extends  RecyclerView.Adapter<GeneralTimeTableClassAdapter.OwnTimeTableViewClassHolder> {
 
-    public int valto;
     private ArrayList<Classes> c = new ArrayList<>();
-
-    public GeneralTimeTableClassAdapter(ArrayList<Classes> c) {
-        this.c = c;
-    }
-
+    public int valto;
     public ArrayList<Classes> getC() {
         return c;
     }
@@ -31,10 +28,14 @@ public class GeneralTimeTableClassAdapter extends RecyclerView.Adapter<GeneralTi
         this.c = c;
     }
 
+    public GeneralTimeTableClassAdapter(ArrayList<Classes> c) {
+        this.c = c;
+    }
+
     @NonNull
     @Override
     public GeneralTimeTableClassAdapter.OwnTimeTableViewClassHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int i) {
-        View v = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.own_time_table_class_item, viewGroup, false);
+        View v = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.own_time_table_class_item,viewGroup,false);
         return new GeneralTimeTableClassAdapter.OwnTimeTableViewClassHolder(v);
     }
 
@@ -47,7 +48,7 @@ public class GeneralTimeTableClassAdapter extends RecyclerView.Adapter<GeneralTi
         ownTimeTableViewClassHolder.endt.setText(this.c.get(i).getEnd().toString());
         if (ClassColorsBuilder.colors.get(this.c.get(i).getTeacher()) != null) {
             ownTimeTableViewClassHolder.cardView.setCardBackgroundColor(ClassColorsBuilder.colors.get(this.c.get(i).getTeacher()));
-        }
+    }
     }
 
     @Override
@@ -55,13 +56,14 @@ public class GeneralTimeTableClassAdapter extends RecyclerView.Adapter<GeneralTi
         return this.c.size();
     }
 
-    public class OwnTimeTableViewClassHolder extends RecyclerView.ViewHolder {
+    public class OwnTimeTableViewClassHolder  extends RecyclerView.ViewHolder  {
         public TextView teacher;
         public TextView classroom;
         public TextView material;
         public TextView startt;
         public TextView endt;
         public CardView cardView;
+
 
 
         @SuppressLint("ResourceAsColor")
@@ -71,10 +73,10 @@ public class GeneralTimeTableClassAdapter extends RecyclerView.Adapter<GeneralTi
             this.cardView = (CardView) itemView.findViewById(R.id.class_view);
             this.teacher = (TextView) itemView.findViewById(R.id.teacher_name);
             this.classroom = (TextView) itemView.findViewById(R.id.class_number);
-            this.material = (TextView) itemView.findViewById(R.id.class_name);
+            this.material =(TextView) itemView.findViewById(R.id.class_name);
             this.startt = (TextView) itemView.findViewById(R.id.start_time);
             this.endt = (TextView) itemView.findViewById(R.id.end_time);
+            }
         }
     }
-}
 
