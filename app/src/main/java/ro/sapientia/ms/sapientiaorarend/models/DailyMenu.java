@@ -33,7 +33,7 @@ public class DailyMenu {
         this.progressDialog.show();
         this.mdatabase = FirebaseDatabase.getInstance().getReference().child("/menu");
 
-        this.mdatabase.addValueEventListener(new ValueEventListener() {
+        this.mdatabase.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 DailyMenu.this.daydisplay.setText(dataSnapshot.getValue(String.class).split("&")[0]);
@@ -42,7 +42,6 @@ public class DailyMenu {
                 for (int i=0;i<DailyMenu.this.foods.length;++i){
                     DailyMenu.this.foodsdisplay.append(DailyMenu.this.foods[i]+"\n");
                 }
-                System.out.println(dataSnapshot.getValue(String.class));
                 DailyMenu.this.progressDialog.dismiss();
 
             }

@@ -38,6 +38,7 @@ class LoginScreen : AppCompatActivity() {
             var intent = Intent(this, MainScreen::class.java)
             startActivity(intent)
         }
+
         this.Email = findViewById(R.id.login_screen_email)
         this.Phone = findViewById(R.id.login_screen_phone)
         this.Password = findViewById(R.id.login_screen_password)
