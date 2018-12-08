@@ -1,4 +1,4 @@
-package ro.sapientia.ms.sapientiaorarend
+package ro.sapientia.ms.sapientiaorarend.Activity
 
 import android.app.Dialog
 import android.app.ProgressDialog
@@ -17,27 +17,31 @@ import com.google.firebase.auth.UserProfileChangeRequest
 import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.FirebaseDatabase
 import ro.sapientia.ms.sapientiaorarend.Adapters.DeparmentSelectorAdapter
-import ro.sapientia.ms.sapientiaorarend.Adapters.SearchAdapter
+import ro.sapientia.ms.sapientiaorarend.R
 import ro.sapientia.ms.sapientiaorarend.models.User
 
+
+/** regisztralasra szolgal*/
 class SignUpScreen : AppCompatActivity() {
 
-    lateinit var name:String
-    lateinit var email:String
-    lateinit var phone:String
-    lateinit var password:String
-    lateinit var editextname:EditText
-    lateinit var edittextemail:EditText
-    lateinit var edittexphone:EditText
-    lateinit var edittextpassword:EditText
-    lateinit var edittextpasswordconfirm:EditText
+    lateinit var name: String
+    lateinit var email: String
+    lateinit var phone: String
+    lateinit var password: String
+    lateinit var editextname: EditText
+    lateinit var edittextemail: EditText
+    lateinit var edittexphone: EditText
+    lateinit var edittextpassword: EditText
+    lateinit var edittextpasswordconfirm: EditText
     lateinit var button: Button
-    private var buttondeparment : Button? = null
+    private var buttondeparment: Button? = null
     lateinit var progressDialog: ProgressDialog
     private var mAuth: FirebaseAuth? = null
     private var user: FirebaseUser? = null
-    private var databaseReference:DatabaseReference?=null
+    private var databaseReference: DatabaseReference? = null
 
+
+    /** inicializalja a parametereket*/
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_sign_up_screen)
@@ -50,7 +54,7 @@ class SignUpScreen : AppCompatActivity() {
         this.button = findViewById<Button>(R.id.sign_up_screen_sign_up_button)
         this.progressDialog = ProgressDialog(this)
         this.buttondeparment = findViewById<Button>(R.id.sign_up_screen_deparment_selector)
-        this.button.setOnClickListener{
+        this.button.setOnClickListener {
             this.registeruser()
         }
         this.buttondeparment!!.setOnClickListener {
@@ -59,7 +63,8 @@ class SignUpScreen : AppCompatActivity() {
             dialog.setContentView(R.layout.search_view)
 
             var recyclerView: RecyclerView = dialog.findViewById<RecyclerView>(R.id.search_screen_rec)
-            var deparmentSelectorAdapter: DeparmentSelectorAdapter = DeparmentSelectorAdapter(dialog.context,dialog,this.buttondeparment)
+            var deparmentSelectorAdapter: DeparmentSelectorAdapter =
+                DeparmentSelectorAdapter(dialog.context, dialog, this.buttondeparment)
             //searchAdapter.data = this.data
             //searchAdapter.dialog = dialog
             recyclerView.adapter = deparmentSelectorAdapter
@@ -70,28 +75,30 @@ class SignUpScreen : AppCompatActivity() {
     }
 
 
-    fun elleorzo(pas:String,pas2:String):Boolean{
+    fun elleorzo(pas: String, pas2: String): Boolean {
         return pas.contentEquals(pas2)
     }
 
-    fun registeruser(){
+
+    /** elvegz a regisztralast es a adabazisba bejegyezendo dolgokat*/
+    fun registeruser() {
         this.name = this.editextname.text.toString()
         this.email = this.edittextemail.text.toString()
         this.password = this.edittextpassword.text.toString()
         this.phone = this.edittexphone.text.toString()
         this.progressDialog.setMessage("Regisztralas")
         this.progressDialog.show()
-       if(TextUtils.isEmpty(email)){
-            Toast.makeText(this,"Adjon Email cimmet",Toast.LENGTH_LONG).show()
+        if (TextUtils.isEmpty(email)) {
+            Toast.makeText(this, "Adjon Email cimmet", Toast.LENGTH_LONG).show()
             return
-       }
-        if(TextUtils.isEmpty(password)){
-            Toast.makeText(this,"Irjon be passwordot",Toast.LENGTH_LONG).show()
+        }
+        if (TextUtils.isEmpty(password)) {
+            Toast.makeText(this, "Irjon be passwordot", Toast.LENGTH_LONG).show()
             return
         }
 
-        if(this.edittextpassword.text.toString().equals(this.edittextpasswordconfirm.text.toString()) == false){
-            Toast.makeText(this,"Nem egyezik meg a jelszo",Toast.LENGTH_LONG).show()
+        if (this.edittextpassword.text.toString().equals(this.edittextpasswordconfirm.text.toString()) == false) {
+            Toast.makeText(this, "Nem egyezik meg a jelszo", Toast.LENGTH_LONG).show()
             return
         }
 
@@ -101,11 +108,18 @@ class SignUpScreen : AppCompatActivity() {
                     // Sign in: success
                     // update UI for current User
                     this.progressDialog.dismiss()
-                    Toast.makeText(this,"Sikeres Registracio",Toast.LENGTH_LONG).show()
+                    Toast.makeText(this, "Sikeres Registracio", Toast.LENGTH_LONG).show()
                     this.user = mAuth!!.currentUser
                     var userprof = UserProfileChangeRequest.Builder().setDisplayName(this.name).build()
                     this.databaseReference = FirebaseDatabase.getInstance().reference.child("/user")
-                    this.databaseReference!!.child(user!!.uid).setValue(User(this.name,this.email,this.phone,this.buttondeparment!!.text.toString().replace(" ","/",false)))
+                    this.databaseReference!!.child(user!!.uid).setValue(
+                        User(
+                            this.name,
+                            this.email,
+                            this.phone,
+                            this.buttondeparment!!.text.toString().replace(" ", "/", false)
+                        )
+                    )
                     this.user!!.updateProfile(userprof)
                     this.progressDialog.dismiss()
                     var intent = Intent(this, MainScreen::class.java)
@@ -114,7 +128,7 @@ class SignUpScreen : AppCompatActivity() {
                 } else {
                     // Sign in: fail
                     // updateUI(null)
-                    Toast.makeText(this,"Sikeretelen Registracio",Toast.LENGTH_LONG).show()
+                    Toast.makeText(this, "Sikeretelen Registracio", Toast.LENGTH_LONG).show()
                     this.progressDialog.dismiss()
                 }
             }
