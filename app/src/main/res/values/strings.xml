@@ -55,6 +55,8 @@
     <string name="nav_header_subtitle">android.studio@android.com</string>
     <string name="nav_header_desc">Navigation header</string>
     <string name="action_settings">Settings</string>
+    <string name="signup_screen_choose">Válassz szakot</string>
+
 
     <!--Navigation screen strings-->
     <string name="navigation_screen_general">Általános órarend</string>
@@ -69,5 +71,10 @@
 
     <!--Draw menu strings-->
     <string name="draw_screen_food">Étkezde</string>
+
+    <!--Send message strings-->
+    <string name="send_message_screen_text_box_hint">Üzenet</string>
+    <string name="send_message_screen_send_button">Üzenet küldése</string>
+    <string name="send_message_screen_choose">Válassz szakot</string>
 
 </resources>
