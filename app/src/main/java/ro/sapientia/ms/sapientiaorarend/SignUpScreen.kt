@@ -1,9 +1,12 @@
 package ro.sapientia.ms.sapientiaorarend
 
+import android.app.Dialog
 import android.app.ProgressDialog
 import android.content.Intent
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
+import android.support.v7.widget.LinearLayoutManager
+import android.support.v7.widget.RecyclerView
 import android.text.TextUtils
 import android.widget.Button
 import android.widget.EditText
@@ -11,6 +14,11 @@ import android.widget.Toast
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.auth.UserProfileChangeRequest
+import com.google.firebase.database.DatabaseReference
+import com.google.firebase.database.FirebaseDatabase
+import ro.sapientia.ms.sapientiaorarend.Adapters.DeparmentSelectorAdapter
+import ro.sapientia.ms.sapientiaorarend.Adapters.SearchAdapter
+import ro.sapientia.ms.sapientiaorarend.models.User
 
 class SignUpScreen : AppCompatActivity() {
 
@@ -24,9 +32,11 @@ class SignUpScreen : AppCompatActivity() {
     lateinit var edittextpassword:EditText
     lateinit var edittextpasswordconfirm:EditText
     lateinit var button: Button
+    private var buttondeparment : Button? = null
     lateinit var progressDialog: ProgressDialog
     private var mAuth: FirebaseAuth? = null
     private var user: FirebaseUser? = null
+    private var databaseReference:DatabaseReference?=null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -39,8 +49,23 @@ class SignUpScreen : AppCompatActivity() {
         this.edittextpasswordconfirm = findViewById<EditText>(R.id.sign_up_screen_configuration_password_textEdit)
         this.button = findViewById<Button>(R.id.sign_up_screen_sign_up_button)
         this.progressDialog = ProgressDialog(this)
+        this.buttondeparment = findViewById<Button>(R.id.sign_up_screen_deparment_selector)
         this.button.setOnClickListener{
             this.registeruser()
+        }
+        this.buttondeparment!!.setOnClickListener {
+            var dialog: Dialog = Dialog(this)
+
+            dialog.setContentView(R.layout.search_view)
+
+            var recyclerView: RecyclerView = dialog.findViewById<RecyclerView>(R.id.search_screen_rec)
+            var deparmentSelectorAdapter: DeparmentSelectorAdapter = DeparmentSelectorAdapter(dialog.context,dialog,this.buttondeparment)
+            //searchAdapter.data = this.data
+            //searchAdapter.dialog = dialog
+            recyclerView.adapter = deparmentSelectorAdapter
+            recyclerView.layoutManager = LinearLayoutManager(dialog.context)
+
+            dialog.show()
         }
     }
 
@@ -53,6 +78,7 @@ class SignUpScreen : AppCompatActivity() {
         this.name = this.editextname.text.toString()
         this.email = this.edittextemail.text.toString()
         this.password = this.edittextpassword.text.toString()
+        this.phone = this.edittexphone.text.toString()
         this.progressDialog.setMessage("Regisztralas")
         this.progressDialog.show()
        if(TextUtils.isEmpty(email)){
@@ -74,9 +100,12 @@ class SignUpScreen : AppCompatActivity() {
                 if (task.isSuccessful) {
                     // Sign in: success
                     // update UI for current User
+                    this.progressDialog.dismiss()
                     Toast.makeText(this,"Sikeres Registracio",Toast.LENGTH_LONG).show()
                     this.user = mAuth!!.currentUser
                     var userprof = UserProfileChangeRequest.Builder().setDisplayName(this.name).build()
+                    this.databaseReference = FirebaseDatabase.getInstance().reference.child("/user")
+                    this.databaseReference!!.child(user!!.uid).setValue(User(this.name,this.email,this.phone,this.buttondeparment!!.text.toString().replace(" ","/",false)))
                     this.user!!.updateProfile(userprof)
                     this.progressDialog.dismiss()
                     var intent = Intent(this, MainScreen::class.java)

@@ -1,8 +1,34 @@
 <?xml version="1.0" encoding="utf-8"?>
-<menu xmlns:android="http://schemas.android.com/apk/res/android">
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+      xmlns:app="http://schemas.android.com/apk/res-auto">
         <item
                 android:id="@+id/etkezde"
-                android:title="Etkezde">
+                android:title="@string/draw_screen_food"
+                app:showAsAction="always"
+        >
 
+        </item>
+
+
+        <item
+                android:id="@+id/terkep"
+                android:title="Teremelhelyezés"
+                app:showAsAction="always"
+        >
+
+        </item>
+
+        <item
+                android:id="@+id/uzenet"
+                android:title="Üzenet"
+                app:showAsAction="always"
+        >
+
+        </item>
+        <item
+                android:id="@+id/beallitasok"
+                android:title="Beállítások"
+                app:showAsAction="always"
+        >
         </item>
 </menu>

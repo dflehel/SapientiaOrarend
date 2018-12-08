@@ -9,6 +9,8 @@ import android.widget.EditText
 import android.widget.TextView
 import android.widget.Toast
 import com.google.firebase.auth.FirebaseAuth
+import ro.sapientia.ms.sapientiaorarend.models.ClassColorsBuilder
+import ro.sapientia.ms.sapientiaorarend.models.ClassPathBuilder
 
 class LoginScreen : AppCompatActivity() {
 
@@ -27,6 +29,7 @@ class LoginScreen : AppCompatActivity() {
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
+        setTheme(R.style.AppTheme)
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_login_screen)
         mAuth = FirebaseAuth.getInstance()
@@ -35,13 +38,15 @@ class LoginScreen : AppCompatActivity() {
             var intent = Intent(this, MainScreen::class.java)
             startActivity(intent)
         }
+
         this.Email = findViewById(R.id.login_screen_email)
         this.Phone = findViewById(R.id.login_screen_phone)
         this.Password = findViewById(R.id.login_screen_password)
         this.Login = findViewById(R.id.login_screen_login_button)
         this.Signup = findViewById(R.id.login_screen_signup_button)
+        var clas: ClassPathBuilder = ClassPathBuilder()
+        var colors:ClassColorsBuilder = ClassColorsBuilder()
         this.progressDialog = ProgressDialog(this)
-
         this.Login.setOnClickListener{
                     loggingig()
             }
@@ -63,7 +68,7 @@ class LoginScreen : AppCompatActivity() {
     }
 
     fun loggingig(){
-        this.progressDialog!!.setMessage("Bejelentkezes")
+        this.progressDialog!!.setMessage("Bejelentkezés")
         this.progressDialog!!.show()
         this.email = this.Email.text.toString()
         this.password = this.Password.text.toString()
@@ -74,12 +79,13 @@ class LoginScreen : AppCompatActivity() {
                     // update UI for current User
                     val user = mAuth!!.getCurrentUser()
                     this.progressDialog!!.dismiss()
-                    Toast.makeText(this,"Sikeres bejelentkezes", Toast.LENGTH_LONG).show()
+                    Toast.makeText(this,"Sikeres bejelentkezés", Toast.LENGTH_LONG).show()
                     var intent = Intent(this, MainScreen::class.java)
                     startActivity(intent)
                 } else {
                     // Sign in: fail
-                    Toast.makeText(this,"Sikeres bejelentkezes",Toast.LENGTH_LONG).show()
+                    Toast.makeText(this,"Sikertelen bejelentkezés",Toast.LENGTH_LONG).show()
+                    this.progressDialog!!.dismiss()
                 }
 
                 // ...
