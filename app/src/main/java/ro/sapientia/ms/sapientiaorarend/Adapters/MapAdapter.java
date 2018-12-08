@@ -7,6 +7,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 import ro.sapientia.ms.sapientiaorarend.R;
+import ro.sapientia.ms.sapientiaorarend.models.Classes;
 import ro.sapientia.ms.sapientiaorarend.models.Rooms;
 
 import java.util.ArrayList;
@@ -21,18 +22,18 @@ public class MapAdapter extends RecyclerView.Adapter<MapAdapter.MyViewHolderAdap
         Rooms r2 = new Rooms("Masodik emelet", "Terem 230\nTerem 231\nTerem 216\nTerem 217\nTerem 218\nTerem 242\nTerem 243\nTitkarsag\nVillamos tanszek");
         Rooms r3 = new Rooms("Harmadik emelet", "Terem 307\nTerem 308\nTerem 309\nTerem 310\nTerem 311\nTerem 312\nTerem 313\nInfo tanszek");
         Rooms r4 = new Rooms("Negyedik emelet", "Terem 408\nTerem 409\nTerem 410\nTerem 411\nTerem 412\nTerem 413\nTerem 414\nTerem 415\nTerem 416");
-        this.x.add(r0);
-        this.x.add(r1);
-        this.x.add(r2);
-        this.x.add(r3);
-        this.x.add(r4);
+            this.x.add(r0);
+            this.x.add(r1);
+            this.x.add(r2);
+            this.x.add(r3);
+            this.x.add(r4);
 
     }
 
     @NonNull
     @Override
     public MapAdapter.MyViewHolderAdapter onCreateViewHolder(@NonNull ViewGroup viewGroup, int i) {
-        View v = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.map_item, viewGroup, false);
+        View v = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.map_item,viewGroup,false);
         return new MapAdapter.MyViewHolderAdapter(v);
     }
 
