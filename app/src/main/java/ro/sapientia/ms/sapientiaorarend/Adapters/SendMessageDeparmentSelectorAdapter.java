@@ -13,6 +13,7 @@ import ro.sapientia.ms.sapientiaorarend.Util.Databuilder;
 import ro.sapientia.ms.sapientiaorarend.R;
 import ro.sapientia.ms.sapientiaorarend.Util.ClassPathBuilder;
 
+
 import java.util.ArrayList;
 
 public class SendMessageDeparmentSelectorAdapter extends RecyclerView.Adapter<SendMessageDeparmentSelectorAdapter.DepartmentSelectorAdapterViewHolder> {

@@ -5,7 +5,6 @@
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
     <uses-permission android:name="android.permission.INTERNET"/>
-    <uses-permission android:name="android.permission.VIBRATE"/>
 
     <application
             android:allowBackup="true"
@@ -14,8 +13,10 @@
             android:roundIcon="@mipmap/ic_launcher_round"
             android:supportsRtl="true"
             android:theme="@style/AppTheme">
+        <activity android:name=".MainActivity">
+        </activity>
         <activity
-                android:name=".Activity.LoginScreen"
+                android:name=".LoginScreen"
                 android:label="@string/title_activity_main_screen">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
@@ -23,14 +24,14 @@
                 <category android:name="android.intent.category.LAUNCHER"/>
             </intent-filter>
         </activity>
-        <activity android:name=".Activity.SignUpScreen">
+        <activity android:name=".SignUpScreen">
         </activity>
-        <activity android:name=".Activity.MainScreen">
+        <activity android:name=".MainScreen">
         </activity>
-        <activity android:name=".Activity.MENU">
+        <activity android:name=".MENU">
         </activity>
 
-        <activity android:name=".Activity.Map">
+        <activity android:name=".Map">
         </activity>
         <service android:name=".Services.DatabaseListening"/>
     </application>
