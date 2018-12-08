@@ -12,7 +12,7 @@ import ro.sapientia.ms.sapientiaorarend.Contans.AdapterContans;
 import ro.sapientia.ms.sapientiaorarend.R;
 import ro.sapientia.ms.sapientiaorarend.models.Classes;
 import ro.sapientia.ms.sapientiaorarend.models.Days;
-import ro.sapientia.ms.sapientiaorarend.models.TimeTable;
+import ro.sapientia.ms.sapientiaorarend.models.Mas;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -20,15 +20,11 @@ import java.util.HashMap;
 public class OnwTimeTableAdapter extends RecyclerView.Adapter<OnwTimeTableAdapter.OwnTimeTableViewHolder> {
 
     private ArrayList<Classes> c = new ArrayList<>();
-    private HashMap<String, Days> d = new HashMap<>();
+    private HashMap<String,Days> d = new HashMap<>();
     private String wichweek = "paratlanhet";
-    private TimeTable m = new TimeTable();
+    private Mas m = new Mas();
 
 
-    public OnwTimeTableAdapter() {
-
-
-    }
 
     public HashMap<String, Days> getD() {
         return d;
@@ -46,11 +42,11 @@ public class OnwTimeTableAdapter extends RecyclerView.Adapter<OnwTimeTableAdapte
         this.wichweek = wichweek;
     }
 
-    public TimeTable getM() {
+    public Mas getM() {
         return m;
     }
 
-    public void setM(TimeTable m) {
+    public void setM(Mas m) {
         this.m = m;
     }
 
@@ -63,18 +59,24 @@ public class OnwTimeTableAdapter extends RecyclerView.Adapter<OnwTimeTableAdapte
         this.c = c;
     }
 
+    public OnwTimeTableAdapter() {
+
+
+    }
+
     @Override
     public OwnTimeTableViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int i) {
-        View v = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.own_time_table_item, viewGroup, false);
-        return new OwnTimeTableViewHolder(v, this.c);
+        View v = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.own_time_table_item,viewGroup,false);
+        return new OwnTimeTableViewHolder(v,this.c);
     }
 
     @Override
     public void onBindViewHolder(@NonNull OwnTimeTableViewHolder ownTimeTableViewHolder, int i) {
         ownTimeTableViewHolder.daytext.setText(AdapterContans.days[i]);
-        if (this.m.getD().get(this.wichweek).get(AdapterContans.days[i]) != null) {
+        if (this.m.getD().get(this.wichweek).get(AdapterContans.days[i])  != null) {
             ownTimeTableViewHolder.setdata(this.m.getD().get(this.wichweek).get(AdapterContans.days[i]).getClasses());
-        } else {
+        }
+        else{
             ownTimeTableViewHolder.setdata(new ArrayList<Classes>());
         }
     }
@@ -90,17 +92,16 @@ public class OnwTimeTableAdapter extends RecyclerView.Adapter<OnwTimeTableAdapte
         public RecyclerView rec;
         public ArrayList<Classes> classes;
 
-        public OwnTimeTableViewHolder(@NonNull View itemView, ArrayList<Classes> c) {
+        public OwnTimeTableViewHolder(@NonNull View itemView,ArrayList<Classes> c) {
             super(itemView);
             this.daytext = itemView.findViewById(R.id.own_time_table_item_day);
             this.rec = itemView.findViewById(R.id.own_time_table_item_rec);
             RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(itemView.getContext());
             this.rec.setLayoutManager(mLayoutManager);
-            this.rec.setItemAnimator(new DefaultItemAnimator());
+            this.rec.setItemAnimator(new DefaultItemAnimator() );
 
         }
-
-        public void setdata(ArrayList<Classes> c) {
+        public  void setdata( ArrayList<Classes> c){
             this.classes = c;
             this.rec.setAdapter(new OnwTimeTableClassAdapter(this.classes));
         }
