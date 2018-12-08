@@ -29,6 +29,7 @@ import ro.sapientia.ms.sapientiaorarend.R
 import ro.sapientia.ms.sapientiaorarend.Services.DatabaseListening
 import ro.sapientia.ms.sapientiaorarend.Util.Databuilder
 import ro.sapientia.ms.sapientiaorarend.Util.Settings
+import ro.sapientia.ms.sapientiaorarend.Activity.activity_send_message
 
 import ro.sapientia.ms.sapientiaorarend.models.Classes
 import ro.sapientia.ms.sapientiaorarend.models.User
@@ -99,6 +100,12 @@ class MainScreen : AppCompatActivity() {
                 }
                 R.id.terkep -> {
                     var intent2 = Intent(this, Map::class.java)
+                    startActivity(intent2)
+                    this.drawerLayout!!.closeDrawer(Gravity.START, false)
+                    true
+                }
+                R.id.uzenet -> {
+                    var intent2 = Intent(this, activity_send_message::class.java)
                     startActivity(intent2)
                     this.drawerLayout!!.closeDrawer(Gravity.START, false)
                     true
