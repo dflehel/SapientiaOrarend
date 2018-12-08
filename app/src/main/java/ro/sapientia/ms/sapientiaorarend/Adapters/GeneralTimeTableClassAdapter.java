@@ -43,7 +43,7 @@ public class GeneralTimeTableClassAdapter  extends  RecyclerView.Adapter<General
     public void onBindViewHolder(@NonNull GeneralTimeTableClassAdapter.OwnTimeTableViewClassHolder ownTimeTableViewClassHolder, int i) {
         ownTimeTableViewClassHolder.teacher.setText(this.c.get(i).getTeacher());
         ownTimeTableViewClassHolder.material.setText(this.c.get(i).getMaterial());
-      //  ownTimeTableViewClassHolder.classroom.setText(this.c.get(i).getClassroom());
+        ownTimeTableViewClassHolder.classroom.setText(this.c.get(i).getClassroom());
         ownTimeTableViewClassHolder.startt.setText(this.c.get(i).getStart().toString());
         ownTimeTableViewClassHolder.endt.setText(this.c.get(i).getEnd().toString());
         if (ClassColorsBuilder.colors.get(this.c.get(i).getTeacher()) != null) {
