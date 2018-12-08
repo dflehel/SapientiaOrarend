@@ -10,14 +10,10 @@ import java.util.HashMap;
 public class ClassColorsBuilder {
 
 
-    private DatabaseReference mdatabase;
-    public static HashMap<String,Integer>  colors = new HashMap<>();
+    public static HashMap<String, Integer> colors = new HashMap<>();
     public static boolean terminated = false;
     private static LoginScreen loginScreen;
-
-
-
-
+    private DatabaseReference mdatabase;
 
 
     public ClassColorsBuilder(LoginScreen loginScreen) {
@@ -26,12 +22,12 @@ public class ClassColorsBuilder {
         this.mdatabase.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                for(DataSnapshot data : dataSnapshot.getChildren()){
+                for (DataSnapshot data : dataSnapshot.getChildren()) {
                     ClassColor classColor = data.getValue(ClassColor.class);
-                    ClassColorsBuilder.colors.put(classColor.getTeacher(),Integer.parseInt(classColor.getClasscolor()));
+                    ClassColorsBuilder.colors.put(classColor.getTeacher(), Integer.parseInt(classColor.getClasscolor()));
                 }
                 ClassColorsBuilder.terminated = true;
-                if(ClassPathBuilder.terminated && ClassColorsBuilder.loginScreen.getTerminated()){
+                if (ClassPathBuilder.terminated && ClassColorsBuilder.loginScreen.getTerminated()) {
                     ClassColorsBuilder.loginScreen.startingmainscreen();
                     ClassColorsBuilder.loginScreen.getProgressDialog().dismiss();
                 }

@@ -1,7 +1,6 @@
 package ro.sapientia.ms.sapientiaorarend.models;
 
 import java.io.Serializable;
-import java.util.Date;
 
 public class Classes implements Serializable {
     private String teacher;
@@ -10,11 +9,23 @@ public class Classes implements Serializable {
     private String start;
     private String end;
 
+    public Classes() {
+
+    }
+
+
+    public Classes(String teacher, String material, String classroom, String start, String end) {
+        this.teacher = teacher;
+        this.material = material;
+        this.classroom = classroom;
+        this.start = start;
+        this.end = end;
+    }
+
     public String getTeacher() {
 
         return teacher;
     }
-
 
     public void setTeacher(String teacher) {
         this.teacher = teacher;
@@ -49,18 +60,6 @@ public class Classes implements Serializable {
     }
 
     public void setEnd(String end) {
-        this.end = end;
-    }
-
-    public Classes() {
-
-    }
-
-    public Classes(String teacher, String material, String classroom, String start, String end) {
-        this.teacher = teacher;
-        this.material = material;
-        this.classroom = classroom;
-        this.start = start;
         this.end = end;
     }
 

@@ -31,12 +31,10 @@ class GeneralTimeTable : Fragment() {
     // TODO: Rename and change types of parameters
 
 
-    var rec: RecyclerView?=null
+    var rec: RecyclerView? = null
     var adaptar: GeneralTimeTableAdapter? = null
-    var deparmentview: TextView?=null
+    var deparmentview: TextView? = null
     var departmenttext: String? = null
-
-
 
 
     override fun onCreateView(
@@ -64,7 +62,8 @@ class GeneralTimeTable : Fragment() {
     companion object {
         fun newInstance(): GeneralTimeTable =
             GeneralTimeTable()
-        fun newInstance(g:GeneralTimeTableAdapter): GeneralTimeTable {
+
+        fun newInstance(g: GeneralTimeTableAdapter): GeneralTimeTable {
             var generalTimeTable: GeneralTimeTable =
                 GeneralTimeTable()
             generalTimeTable.adaptar = g

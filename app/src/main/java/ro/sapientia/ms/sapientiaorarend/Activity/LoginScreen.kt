@@ -8,13 +8,12 @@ import android.widget.Button
 import android.widget.EditText
 import android.widget.TextView
 import android.widget.Toast
-import com.crashlytics.android.Crashlytics
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.*
 import ro.sapientia.ms.sapientiaorarend.R
-import ro.sapientia.ms.sapientiaorarend.Util.Settings
 import ro.sapientia.ms.sapientiaorarend.Util.ClassColorsBuilder
 import ro.sapientia.ms.sapientiaorarend.Util.ClassPathBuilder
+import ro.sapientia.ms.sapientiaorarend.Util.Settings
 import ro.sapientia.ms.sapientiaorarend.models.User
 
 
@@ -23,19 +22,18 @@ class LoginScreen : AppCompatActivity() {
 
 
     lateinit var Email: EditText
-    lateinit var Phone:EditText
-    lateinit var Password:EditText
+    lateinit var Phone: EditText
+    lateinit var Password: EditText
     lateinit var Login: Button
     lateinit var Signup: TextView
-    private var email:String?= null
-    private var password:String?=null
+    private var email: String? = null
+    private var password: String? = null
     private var mAuth: FirebaseAuth? = null
-    private var databasereferenc2: DatabaseReference?=null
+    private var databasereferenc2: DatabaseReference? = null
     private var guest: TextView? = null
-    var progressDialog: ProgressDialog?=null
+    var progressDialog: ProgressDialog? = null
     private var user: User? = null
-    var terminated:Boolean? = false
-
+    var terminated: Boolean? = false
 
 
     /**A fugvenybe kapcsolom ossze a view elemek azokkal az osztalymezokkel melyekkel majd ellenorzom a bejelentkezest
@@ -59,31 +57,32 @@ class LoginScreen : AppCompatActivity() {
         ClassPathBuilder(this)
         ClassColorsBuilder(this)
         this.progressDialog = ProgressDialog(this)
-        this.Login.setOnClickListener{
-                    loggingig()
-            }
-        this.Signup.setOnClickListener{
-             var intent2 = Intent(this, SignUpScreen::class.java)
-             startActivity(intent2)
+        this.Login.setOnClickListener {
+            loggingig()
         }
+        this.Signup.setOnClickListener {
+            var intent2 = Intent(this, SignUpScreen::class.java)
+            startActivity(intent2)
         }
+    }
 
     /** a startba megnezzem elozoleg volt bejelenkezve ha izen egybol adobom a fokepernyore elotte lekerem a user adatokat*/
     override fun onStart() {
         super.onStart()
-        if (mAuth!!.currentUser != null){
+        if (mAuth!!.currentUser != null) {
             this.progressDialog!!.setMessage("Bejelentkezés")
             this.progressDialog!!.show()
             var intent = Intent(this, MainScreen::class.java)
             intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
             intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK)
-            this.databasereferenc2 = FirebaseDatabase.getInstance().reference.child("/user").child(FirebaseAuth.getInstance().currentUser!!.uid)
+            this.databasereferenc2 = FirebaseDatabase.getInstance().reference.child("/user")
+                .child(FirebaseAuth.getInstance().currentUser!!.uid)
             val listener: ValueEventListener = object : ValueEventListener {
                 override fun onDataChange(dataSnapshot: DataSnapshot) {
                     // Get Post object and use the values to update the UI
                     user = dataSnapshot.getValue<User>(User::class.java)
                     Settings.user = user!!
-                    if(ClassColorsBuilder.terminated && ClassPathBuilder.terminated) {
+                    if (ClassColorsBuilder.terminated && ClassPathBuilder.terminated) {
                         startingmainscreen()
                         progressDialog!!.dismiss()
                     }
@@ -102,7 +101,7 @@ class LoginScreen : AppCompatActivity() {
     }
 
     /**a bejelenkezes ellenorzese*/
-    fun loggingig(){
+    fun loggingig() {
         this.progressDialog!!.setMessage("Bejelentkezés")
         this.progressDialog!!.show()
         this.email = this.Email.text.toString()
@@ -113,13 +112,31 @@ class LoginScreen : AppCompatActivity() {
                     // Sign in: success
                     // update UI for current User
                     val user = mAuth!!.getCurrentUser()
-                    this.progressDialog!!.dismiss()
-                    Toast.makeText(this,"Sikeres bejelentkezés", Toast.LENGTH_LONG).show()
-                    var intent = Intent(this, MainScreen::class.java)
-                    startActivity(intent)
+                    this.databasereferenc2 = FirebaseDatabase.getInstance().reference.child("/user")
+                        .child(FirebaseAuth.getInstance().currentUser!!.uid)
+                    val listener: ValueEventListener = object : ValueEventListener {
+                        override fun onDataChange(dataSnapshot: DataSnapshot) {
+                            // Get Post object and use the values to update the U
+                            Settings.user = dataSnapshot.getValue<User>(User::class.java)
+                            if (ClassColorsBuilder.terminated && ClassPathBuilder.terminated) {
+                                startingmainscreen()
+                                progressDialog!!.dismiss()
+                            }
+                            terminated = true
+                            // ...
+                        }
+
+                        override fun onCancelled(databaseError: DatabaseError) {
+                            // Getting Post failed, log a message
+
+                            // ...
+                        }
+                    }
+                    this.databasereferenc2!!.addListenerForSingleValueEvent(listener)
+                    Toast.makeText(this, "Sikeres bejelentkezés", Toast.LENGTH_LONG).show()
                 } else {
                     // Sign in: fail
-                    Toast.makeText(this,"Sikertelen bejelentkezés",Toast.LENGTH_LONG).show()
+                    Toast.makeText(this, "Sikertelen bejelentkezés", Toast.LENGTH_LONG).show()
                     this.progressDialog!!.dismiss()
                 }
 
@@ -128,11 +145,11 @@ class LoginScreen : AppCompatActivity() {
     }
 
     /** fo kepernyo inditasa*/
-    fun startingmainscreen(){
+    fun startingmainscreen() {
         var intent = Intent(this, MainScreen::class.java)
         intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK)
         startActivity(intent)
     }
-    }
+}
 
