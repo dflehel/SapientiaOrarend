@@ -155,11 +155,13 @@ class MainScreen : AppCompatActivity() {
             R.string.open,
             R.string.close
         )
-        if (Settings.user!!.timetable == null) {
-            Databuilder(ownTimeTable!!, context, Settings.user)
-        } else {
-            ownTimeTable!!.adapter!!.m = Settings.user.timetable
-            ownTimeTable!!.adapter!!.notifyDataSetChanged()
+        if (Settings.user != null) {
+            if (Settings.user!!.timetable == null) {
+                Databuilder(ownTimeTable!!, context, Settings.user)
+            } else {
+                ownTimeTable!!.adapter!!.m = Settings.user.timetable
+                ownTimeTable!!.adapter!!.notifyDataSetChanged()
+            }
         }
         this.drawerLayout!!.addDrawerListener(this.actionBarDrawerToggle!!)
         this.actionBarDrawerToggle!!.syncState()
