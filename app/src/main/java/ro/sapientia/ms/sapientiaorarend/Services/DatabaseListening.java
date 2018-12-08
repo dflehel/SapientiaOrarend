@@ -56,7 +56,7 @@ public class DatabaseListening extends IntentService {
 
     @Override
     protected void onHandleIntent(@Nullable Intent intent) {
-
+        
         this.timetable = FirebaseDatabase.getInstance().getReference("/" + Settings.user.getDeparment());
         Intent intentTimetable = new Intent(this, MainScreen.class);
         PendingIntent pendingIntentTimetable = PendingIntent.getActivity(this, 0, intentTimetable, 0);
