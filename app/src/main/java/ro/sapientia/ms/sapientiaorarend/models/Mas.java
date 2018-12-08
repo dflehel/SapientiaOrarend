@@ -10,6 +10,7 @@ public class Mas {
     private HashMap<String,HashMap<String,Days>> d = new HashMap<>();
 
 
+
     @Override
     public String toString() {
         return "Mas{" +

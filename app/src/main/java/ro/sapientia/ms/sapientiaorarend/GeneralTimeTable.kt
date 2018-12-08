@@ -32,7 +32,7 @@ class GeneralTimeTable : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        // Inflate the layout for this fragment
+        // Inflate the gen_time_table_item for this fragment
         return inflater.inflate(R.layout.fragment_general_time_table, container, false)
     }
 

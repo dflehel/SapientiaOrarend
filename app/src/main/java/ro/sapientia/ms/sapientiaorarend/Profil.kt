@@ -41,7 +41,7 @@ class Profil : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        // Inflate the layout for this fragment
+        // Inflate the gen_time_table_item for this fragment
         this.mAuth = FirebaseAuth.getInstance()
         this.user = this.mAuth!!.currentUser
         val root = inflater.inflate(R.layout.fragment_profil, container, false)
@@ -55,7 +55,7 @@ class Profil : Fragment() {
         //this.phone!!.text = user!!.phoneNumber
         this.button!!.setOnClickListener {
             this.mAuth!!.signOut()
-            Toast.makeText(root.context, "Kijelentkeztel", Toast.LENGTH_LONG).show()
+            Toast.makeText(root.context, "Kijelentkeztél", Toast.LENGTH_LONG).show()
             this.activity!!.finish()
         }
         this.imageView!!.setOnClickListener {
