@@ -9,9 +9,9 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
-import ro.sapientia.ms.sapientiaorarend.Databuilder;
 import ro.sapientia.ms.sapientiaorarend.R;
-import ro.sapientia.ms.sapientiaorarend.models.ClassPathBuilder;
+import ro.sapientia.ms.sapientiaorarend.Util.Databuilder;
+import ro.sapientia.ms.sapientiaorarend.Util.ClassPathBuilder;
 
 import java.util.ArrayList;
 
@@ -62,8 +62,8 @@ public class SendMessageDeparmentSelectorAdapter extends RecyclerView.Adapter<Se
 
     @Override
     public void onBindViewHolder(@NonNull DepartmentSelectorAdapterViewHolder departmentSelectorAdapterViewHolder, int i) {
-            departmentSelectorAdapterViewHolder.text.setText(this.searchitem.get(i).toString());
-            departmentSelectorAdapterViewHolder.pos = i;
+        departmentSelectorAdapterViewHolder.text.setText(this.searchitem.get(i).toString());
+        departmentSelectorAdapterViewHolder.pos = i;
     }
 
     @Override

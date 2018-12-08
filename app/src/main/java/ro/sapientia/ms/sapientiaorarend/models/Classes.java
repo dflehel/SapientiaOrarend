@@ -1,13 +1,26 @@
 package ro.sapientia.ms.sapientiaorarend.models;
 
-import java.util.Date;
+import java.io.Serializable;
 
-public class Classes {
+public class Classes implements Serializable {
     private String teacher;
     private String material;
     private String classroom;
     private String start;
     private String end;
+
+    public Classes() {
+
+    }
+
+
+    public Classes(String teacher, String material, String classroom, String start, String end) {
+        this.teacher = teacher;
+        this.material = material;
+        this.classroom = classroom;
+        this.start = start;
+        this.end = end;
+    }
 
     public String getTeacher() {
 
@@ -47,18 +60,6 @@ public class Classes {
     }
 
     public void setEnd(String end) {
-        this.end = end;
-    }
-
-    public Classes() {
-
-    }
-
-    public Classes(String teacher, String material, String classroom, String start, String end) {
-        this.teacher = teacher;
-        this.material = material;
-        this.classroom = classroom;
-        this.start = start;
         this.end = end;
     }
 

@@ -57,7 +57,6 @@
     <string name="action_settings">Settings</string>
     <string name="signup_screen_choose">Válassz szakot</string>
 
-
     <!--Navigation screen strings-->
     <string name="navigation_screen_general">Általános órarend</string>
     <string name="navigation_screen_own">Saját órarend</string>
