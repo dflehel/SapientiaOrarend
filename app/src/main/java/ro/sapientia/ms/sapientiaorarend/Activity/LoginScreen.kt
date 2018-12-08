@@ -1,6 +1,7 @@
 package ro.sapientia.ms.sapientiaorarend.Activity
 
 import android.app.ProgressDialog
+import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
@@ -75,6 +76,7 @@ class LoginScreen : AppCompatActivity() {
             var intent = Intent(this, MainScreen::class.java)
             intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
             intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK)
+            val context:Context = this.applicationContext
             this.databasereferenc2 = FirebaseDatabase.getInstance().reference.child("/user")
                 .child(FirebaseAuth.getInstance().currentUser!!.uid)
             val listener: ValueEventListener = object : ValueEventListener {
@@ -86,13 +88,15 @@ class LoginScreen : AppCompatActivity() {
                         startingmainscreen()
                         progressDialog!!.dismiss()
                     }
+                    Toast.makeText(context,"Sikereres bejelentkezés", Toast.LENGTH_LONG).show()
                     terminated = true
                     // ...
                 }
 
                 override fun onCancelled(databaseError: DatabaseError) {
                     // Getting Post failed, log a message
-
+                    Toast.makeText(context,"Sikertelen bejelentkezés", Toast.LENGTH_LONG).show()
+                    progressDialog!!.dismiss()
                     // ...
                 }
             }
