@@ -1,8 +1,9 @@
 package ro.sapientia.ms.sapientiaorarend.models;
 
+import java.io.Serializable;
 import java.util.Date;
 
-public class Classes {
+public class Classes implements Serializable {
     private String teacher;
     private String material;
     private String classroom;
@@ -13,6 +14,7 @@ public class Classes {
 
         return teacher;
     }
+
 
     public void setTeacher(String teacher) {
         this.teacher = teacher;

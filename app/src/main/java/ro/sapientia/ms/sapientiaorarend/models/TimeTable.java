@@ -2,23 +2,26 @@ package ro.sapientia.ms.sapientiaorarend.models;
 
 import ro.sapientia.ms.sapientiaorarend.Contans.AdapterContans;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.HashMap;
 
-public class Mas {
+public class TimeTable implements Serializable {
 
     private HashMap<String,HashMap<String,Days>> d = new HashMap<>();
 
 
 
+
+
     @Override
     public String toString() {
-        return "Mas{" +
+        return "TimeTable{" +
                 "d=" + d +
                 '}';
     }
 
-    public Mas() {
+    public TimeTable() {
         this.d.put("paratlanhet",new HashMap<String, Days>());
         for (String s : AdapterContans.days){
             this.d.get("paratlanhet").put(s,new Days());

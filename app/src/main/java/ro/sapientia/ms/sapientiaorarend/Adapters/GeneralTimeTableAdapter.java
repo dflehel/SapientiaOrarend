@@ -13,7 +13,7 @@ import ro.sapientia.ms.sapientiaorarend.Contans.AdapterContans;
 import ro.sapientia.ms.sapientiaorarend.R;
 import ro.sapientia.ms.sapientiaorarend.models.Classes;
 import ro.sapientia.ms.sapientiaorarend.models.Days;
-import ro.sapientia.ms.sapientiaorarend.models.Mas;
+import ro.sapientia.ms.sapientiaorarend.models.TimeTable;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -22,7 +22,7 @@ public class GeneralTimeTableAdapter extends RecyclerView.Adapter<GeneralTimeTab
 
 
     private HashMap<String,Days> d = new HashMap<>();
-    private Mas m = new Mas();
+    private TimeTable m = new TimeTable();
     private String deparmentext;
     private String wichweek = "paratlanhet";
 
@@ -42,11 +42,11 @@ public class GeneralTimeTableAdapter extends RecyclerView.Adapter<GeneralTimeTab
         this.wichweek = wichweek;
     }
 
-    public Mas getM() {
+    public TimeTable getM() {
         return m;
     }
 
-    public void setM(Mas m) {
+    public void setM(TimeTable m) {
         this.m = m;
     }
 

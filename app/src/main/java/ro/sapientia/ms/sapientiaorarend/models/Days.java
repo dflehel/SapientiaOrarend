@@ -2,10 +2,11 @@ package ro.sapientia.ms.sapientiaorarend.models;
 
 import ro.sapientia.ms.sapientiaorarend.Contans.AdapterContans;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.HashMap;
 
-public class Days {
+public class Days implements Serializable {
 
 
     private ArrayList<Classes> classes = new ArrayList<>();
@@ -26,6 +27,8 @@ public class Days {
     public void setClasses(ArrayList<Classes> classes) {
         this.classes = classes;
     }
+
+
 
 
     @Override

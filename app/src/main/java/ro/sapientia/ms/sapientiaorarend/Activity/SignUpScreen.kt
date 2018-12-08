@@ -1,4 +1,4 @@
-package ro.sapientia.ms.sapientiaorarend
+package ro.sapientia.ms.sapientiaorarend.Activity
 
 import android.app.Dialog
 import android.app.ProgressDialog
@@ -17,9 +17,11 @@ import com.google.firebase.auth.UserProfileChangeRequest
 import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.FirebaseDatabase
 import ro.sapientia.ms.sapientiaorarend.Adapters.DeparmentSelectorAdapter
-import ro.sapientia.ms.sapientiaorarend.Adapters.SearchAdapter
+import ro.sapientia.ms.sapientiaorarend.R
 import ro.sapientia.ms.sapientiaorarend.models.User
 
+
+/** regisztralasra szolgal*/
 class SignUpScreen : AppCompatActivity() {
 
     lateinit var name:String
@@ -38,6 +40,8 @@ class SignUpScreen : AppCompatActivity() {
     private var user: FirebaseUser? = null
     private var databaseReference:DatabaseReference?=null
 
+
+    /** inicializalja a parametereket*/
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_sign_up_screen)
@@ -74,6 +78,8 @@ class SignUpScreen : AppCompatActivity() {
         return pas.contentEquals(pas2)
     }
 
+
+    /** elvegz a regisztralast es a adabazisba bejegyezendo dolgokat*/
     fun registeruser(){
         this.name = this.editextname.text.toString()
         this.email = this.edittextemail.text.toString()

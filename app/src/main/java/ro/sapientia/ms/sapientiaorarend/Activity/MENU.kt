@@ -1,11 +1,12 @@
-package ro.sapientia.ms.sapientiaorarend
+package ro.sapientia.ms.sapientiaorarend.Activity
 
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.TextView
+import ro.sapientia.ms.sapientiaorarend.R
 import ro.sapientia.ms.sapientiaorarend.models.DailyMenu
 
-
+/** az az napi menu megjelenitese*/
 class MENU : AppCompatActivity() {
 
     private  var dailyMenu:DailyMenu?=null;

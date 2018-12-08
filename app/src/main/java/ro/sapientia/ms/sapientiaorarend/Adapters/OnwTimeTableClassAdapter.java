@@ -7,10 +7,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
-import ro.sapientia.ms.sapientiaorarend.Contans.AdapterContans;
-import ro.sapientia.ms.sapientiaorarend.OwnTimeTable;
 import ro.sapientia.ms.sapientiaorarend.R;
-import ro.sapientia.ms.sapientiaorarend.models.ClassColorsBuilder;
+import ro.sapientia.ms.sapientiaorarend.Util.ClassColorsBuilder;
 import ro.sapientia.ms.sapientiaorarend.models.Classes;
 
 import java.util.ArrayList;

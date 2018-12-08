@@ -1,16 +1,19 @@
 package ro.sapientia.ms.sapientiaorarend.models;
 
-import java.util.HashMap;
+import java.io.Serializable;
 
-public class User {
+public class User implements Serializable {
 
     private String name;
     private String email;
     private String phonenumber;
     private String deparment;
-    private Mas timetable;
+    private TimeTable timetable;
 
-    public User(String name, String email, String phonenumber, String deparment, Mas timetable) {
+
+
+
+    public User(String name, String email, String phonenumber, String deparment, TimeTable timetable) {
         this.name = name;
         this.email = email;
         this.phonenumber = phonenumber;
@@ -20,11 +23,13 @@ public class User {
     }
 
 
-    public Mas getTimetable() {
+
+
+    public TimeTable getTimetable() {
         return timetable;
     }
 
-    public void setTimetable(Mas timetable) {
+    public void setTimetable(TimeTable timetable) {
         this.timetable = timetable;
     }
 

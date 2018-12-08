@@ -1,4 +1,4 @@
-package ro.sapientia.ms.sapientiaorarend
+package ro.sapientia.ms.sapientiaorarend.Fragments
 
 import android.app.Activity
 import android.content.Intent
@@ -17,6 +17,9 @@ import android.widget.Toast
 import android.os.Build;
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
+import ro.sapientia.ms.sapientiaorarend.R
+import ro.sapientia.ms.sapientiaorarend.Util.RealPathUtil
+import ro.sapientia.ms.sapientiaorarend.Util.Settings
 import java.io.File
 
 
@@ -28,9 +31,12 @@ class Profil : Fragment() {
 
     private var phone: TextView? = null
 
+    private var deparment: TextView?=null
+
+    private var group_year:TextView?=null
+
     private var button: Button? = null
 
-    private var user: FirebaseUser? = null
 
     private var mAuth: FirebaseAuth? = null
 
@@ -43,16 +49,19 @@ class Profil : Fragment() {
     ): View? {
         // Inflate the gen_time_table_item for this fragment
         this.mAuth = FirebaseAuth.getInstance()
-        this.user = this.mAuth!!.currentUser
         val root = inflater.inflate(R.layout.fragment_profil, container, false)
         this.email = root.findViewById<TextView>(R.id.profile_screen_database_email_id)
         this.name = root.findViewById<TextView>(R.id.profile_screen_database_name_id)
         this.phone = root.findViewById<TextView>(R.id.profile_screen_database_phone_id)
         this.button = root.findViewById<Button>(R.id.profile_screen_sign_out_button)
+        this.deparment = root.findViewById<TextView>(R.id.profile_screen_database_class_id)
+        this.group_year = root.findViewById<TextView>(R.id.profile_screen_database_year_id)
         this.imageView = root.findViewById<ImageView>(R.id.prifile_screen_image_view)
-        this.email!!.text = user!!.email
-        this.name!!.text = user!!.displayName
-        this.phone!!.text = user!!.phoneNumber
+        this.email!!.text = Settings.user.email
+        this.name!!.text = Settings.user.name
+        this.phone!!.text = Settings.user.phonenumber
+        this.deparment!!.text = Settings.user.deparment.split("/")[0]
+        this.group_year!!.text = Settings.user.deparment.split("/")[1] + " ev "+Settings.user.deparment.split("/")[2]+" csoport"
         this.button!!.setOnClickListener {
             this.mAuth!!.signOut()
             Toast.makeText(root.context, "Kijelentkeztél", Toast.LENGTH_LONG).show()
@@ -68,7 +77,8 @@ class Profil : Fragment() {
 
 
     companion object {
-            fun newIstance(): Profil = Profil()
+            fun newIstance(): Profil =
+                Profil()
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {

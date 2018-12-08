@@ -1,4 +1,4 @@
-package ro.sapientia.ms.sapientiaorarend
+package ro.sapientia.ms.sapientiaorarend.Activity
 
 import android.app.Dialog
 import android.content.Context
@@ -12,7 +12,6 @@ import android.support.v7.app.ActionBarDrawerToggle
 import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
-import android.util.Log
 import android.view.Gravity
 import android.view.Menu
 import android.view.MenuItem
@@ -22,37 +21,43 @@ import com.google.firebase.database.*
 import kotlinx.android.synthetic.main.activity_main_screen.*
 import ro.sapientia.ms.sapientiaorarend.Adapters.GeneralTimeTableAdapter
 import ro.sapientia.ms.sapientiaorarend.Adapters.SearchAdapter
+import ro.sapientia.ms.sapientiaorarend.Fragments.GeneralTimeTable
+import ro.sapientia.ms.sapientiaorarend.Fragments.OwnTimeTable
+import ro.sapientia.ms.sapientiaorarend.Fragments.Profil
+import ro.sapientia.ms.sapientiaorarend.R
 import ro.sapientia.ms.sapientiaorarend.Services.DatabaseListening
-import ro.sapientia.ms.sapientiaorarend.models.ClassPathBuilder
+import ro.sapientia.ms.sapientiaorarend.Util.Databuilder
+import ro.sapientia.ms.sapientiaorarend.Util.Settings
 import ro.sapientia.ms.sapientiaorarend.models.Classes
 import ro.sapientia.ms.sapientiaorarend.models.User
 import java.util.*
 
+
+/** az alkalmazas fo kepernyoje mely harom fragmentbol all plussz ket menubol*/
 class MainScreen : AppCompatActivity() {
 
     private var drawerLayout: DrawerLayout? = null
     private var actionBarDrawerToggle: ActionBarDrawerToggle? = null
     private var mAuth: FirebaseAuth? = null
-    private var generalTimeTable:BlankFragment?=null
-    private var ownTimeTable:OwnTimeTable?=null
-    private var profil:Profil?=null
+    private var generalTimeTable: GeneralTimeTable?=null
+    private var ownTimeTable: OwnTimeTable?=null
+    private var profil: Profil?=null
     private var databasereferenc: DatabaseReference?=null
     private var drawmenu: NavigationView? = null
     private var classes:ArrayList<Classes>?=ArrayList<Classes>()
-    private var data:Databuilder?=null;
+    private var data: Databuilder?=null;
     private var context:Context?= this
-    private var databasereferenc2: DatabaseReference?=null
     private var generalTimeTableAdapter:GeneralTimeTableAdapter? =null
-    public var CHANEL:String?="noti"
+    private var user:User?=null
 
 
-
+    /** az also mennu kezelesere szolgalo fuggveny*/
     private val mOnNavigationItemSelectedListener = BottomNavigationView.OnNavigationItemSelectedListener { item ->
         when (item.itemId) {
-            R.id.navigation_general_time_table-> {
+            R.id.navigation_general_time_table -> {
                 //  message.setText(R.string.title_home)
                 if (this.generalTimeTable == null) {
-                    this.generalTimeTable = BlankFragment.newInstance("fdsf", "fdfdsfds",GeneralTimeTableAdapter())
+                    this.generalTimeTable = GeneralTimeTable.newInstance(GeneralTimeTableAdapter())
                 }
                // this.generalTimeTableAdapter!!.notifyDataSetChanged()
 
@@ -69,9 +74,10 @@ class MainScreen : AppCompatActivity() {
             }
             R.id.navigation_notifications -> {
                 // message.setText(R.string.title_notifications)
-                val Profilfragment = Profil.newIstance()
-
-                openFragment(Profilfragment)
+                if(this.profil == null) {
+                    this.profil = Profil.newIstance()
+                }
+                openFragment(this.profil!!)
                 return@OnNavigationItemSelectedListener true
             }
 
@@ -80,15 +86,16 @@ class MainScreen : AppCompatActivity() {
         }
         false
     }
+    /** oldalso mennu kinyitasara es becsuasara szolgalo fuggveny*/
     private var selector:NavigationView.OnNavigationItemSelectedListener = NavigationView.OnNavigationItemSelectedListener{
         when (it.itemId){
-            R.id.etkezde->{
+            R.id.etkezde ->{
                 var intent2 = Intent(this, MENU::class.java)
                 startActivity(intent2)
                 this.drawerLayout!!.closeDrawer(Gravity.START,false)
                 true
             }
-            R.id.terkep->{
+            R.id.terkep ->{
                 var intent2 = Intent(this, Map::class.java)
                 startActivity(intent2)
                 this.drawerLayout!!.closeDrawer(Gravity.START,false)
@@ -105,16 +112,9 @@ class MainScreen : AppCompatActivity() {
 
 
 
-    /*override fun onNavigationItemSelected(item: MenuItem): Boolean {
-
-        when (item.itemId) {
-            R.id.etkezde -> Toast.makeText(this, "Clicked item one", Toast.LENGTH_SHORT).show()
-            return true
-        }
-        return false
-    }*/
 
 
+    /** A frament cserelest oldja meg*/
     private fun openFragment(fragment : Fragment){
         val transaction = supportFragmentManager.beginTransaction()
         transaction.replace(R.id.con, fragment)
@@ -122,9 +122,12 @@ class MainScreen : AppCompatActivity() {
         transaction.commit()
     }
 
+
+    /**letrehozza a fokepernyot fragmentek nelkul*/
     override fun onCreate(savedInstanceState: Bundle?) {
         this.mAuth = FirebaseAuth.getInstance()
         super.onCreate(savedInstanceState)
+        /*vendegkent vagy nem ugy van bejelenkezve*/
         if (this.mAuth!!.currentUser == null) {
             setContentView(R.layout.activity_main_screen_guest)
 
@@ -132,44 +135,31 @@ class MainScreen : AppCompatActivity() {
         } else {
             setContentView(R.layout.activity_main_screen)
         }
-        navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener)
-        val navigationView: NavigationView = findViewById(R.id.navigationView)
+        bottonnavigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener)
+        val navigationView: NavigationView = findViewById(R.id.drawernavigation)
         navigationView.setNavigationItemSelectedListener(selector)
         this.ownTimeTable = OwnTimeTable.newInstance()
-        this.databasereferenc2 = FirebaseDatabase.getInstance().reference.child("/user").child(FirebaseAuth.getInstance().currentUser!!.uid)
-        val listener:ValueEventListener = object : ValueEventListener{
-            override fun onDataChange(dataSnapshot: DataSnapshot) {
-                // Get Post object and use the values to update the UI
-                val user = dataSnapshot.getValue(User::class.java)
-                System.out.println(user.toString())
-                if (user!!.timetable == null){
-                    Databuilder(ownTimeTable!!,context,user)
-                }
-                else{
-                    ownTimeTable!!.adapter!!.m = user.timetable
-                    ownTimeTable!!.adapter!!.notifyDataSetChanged()
-                }
-                // ...
-            }
-
-            override fun onCancelled(databaseError: DatabaseError) {
-                // Getting Post failed, log a message
-
-                // ...
-            }
-        }
-        this.databasereferenc2!!.addListenerForSingleValueEvent(listener)
-
+        this.user = intent.getSerializableExtra("User") as User?
         this.databasereferenc = FirebaseDatabase.getInstance().reference.child("/orarendek/szamitastechnika/4")
         var g:GeneralTimeTableAdapter = GeneralTimeTableAdapter()
         //this.generalTimeTableAdapter!! = g
-        val GeneralTimtablefragment = BlankFragment.newInstance("dfsdfsfd", "dfsfdsfds", g)
+        val GeneralTimtablefragment = GeneralTimeTable.newInstance(g)
         this.generalTimeTable = GeneralTimtablefragment
         openFragment(this.generalTimeTable!!)
         this.drawerLayout = findViewById<DrawerLayout>(R.id.cont)
         var deparmentext:String?=null
-        this.data =  Databuilder(this.generalTimeTable!!,this,deparmentext)
-        this.actionBarDrawerToggle = ActionBarDrawerToggle(this, this.drawerLayout, R.string.open, R.string.close)
+        this.data = Databuilder(this.generalTimeTable!!, this, deparmentext)
+        this.actionBarDrawerToggle = ActionBarDrawerToggle(this, this.drawerLayout,
+            R.string.open,
+            R.string.close
+        )
+        if (Settings.user!!.timetable == null){
+            Databuilder(ownTimeTable!!,context,Settings.user)
+        }
+        else{
+            ownTimeTable!!.adapter!!.m = Settings.user.timetable
+            ownTimeTable!!.adapter!!.notifyDataSetChanged()
+        }
         this.drawerLayout!!.addDrawerListener(this.actionBarDrawerToggle!!)
         this.actionBarDrawerToggle!!.syncState()
         supportActionBar!!.setDisplayHomeAsUpEnabled(true)
@@ -177,7 +167,8 @@ class MainScreen : AppCompatActivity() {
         startService(intent)
     }
 
-    public fun start() {
+    /** a menu activiti elinditasara szolgal*/
+    fun start() {
         var intent2 = Intent(this, MENU::class.java)
         startActivity(intent2)
     }
@@ -199,7 +190,7 @@ class MainScreen : AppCompatActivity() {
     }
 
 
-
+    /** az oldalso mennu kivalasztasara szolgal*/
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         if (item.itemId == R.id.switchbetweenweeks) {
             if (item.title.toString().equals("Második hét")) {

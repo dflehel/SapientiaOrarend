@@ -1,4 +1,4 @@
-package ro.sapientia.ms.sapientiaorarend;
+package ro.sapientia.ms.sapientiaorarend.Util;
 
 import android.annotation.SuppressLint;
 import android.content.Context;

@@ -1,17 +1,14 @@
-package ro.sapientia.ms.sapientiaorarend
+package ro.sapientia.ms.sapientiaorarend.Fragments
 
-import android.content.Context
-import android.net.Uri
 import android.os.Bundle
 import android.support.v4.app.Fragment
 import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
-import android.support.v7.widget.RecyclerView.LayoutManager
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import kotlinx.android.synthetic.main.fragment_own_time_table.*
 import ro.sapientia.ms.sapientiaorarend.Adapters.OnwTimeTableAdapter
+import ro.sapientia.ms.sapientiaorarend.R
 
 
 class OwnTimeTable : Fragment() {
@@ -37,6 +34,7 @@ class OwnTimeTable : Fragment() {
 
 
     companion object {
-        fun newInstance(): OwnTimeTable =  OwnTimeTable()
+        fun newInstance(): OwnTimeTable =
+            OwnTimeTable()
     }
 }
