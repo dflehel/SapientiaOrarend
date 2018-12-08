@@ -56,10 +56,12 @@ public class DatabaseListening extends IntentService {
 
     @Override
     protected void onHandleIntent(@Nullable Intent intent) {
-        
-        this.timetable = FirebaseDatabase.getInstance().getReference("/" + Settings.user.getDeparment());
+        if (Settings.user == null) {
+            this.timetable = FirebaseDatabase.getInstance().getReference("/" + Settings.user.getDeparment());
+        }
         Intent intentTimetable = new Intent(this, MainScreen.class);
         PendingIntent pendingIntentTimetable = PendingIntent.getActivity(this, 0, intentTimetable, 0);
+
         Intent intentMenu = new Intent(this, MENU.class);
         PendingIntent pendingIntentMenu = PendingIntent.getActivity(this, 0, intentMenu, 0);
         Intent intentMessage = new Intent(this, Map.class);
@@ -99,20 +101,22 @@ public class DatabaseListening extends IntentService {
                 .setDefaults(Notification.DEFAULT_ALL)
                 .build();
         final NotificationManagerCompat notificationManager = NotificationManagerCompat.from(this);
-        this.timetable.addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                if (!DatabaseListening.this.firststarttimetable) {
-                    notificationManager.notify(1, noti1);
+        if (Settings.user == null) {
+            this.timetable.addValueEventListener(new ValueEventListener() {
+                @Override
+                public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                    if (!DatabaseListening.this.firststarttimetable) {
+                        notificationManager.notify(1, noti1);
+                    }
+                    DatabaseListening.this.firststarttimetable = false;
                 }
-                DatabaseListening.this.firststarttimetable = false;
-            }
 
-            @Override
-            public void onCancelled(@NonNull DatabaseError databaseError) {
+                @Override
+                public void onCancelled(@NonNull DatabaseError databaseError) {
 
-            }
-        });
+                }
+            });
+        }
         this.menu.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
