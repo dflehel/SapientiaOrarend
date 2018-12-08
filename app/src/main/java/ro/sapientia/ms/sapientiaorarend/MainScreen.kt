@@ -18,13 +18,14 @@ import android.view.Menu
 import android.view.MenuItem
 import android.widget.Toast
 import com.google.firebase.auth.FirebaseAuth
-import com.google.firebase.database.DatabaseReference
-import com.google.firebase.database.FirebaseDatabase
+import com.google.firebase.database.*
 import kotlinx.android.synthetic.main.activity_main_screen.*
 import ro.sapientia.ms.sapientiaorarend.Adapters.GeneralTimeTableAdapter
 import ro.sapientia.ms.sapientiaorarend.Adapters.SearchAdapter
+import ro.sapientia.ms.sapientiaorarend.Services.DatabaseListening
 import ro.sapientia.ms.sapientiaorarend.models.ClassPathBuilder
 import ro.sapientia.ms.sapientiaorarend.models.Classes
+import ro.sapientia.ms.sapientiaorarend.models.User
 import java.util.*
 
 class MainScreen : AppCompatActivity() {
@@ -39,7 +40,12 @@ class MainScreen : AppCompatActivity() {
     private var drawmenu: NavigationView? = null
     private var classes:ArrayList<Classes>?=ArrayList<Classes>()
     private var data:Databuilder?=null;
+    private var context:Context?= this
+    private var databasereferenc2: DatabaseReference?=null
     private var generalTimeTableAdapter:GeneralTimeTableAdapter? =null
+    public var CHANEL:String?="noti"
+
+
 
     private val mOnNavigationItemSelectedListener = BottomNavigationView.OnNavigationItemSelectedListener { item ->
         when (item.itemId) {
@@ -82,9 +88,15 @@ class MainScreen : AppCompatActivity() {
                 this.drawerLayout!!.closeDrawer(Gravity.START,false)
                 true
             }
+            R.id.terkep->{
+                var intent2 = Intent(this, Map::class.java)
+                startActivity(intent2)
+                this.drawerLayout!!.closeDrawer(Gravity.START,false)
+                true}
         }
         false
     }
+
 
 
     /*override fun onNavigationItemSelected(item: MenuItem): Boolean {
@@ -117,6 +129,31 @@ class MainScreen : AppCompatActivity() {
         navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener)
         val navigationView: NavigationView = findViewById(R.id.navigationView)
         navigationView.setNavigationItemSelectedListener(selector)
+        this.ownTimeTable = OwnTimeTable.newInstance()
+        this.databasereferenc2 = FirebaseDatabase.getInstance().reference.child("/user").child(FirebaseAuth.getInstance().currentUser!!.uid)
+        val listener:ValueEventListener = object : ValueEventListener{
+            override fun onDataChange(dataSnapshot: DataSnapshot) {
+                // Get Post object and use the values to update the UI
+                val user = dataSnapshot.getValue(User::class.java)
+                System.out.println(user.toString())
+                if (user!!.timetable == null){
+                    Databuilder(ownTimeTable!!,context,user)
+                }
+                else{
+                    ownTimeTable!!.adapter!!.m = user.timetable
+                    ownTimeTable!!.adapter!!.notifyDataSetChanged()
+                }
+                // ...
+            }
+
+            override fun onCancelled(databaseError: DatabaseError) {
+                // Getting Post failed, log a message
+
+                // ...
+            }
+        }
+        this.databasereferenc2!!.addListenerForSingleValueEvent(listener)
+
         this.databasereferenc = FirebaseDatabase.getInstance().reference.child("/orarendek/szamitastechnika/4")
         var g:GeneralTimeTableAdapter = GeneralTimeTableAdapter()
         //this.generalTimeTableAdapter!! = g
@@ -124,11 +161,14 @@ class MainScreen : AppCompatActivity() {
         this.generalTimeTable = GeneralTimtablefragment
         openFragment(this.generalTimeTable!!)
         this.drawerLayout = findViewById<DrawerLayout>(R.id.cont)
-        this.data =  Databuilder(this.generalTimeTable!!,this);
+        var deparmentext:String?=null
+        this.data =  Databuilder(this.generalTimeTable!!,this,deparmentext)
         this.actionBarDrawerToggle = ActionBarDrawerToggle(this, this.drawerLayout, R.string.open, R.string.close)
         this.drawerLayout!!.addDrawerListener(this.actionBarDrawerToggle!!)
         this.actionBarDrawerToggle!!.syncState()
         supportActionBar!!.setDisplayHomeAsUpEnabled(true)
+        var intent = Intent(this,DatabaseListening::class.java)
+        startService(intent)
     }
 
     public fun start() {
@@ -160,11 +200,15 @@ class MainScreen : AppCompatActivity() {
                 item.title = "Első hét"
                 this.generalTimeTable!!.adaptar!!.wichweek = "paroshet"
                 this.generalTimeTable!!.adaptar!!.notifyDataSetChanged()
+                this.ownTimeTable!!.adapter.wichweek = "paroshet"
+                this.ownTimeTable!!.adapter!!.notifyDataSetChanged()
 
             } else {
                 this.generalTimeTable!!.adaptar!!.wichweek = "paratlanhet"
                 this.generalTimeTable!!.adaptar!!.notifyDataSetChanged()
                 item.title = "Második hét"
+                this.ownTimeTable!!.adapter!!.wichweek="paratlanhet"
+                this.ownTimeTable!!.adapter!!.notifyDataSetChanged()
 
             }
             return true
@@ -175,7 +219,7 @@ class MainScreen : AppCompatActivity() {
             dialog.setContentView(R.layout.search_view)
 
             var recyclerView:RecyclerView = dialog.findViewById<RecyclerView>(R.id.search_screen_rec)
-            var searchAdapter:SearchAdapter = SearchAdapter(dialog.context,dialog)
+            var searchAdapter:SearchAdapter = SearchAdapter(dialog.context,dialog,this.generalTimeTable!!.deparmentview)
             searchAdapter.data = this.data
             //searchAdapter.dialog = dialog
             recyclerView.adapter = searchAdapter

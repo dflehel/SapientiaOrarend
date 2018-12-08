@@ -9,6 +9,7 @@ import android.widget.EditText
 import android.widget.TextView
 import android.widget.Toast
 import com.google.firebase.auth.FirebaseAuth
+import ro.sapientia.ms.sapientiaorarend.models.ClassColorsBuilder
 import ro.sapientia.ms.sapientiaorarend.models.ClassPathBuilder
 
 class LoginScreen : AppCompatActivity() {
@@ -37,12 +38,14 @@ class LoginScreen : AppCompatActivity() {
             var intent = Intent(this, MainScreen::class.java)
             startActivity(intent)
         }
+
         this.Email = findViewById(R.id.login_screen_email)
         this.Phone = findViewById(R.id.login_screen_phone)
         this.Password = findViewById(R.id.login_screen_password)
         this.Login = findViewById(R.id.login_screen_login_button)
         this.Signup = findViewById(R.id.login_screen_signup_button)
         var clas: ClassPathBuilder = ClassPathBuilder()
+        var colors:ClassColorsBuilder = ClassColorsBuilder()
         this.progressDialog = ProgressDialog(this)
         this.Login.setOnClickListener{
                     loggingig()

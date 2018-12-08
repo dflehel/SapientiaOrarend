@@ -46,16 +46,9 @@ public class GeneralTimeTableClassAdapter  extends  RecyclerView.Adapter<General
         ownTimeTableViewClassHolder.classroom.setText(this.c.get(i).getClassroom());
         ownTimeTableViewClassHolder.startt.setText(this.c.get(i).getStart().toString());
         ownTimeTableViewClassHolder.endt.setText(this.c.get(i).getEnd().toString());
-
-        String tr = this.c.get(i).getTeacher();
-        if(tr.equals("Dr. Szentes Erzsébet"))
-        {
-           valto=1;
-        } else if (tr.equals("Dr. Fazakas Csaba")) {
-            valto=2;
-        } else if (tr.equals("Dr. Pásztor Judit")) {
-            valto=3;
-        }
+        if (ClassColorsBuilder.colors.get(this.c.get(i).getTeacher()) != null) {
+            ownTimeTableViewClassHolder.cardView.setCardBackgroundColor(ClassColorsBuilder.colors.get(this.c.get(i).getTeacher()));
+    }
     }
 
     @Override
@@ -69,30 +62,15 @@ public class GeneralTimeTableClassAdapter  extends  RecyclerView.Adapter<General
         public TextView material;
         public TextView startt;
         public TextView endt;
-        public CardView testview;
+        public CardView cardView;
+
 
 
         @SuppressLint("ResourceAsColor")
         public OwnTimeTableViewClassHolder(@NonNull View itemView) {
             super(itemView);
-            this.testview = (CardView) itemView.findViewById(R.id.timetableview);
-            if(valto == 1){
-            testview.setCardBackgroundColor(Integer.parseInt("-769321"));}
-           /* testview.setCardBackgroundColor(-6054003)
-            testview.setCardBackgroundColor(-10306381)
-            testview.setCardBackgroundColor(-11178244)
-            testview.setCardBackgroundColor(-6202881)
-            testview.setCardBackgroundColor(-11272964)
-            testview.setCardBackgroundColor(-5903844)
-            testview.setCardBackgroundColor(-59758)
-            testview.setCardBackgroundColor(-10218)
-            testview.setCardBackgroundColor(-862800)*/
 
-
-            else if (valto == 2){
-                testview.setCardBackgroundColor(Integer.parseInt("-6054003"));}
-            else if (valto == 3){
-                testview.setCardBackgroundColor(Integer.parseInt("-10306381"));}
+            this.cardView = (CardView) itemView.findViewById(R.id.class_view);
             this.teacher = (TextView) itemView.findViewById(R.id.teacher_name);
             this.classroom = (TextView) itemView.findViewById(R.id.class_number);
             this.material =(TextView) itemView.findViewById(R.id.class_name);

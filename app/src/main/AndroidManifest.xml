@@ -28,21 +28,12 @@
         </activity>
         <activity android:name=".MainScreen">
         </activity>
-        <activity android:name=".Menu">
-        </activity>
-        <activity android:name=".Etkezde">
-        </activity>
         <activity android:name=".MENU">
         </activity>
-        <activity
-                android:name=".Main2Activity"
-                android:label="@string/title_activity_main2"
-                android:theme="@style/AppTheme.NoActionBar">
+
+        <activity android:name=".Map">
         </activity>
-        <activity android:name=".TestActivity">
-        </activity>
-        <activity android:name=".ShearcActivity">
-        </activity>
+        <service android:name=".Services.DatabaseListening"/>
     </application>
 
 </manifest>
