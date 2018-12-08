@@ -11,8 +11,6 @@ public class User implements Serializable {
     private TimeTable timetable;
 
 
-
-
     public User(String name, String email, String phonenumber, String deparment, TimeTable timetable) {
         this.name = name;
         this.email = email;
@@ -23,16 +21,6 @@ public class User implements Serializable {
     }
 
 
-
-
-    public TimeTable getTimetable() {
-        return timetable;
-    }
-
-    public void setTimetable(TimeTable timetable) {
-        this.timetable = timetable;
-    }
-
     public User(String name, String email, String phonenumber, String deparment) {
         this.name = name;
         this.email = email;
@@ -41,6 +29,14 @@ public class User implements Serializable {
     }
 
     public User() {
+    }
+
+    public TimeTable getTimetable() {
+        return timetable;
+    }
+
+    public void setTimetable(TimeTable timetable) {
+        this.timetable = timetable;
     }
 
     @Override

@@ -3,16 +3,23 @@ package ro.sapientia.ms.sapientiaorarend.models;
 import ro.sapientia.ms.sapientiaorarend.Contans.AdapterContans;
 
 import java.io.Serializable;
-import java.util.ArrayList;
 import java.util.HashMap;
 
 public class TimeTable implements Serializable {
 
-    private HashMap<String,HashMap<String,Days>> d = new HashMap<>();
+    private HashMap<String, HashMap<String, Days>> d = new HashMap<>();
 
 
-
-
+    public TimeTable() {
+        this.d.put("paratlanhet", new HashMap<String, Days>());
+        for (String s : AdapterContans.days) {
+            this.d.get("paratlanhet").put(s, new Days());
+        }
+        this.d.put("paroshet", new HashMap<String, Days>());
+        for (String s : AdapterContans.days) {
+            this.d.get("paroshet").put(s, new Days());
+        }
+    }
 
     @Override
     public String toString() {
@@ -20,18 +27,6 @@ public class TimeTable implements Serializable {
                 "d=" + d +
                 '}';
     }
-
-    public TimeTable() {
-        this.d.put("paratlanhet",new HashMap<String, Days>());
-        for (String s : AdapterContans.days){
-            this.d.get("paratlanhet").put(s,new Days());
-        }
-        this.d.put("paroshet",new HashMap<String, Days>());
-        for (String s:AdapterContans.days ){
-            this.d.get("paroshet").put(s,new Days());
-        }
-    }
-
 
     public HashMap<String, HashMap<String, Days>> getD() {
         return d;
@@ -41,7 +36,7 @@ public class TimeTable implements Serializable {
         this.d = d;
     }
 
-    public void adClass(String whichweek, String whichday, Classes c){
+    public void adClass(String whichweek, String whichday, Classes c) {
         this.d.get(whichweek).get(whichday).addClass(c);
     }
 }

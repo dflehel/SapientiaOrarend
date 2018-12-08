@@ -21,52 +21,14 @@ public class Databuilder {
     private DatabaseReference mdatabase;
     private ArrayList<Object> sd = new ArrayList<>();
     private ArrayList<String> ds = new ArrayList<>();
-    private HashMap<String,String> f = new HashMap<>();
-    private GeneralTimeTable g ;
+    private HashMap<String, String> f = new HashMap<>();
+    private GeneralTimeTable g;
     private OwnTimeTable ownTimeTable;
     private ProgressDialog progressDialog;
     private TextView deparmentview;
 
     public Databuilder(ArrayList<Classes> classes) {
         this.classes = classes;
-    }
-
-
-    public void shearchfortimetable(final String s){
-        String path[] = s.split(" ");
-        this.mdatabase = FirebaseDatabase.getInstance().getReference().child("/timetables/"+path[0]+"/"+path[1]+"/"+path[2]);
-        this.progressDialog.setMessage("Betöltés");
-        this.progressDialog.show();
-        this.mdatabase.addListenerForSingleValueEvent(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                TimeTable m = new TimeTable();
-
-                for (DataSnapshot whichweek : dataSnapshot.getChildren()) {
-                    for (DataSnapshot whichday : whichweek.getChildren()) {
-                        for (DataSnapshot whichclass : whichday.getChildren()) {
-                            Classes c = whichclass.getValue(Classes.class);
-                            m.adClass(whichweek.getKey(), whichday.getKey(), c);
-                        }
-                    }
-
-                }
-                System.out.println(m.toString());
-                Databuilder.this.g.getAdaptar().setM(m);
-                Databuilder.this.g.getRec().setAdapter(Databuilder.this.g.getAdaptar());
-                Databuilder.this.g.getDeparmentview().setText(s);
-                Databuilder.this.g.setDepartmenttext( s);
-
-                Databuilder.this.progressDialog.dismiss();
-
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError databaseError) {
-
-            }
-        });
-
     }
 
 
@@ -80,8 +42,8 @@ public class Databuilder {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 for (DataSnapshot department : dataSnapshot.getChildren()) {
-                    for (DataSnapshot year: department.getChildren()) {
-                        for (DataSnapshot group: year.getChildren()) {
+                    for (DataSnapshot year : department.getChildren()) {
+                        for (DataSnapshot group : year.getChildren()) {
                             TimeTable m = new TimeTable();
 
                             for (DataSnapshot week : group.getChildren()) {
@@ -100,8 +62,8 @@ public class Databuilder {
                             Databuilder.this.g.getAdaptar().setM(m);
                             // Databuilder.this.g.adaptar.setD(m.getD().get("paratlanhet"));
                             Databuilder.this.g.getRec().setAdapter(Databuilder.this.g.getAdaptar());
-                            Databuilder.this.g.getDeparmentview().setText(department.getKey()+" "+year.getKey()+" "+group.getKey());
-                            Databuilder.this.g.setDepartmenttext(department.getKey()+" "+year.getKey()+" "+group.getKey());
+                            Databuilder.this.g.getDeparmentview().setText(department.getKey() + " " + year.getKey() + " " + group.getKey());
+                            Databuilder.this.g.setDepartmenttext(department.getKey() + " " + year.getKey() + " " + group.getKey());
                             Databuilder.this.progressDialog.dismiss();
                             break;
                         }
@@ -119,7 +81,8 @@ public class Databuilder {
 
     }
 
-    public Databuilder(OwnTimeTable ownTimeTable, Context c, final User user){
+
+    public Databuilder(OwnTimeTable ownTimeTable, Context c, final User user) {
         this.ownTimeTable = ownTimeTable;
         this.progressDialog = new ProgressDialog(c);
         this.progressDialog.setMessage("Betöltés");
@@ -149,6 +112,43 @@ public class Databuilder {
                 user.setTimetable(m);
                 databse.setValue(user);
                 Databuilder.this.progressDialog.dismiss();
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
+
+    }
+
+    public void shearchfortimetable(final String s) {
+        String path[] = s.split(" ");
+        this.mdatabase = FirebaseDatabase.getInstance().getReference().child("/timetables/" + path[0] + "/" + path[1] + "/" + path[2]);
+        this.progressDialog.setMessage("Betöltés");
+        this.progressDialog.show();
+        this.mdatabase.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                TimeTable m = new TimeTable();
+
+                for (DataSnapshot whichweek : dataSnapshot.getChildren()) {
+                    for (DataSnapshot whichday : whichweek.getChildren()) {
+                        for (DataSnapshot whichclass : whichday.getChildren()) {
+                            Classes c = whichclass.getValue(Classes.class);
+                            m.adClass(whichweek.getKey(), whichday.getKey(), c);
+                        }
+                    }
+
+                }
+                System.out.println(m.toString());
+                Databuilder.this.g.getAdaptar().setM(m);
+                Databuilder.this.g.getRec().setAdapter(Databuilder.this.g.getAdaptar());
+                Databuilder.this.g.getDeparmentview().setText(s);
+                Databuilder.this.g.setDepartmenttext(s);
+
+                Databuilder.this.progressDialog.dismiss();
+
             }
 
             @Override

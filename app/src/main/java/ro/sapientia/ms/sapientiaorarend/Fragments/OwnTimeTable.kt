@@ -17,7 +17,6 @@ class OwnTimeTable : Fragment() {
     var adapter = OnwTimeTableAdapter()
 
 
-
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -26,11 +25,9 @@ class OwnTimeTable : Fragment() {
         val root = inflater.inflate(R.layout.fragment_own_time_table, container, false)
         this.recyclerView = root.findViewById<RecyclerView>(R.id.own_time_table_rec)
         this.recyclerView.adapter = this.adapter
-        this.recyclerView.layoutManager = LinearLayoutManager(activity,LinearLayoutManager.HORIZONTAL,false)
+        this.recyclerView.layoutManager = LinearLayoutManager(activity, LinearLayoutManager.HORIZONTAL, false)
         return root
     }
-
-
 
 
     companion object {

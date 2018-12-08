@@ -17,7 +17,8 @@ import android.view.Menu
 import android.view.MenuItem
 import android.widget.Toast
 import com.google.firebase.auth.FirebaseAuth
-import com.google.firebase.database.*
+import com.google.firebase.database.DatabaseReference
+import com.google.firebase.database.FirebaseDatabase
 import kotlinx.android.synthetic.main.activity_main_screen.*
 import ro.sapientia.ms.sapientiaorarend.Adapters.GeneralTimeTableAdapter
 import ro.sapientia.ms.sapientiaorarend.Adapters.SearchAdapter
@@ -40,16 +41,16 @@ class MainScreen : AppCompatActivity() {
     private var drawerLayout: DrawerLayout? = null
     private var actionBarDrawerToggle: ActionBarDrawerToggle? = null
     private var mAuth: FirebaseAuth? = null
-    private var generalTimeTable: GeneralTimeTable?=null
-    private var ownTimeTable: OwnTimeTable?=null
-    private var profil: Profil?=null
-    private var databasereferenc: DatabaseReference?=null
+    private var generalTimeTable: GeneralTimeTable? = null
+    private var ownTimeTable: OwnTimeTable? = null
+    private var profil: Profil? = null
+    private var databasereferenc: DatabaseReference? = null
     private var drawmenu: NavigationView? = null
-    private var classes:ArrayList<Classes>?=ArrayList<Classes>()
-    private var data: Databuilder?=null;
-    private var context:Context?= this
-    private var generalTimeTableAdapter:GeneralTimeTableAdapter? =null
-    private var user:User?=null
+    private var classes: ArrayList<Classes>? = ArrayList<Classes>()
+    private var data: Databuilder? = null;
+    private var context: Context? = this
+    private var generalTimeTableAdapter: GeneralTimeTableAdapter? = null
+    private var user: User? = null
 
 
     /** az also mennu kezelesere szolgalo fuggveny*/
@@ -60,14 +61,14 @@ class MainScreen : AppCompatActivity() {
                 if (this.generalTimeTable == null) {
                     this.generalTimeTable = GeneralTimeTable.newInstance(GeneralTimeTableAdapter())
                 }
-               // this.generalTimeTableAdapter!!.notifyDataSetChanged()
+                // this.generalTimeTableAdapter!!.notifyDataSetChanged()
 
                 openFragment(this.generalTimeTable!!)
                 return@OnNavigationItemSelectedListener true
             }
             R.id.navigation_own_time_table -> {
                 // message.setText(R.string.title_dashboard)
-                if (this.ownTimeTable ==null) {
+                if (this.ownTimeTable == null) {
                     this.ownTimeTable = OwnTimeTable.newInstance()
                 }
                 openFragment(this.ownTimeTable!!)
@@ -75,7 +76,7 @@ class MainScreen : AppCompatActivity() {
             }
             R.id.navigation_notifications -> {
                 // message.setText(R.string.title_notifications)
-                if(this.profil == null) {
+                if (this.profil == null) {
                     this.profil = Profil.newIstance()
                 }
                 openFragment(this.profil!!)
@@ -83,40 +84,32 @@ class MainScreen : AppCompatActivity() {
             }
 
 
-
         }
         false
     }
     /** oldalso mennu kinyitasara es becsuasara szolgalo fuggveny*/
-    private var selector:NavigationView.OnNavigationItemSelectedListener = NavigationView.OnNavigationItemSelectedListener{
-        when (it.itemId){
-            R.id.etkezde ->{
-                var intent2 = Intent(this, MENU::class.java)
-                startActivity(intent2)
-                this.drawerLayout!!.closeDrawer(Gravity.START,false)
-                true
+    private var selector: NavigationView.OnNavigationItemSelectedListener =
+        NavigationView.OnNavigationItemSelectedListener {
+            when (it.itemId) {
+                R.id.etkezde -> {
+                    var intent2 = Intent(this, MENU::class.java)
+                    startActivity(intent2)
+                    this.drawerLayout!!.closeDrawer(Gravity.START, false)
+                    true
+                }
+                R.id.terkep -> {
+                    var intent2 = Intent(this, Map::class.java)
+                    startActivity(intent2)
+                    this.drawerLayout!!.closeDrawer(Gravity.START, false)
+                    true
+                }
             }
-            R.id.terkep ->{
-                var intent2 = Intent(this, Map::class.java)
-                startActivity(intent2)
-                this.drawerLayout!!.closeDrawer(Gravity.START,false)
-                true}
-            R.id.uzenet->{
-                var intent2 = Intent(this, activity_send_message::class.java)
-                startActivity(intent2)
-                this.drawerLayout!!.closeDrawer(Gravity.START,false)
-                true
-            }
+            false
         }
-        false
-    }
-
-
-
 
 
     /** A frament cserelest oldja meg*/
-    private fun openFragment(fragment : Fragment){
+    private fun openFragment(fragment: Fragment) {
         val transaction = supportFragmentManager.beginTransaction()
         transaction.replace(R.id.con, fragment)
 
@@ -142,29 +135,29 @@ class MainScreen : AppCompatActivity() {
         this.ownTimeTable = OwnTimeTable.newInstance()
         this.user = intent.getSerializableExtra("User") as User?
         this.databasereferenc = FirebaseDatabase.getInstance().reference.child("/orarendek/szamitastechnika/4")
-        var g:GeneralTimeTableAdapter = GeneralTimeTableAdapter()
+        var g: GeneralTimeTableAdapter = GeneralTimeTableAdapter()
         //this.generalTimeTableAdapter!! = g
         val GeneralTimtablefragment = GeneralTimeTable.newInstance(g)
         this.generalTimeTable = GeneralTimtablefragment
         openFragment(this.generalTimeTable!!)
         this.drawerLayout = findViewById<DrawerLayout>(R.id.cont)
-        var deparmentext:String?=null
+        var deparmentext: String? = null
         this.data = Databuilder(this.generalTimeTable!!, this, deparmentext)
-        this.actionBarDrawerToggle = ActionBarDrawerToggle(this, this.drawerLayout,
+        this.actionBarDrawerToggle = ActionBarDrawerToggle(
+            this, this.drawerLayout,
             R.string.open,
             R.string.close
         )
-        if (Settings.user!!.timetable == null){
-            Databuilder(ownTimeTable!!,context,Settings.user)
-        }
-        else{
+        if (Settings.user!!.timetable == null) {
+            Databuilder(ownTimeTable!!, context, Settings.user)
+        } else {
             ownTimeTable!!.adapter!!.m = Settings.user.timetable
             ownTimeTable!!.adapter!!.notifyDataSetChanged()
         }
         this.drawerLayout!!.addDrawerListener(this.actionBarDrawerToggle!!)
         this.actionBarDrawerToggle!!.syncState()
         supportActionBar!!.setDisplayHomeAsUpEnabled(true)
-        var intent = Intent(this,DatabaseListening::class.java)
+        var intent = Intent(this, DatabaseListening::class.java)
         startService(intent)
     }
 
@@ -205,19 +198,20 @@ class MainScreen : AppCompatActivity() {
                 this.generalTimeTable!!.adaptar!!.wichweek = "paratlanhet"
                 this.generalTimeTable!!.adaptar!!.notifyDataSetChanged()
                 item.title = "Második hét"
-                this.ownTimeTable!!.adapter!!.wichweek="paratlanhet"
+                this.ownTimeTable!!.adapter!!.wichweek = "paratlanhet"
                 this.ownTimeTable!!.adapter!!.notifyDataSetChanged()
 
             }
             return true
         }
-        if (item.itemId == R.id.kereses){
-            var dialog:Dialog = Dialog(this)
+        if (item.itemId == R.id.kereses) {
+            var dialog: Dialog = Dialog(this)
 
             dialog.setContentView(R.layout.search_view)
 
-            var recyclerView:RecyclerView = dialog.findViewById<RecyclerView>(R.id.search_screen_rec)
-            var searchAdapter:SearchAdapter = SearchAdapter(dialog.context,dialog,this.generalTimeTable!!.deparmentview)
+            var recyclerView: RecyclerView = dialog.findViewById<RecyclerView>(R.id.search_screen_rec)
+            var searchAdapter: SearchAdapter =
+                SearchAdapter(dialog.context, dialog, this.generalTimeTable!!.deparmentview)
             searchAdapter.data = this.data
             //searchAdapter.dialog = dialog
             recyclerView.adapter = searchAdapter

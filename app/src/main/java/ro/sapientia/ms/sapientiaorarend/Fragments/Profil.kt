@@ -5,6 +5,7 @@ import android.content.Intent
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
 import android.net.Uri
+import android.os.Build
 import android.os.Bundle
 import android.support.v4.app.Fragment
 import android.view.LayoutInflater
@@ -14,9 +15,7 @@ import android.widget.Button
 import android.widget.ImageView
 import android.widget.TextView
 import android.widget.Toast
-import android.os.Build;
 import com.google.firebase.auth.FirebaseAuth
-import com.google.firebase.auth.FirebaseUser
 import ro.sapientia.ms.sapientiaorarend.R
 import ro.sapientia.ms.sapientiaorarend.Util.RealPathUtil
 import ro.sapientia.ms.sapientiaorarend.Util.Settings
@@ -31,9 +30,9 @@ class Profil : Fragment() {
 
     private var phone: TextView? = null
 
-    private var deparment: TextView?=null
+    private var deparment: TextView? = null
 
-    private var group_year:TextView?=null
+    private var group_year: TextView? = null
 
     private var button: Button? = null
 
@@ -41,7 +40,7 @@ class Profil : Fragment() {
     private var mAuth: FirebaseAuth? = null
 
 
-    private var imageView:ImageView?=null
+    private var imageView: ImageView? = null
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -61,48 +60,47 @@ class Profil : Fragment() {
         this.name!!.text = Settings.user.name
         this.phone!!.text = Settings.user.phonenumber
         this.deparment!!.text = Settings.user.deparment.split("/")[0]
-        this.group_year!!.text = Settings.user.deparment.split("/")[1] + " ev "+Settings.user.deparment.split("/")[2]+" csoport"
+        this.group_year!!.text = Settings.user.deparment.split("/")[1] + " ev " +
+                Settings.user.deparment.split("/")[2] + " csoport"
         this.button!!.setOnClickListener {
             this.mAuth!!.signOut()
             Toast.makeText(root.context, "Kijelentkeztél", Toast.LENGTH_LONG).show()
             this.activity!!.finish()
         }
         this.imageView!!.setOnClickListener {
-                var intent = Intent(Intent.ACTION_GET_CONTENT)
-                intent.setType("image/*")
-                startActivityForResult(intent,0)
+            var intent = Intent(Intent.ACTION_GET_CONTENT)
+            intent.setType("image/*")
+            startActivityForResult(intent, 0)
         }
         return root
     }
 
 
     companion object {
-            fun newIstance(): Profil =
-                Profil()
+        fun newIstance(): Profil =
+            Profil()
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
-        if (resultCode == Activity.RESULT_OK && data !=null){
+        if (resultCode == Activity.RESULT_OK && data != null) {
 
-            if(Build.VERSION.SDK_INT < 19){
+            if (Build.VERSION.SDK_INT < 19) {
                 var realPath = RealPathUtil.getRealPathFromURI_API11to18(this.context, data.getData());
-            }
-            else{
+            } else {
                 var realPath = RealPathUtil.getRealPathFromURI_API19(this.context, data.getData());
             }
         }
     }
 
-    private fun imageload(uripath:String,realpath:String){
+    private fun imageload(uripath: String, realpath: String) {
 
-        var urifrompath = Uri.fromFile( File(realpath));
-        var bitmap:Bitmap? = null;
-        try{
+        var urifrompath = Uri.fromFile(File(realpath));
+        var bitmap: Bitmap? = null;
+        try {
             bitmap = BitmapFactory.decodeFile(realpath)
 
-        }
-        catch (e:Exception){
+        } catch (e: Exception) {
             print(e)
         }
         this.imageView!!.setImageBitmap(bitmap!!)
