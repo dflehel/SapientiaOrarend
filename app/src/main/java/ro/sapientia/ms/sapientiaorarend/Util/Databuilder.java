@@ -1,4 +1,4 @@
-package ro.sapientia.ms.sapientiaorarend;
+package ro.sapientia.ms.sapientiaorarend.Util;
 
 import android.app.ProgressDialog;
 import android.content.Context;
@@ -6,8 +6,10 @@ import android.support.annotation.NonNull;
 import android.widget.TextView;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.*;
+import ro.sapientia.ms.sapientiaorarend.Fragments.GeneralTimeTable;
+import ro.sapientia.ms.sapientiaorarend.Fragments.OwnTimeTable;
 import ro.sapientia.ms.sapientiaorarend.models.Classes;
-import ro.sapientia.ms.sapientiaorarend.models.Mas;
+import ro.sapientia.ms.sapientiaorarend.models.TimeTable;
 import ro.sapientia.ms.sapientiaorarend.models.User;
 
 import java.util.ArrayList;
@@ -20,11 +22,10 @@ public class Databuilder {
     private ArrayList<Object> sd = new ArrayList<>();
     private ArrayList<String> ds = new ArrayList<>();
     private HashMap<String,String> f = new HashMap<>();
-    private BlankFragment g ;
+    private GeneralTimeTable g ;
     private OwnTimeTable ownTimeTable;
     private ProgressDialog progressDialog;
     private TextView deparmentview;
-    //private OwnTimeTableAdapter own = null;
 
     public Databuilder(ArrayList<Classes> classes) {
         this.classes = classes;
@@ -39,26 +40,22 @@ public class Databuilder {
         this.mdatabase.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                Mas m = new Mas();
+                TimeTable m = new TimeTable();
 
-                for (DataSnapshot s:dataSnapshot.getChildren()) {
-                    for (DataSnapshot ss : s.getChildren()) {
-                        for (DataSnapshot sss : ss.getChildren()) {
-
-                            //System.out.println(sss.getValue());
-                            Classes c = sss.getValue(Classes.class);
-                            m.adClass(s.getKey(),ss.getKey(),c);
-                            // System.out.println(c.toString());
+                for (DataSnapshot whichweek : dataSnapshot.getChildren()) {
+                    for (DataSnapshot whichday : whichweek.getChildren()) {
+                        for (DataSnapshot whichclass : whichday.getChildren()) {
+                            Classes c = whichclass.getValue(Classes.class);
+                            m.adClass(whichweek.getKey(), whichday.getKey(), c);
                         }
                     }
 
                 }
                 System.out.println(m.toString());
-                Databuilder.this.g.adaptar.setM(m);
-                // Databuilder.this.g.adaptar.setD(m.getD().get("paratlanhet"));
-                Databuilder.this.g.rec.setAdapter(Databuilder.this.g.adaptar);
-                Databuilder.this.g.deparmentview.setText(s);
-                Databuilder.this.g.departmenttext = s;
+                Databuilder.this.g.getAdaptar().setM(m);
+                Databuilder.this.g.getRec().setAdapter(Databuilder.this.g.getAdaptar());
+                Databuilder.this.g.getDeparmentview().setText(s);
+                Databuilder.this.g.setDepartmenttext( s);
 
                 Databuilder.this.progressDialog.dismiss();
 
@@ -73,78 +70,38 @@ public class Databuilder {
     }
 
 
-    public Databuilder(BlankFragment g, Context c,String s) {
+    public Databuilder(GeneralTimeTable g, Context c, String s) {
         this.g = g;
         this.progressDialog = new ProgressDialog(c);
         this.progressDialog.setMessage("Betöltés");
         this.progressDialog.show();
-        //this.mdatabase = FirebaseDatabase.getInstance().getReference().child("/timetables/szamitastechnika/4/a");
         this.mdatabase = FirebaseDatabase.getInstance().getReference().child("/timetables");
-      /* mdatabase.addChildEventListener(new ChildEventListener() {
-           @Override
-            public void onChildAdded(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
-                //if (Databuilder.this.own == null){
-                  //  Databuilder.this.own = timetable;
-               // }
-                /*Classes c = new Classes();
-                Databuilder.this.f.putAll((Map<? extends String, ? extends String>) dataSnapshot.getValue());
-                for (String ss :(Map<? extends String, ? extends String>) ((Map<? extends String, ? extends String>) dataSnapshot.getValue()).keySet() ){
-                    c.setClas(Map<? extends String, ? extends String>) ((Map<? extends String, ? extends String>) dataSnapshot.getValue()).get(ss));
-                    c.getMaterial(ss);
-                    Databuilder.this.classes.add(c);
-                }
-
-               // Databuilder.this.own.no
-                System.out.println("dfdsgHGFHfg'hg");
-            }
-
-            @Override
-            public void onChildChanged(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
-                    System.out.println("dfgdfh");
-            }
-
-            @Override
-            public void onChildRemoved(@NonNull DataSnapshot dataSnapshot) {
-
-            }
-
-            @Override
-            public void onChildMoved(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
-
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError databaseError) {
-                System.out.println("dfgdfh");
-            }
-        });*/
         this.mdatabase.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                for (DataSnapshot d : dataSnapshot.getChildren()) {
-                    for (DataSnapshot dd: d.getChildren()) {
-                        for (DataSnapshot ddd: dd.getChildren()) {
-                            Mas m = new Mas();
+                for (DataSnapshot department : dataSnapshot.getChildren()) {
+                    for (DataSnapshot year: department.getChildren()) {
+                        for (DataSnapshot group: year.getChildren()) {
+                            TimeTable m = new TimeTable();
 
-                            for (DataSnapshot s : ddd
-                                    .getChildren()) {
-                                for (DataSnapshot ss : s.getChildren()) {
-                                    for (DataSnapshot sss : ss.getChildren()) {
+                            for (DataSnapshot week : group.getChildren()) {
+                                for (DataSnapshot day : week.getChildren()) {
+                                    for (DataSnapshot clas : day.getChildren()) {
 
                                         //System.out.println(sss.getValue());
-                                        Classes c = sss.getValue(Classes.class);
-                                        m.adClass(s.getKey(), ss.getKey(), c);
+                                        Classes c = clas.getValue(Classes.class);
+                                        m.adClass(week.getKey(), day.getKey(), c);
                                         // System.out.println(c.toString());
                                     }
                                 }
 
                             }
                             System.out.println(m.toString());
-                            Databuilder.this.g.adaptar.setM(m);
+                            Databuilder.this.g.getAdaptar().setM(m);
                             // Databuilder.this.g.adaptar.setD(m.getD().get("paratlanhet"));
-                            Databuilder.this.g.rec.setAdapter(Databuilder.this.g.adaptar);
-                            Databuilder.this.g.deparmentview.setText(d.getKey()+" "+dd.getKey()+" "+ddd.getKey());
-                            Databuilder.this.g.departmenttext = d.getKey()+" "+dd.getKey()+" "+ddd.getKey();
+                            Databuilder.this.g.getRec().setAdapter(Databuilder.this.g.getAdaptar());
+                            Databuilder.this.g.getDeparmentview().setText(department.getKey()+" "+year.getKey()+" "+group.getKey());
+                            Databuilder.this.g.setDepartmenttext(department.getKey()+" "+year.getKey()+" "+group.getKey());
                             Databuilder.this.progressDialog.dismiss();
                             break;
                         }
@@ -171,15 +128,15 @@ public class Databuilder {
         this.mdatabase.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                Mas m = new Mas();
+                TimeTable m = new TimeTable();
 
-                for (DataSnapshot s : dataSnapshot.getChildren()) {
-                    for (DataSnapshot ss : s.getChildren()) {
-                        for (DataSnapshot sss : ss.getChildren()) {
+                for (DataSnapshot whichweek : dataSnapshot.getChildren()) {
+                    for (DataSnapshot whichday : whichweek.getChildren()) {
+                        for (DataSnapshot whichclass : whichday.getChildren()) {
 
                             //System.out.println(sss.getValue());
-                            Classes c = sss.getValue(Classes.class);
-                            m.adClass(s.getKey(), ss.getKey(), c);
+                            Classes c = whichclass.getValue(Classes.class);
+                            m.adClass(whichweek.getKey(), whichday.getKey(), c);
                             // System.out.println(c.toString());
                         }
                     }

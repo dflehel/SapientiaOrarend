@@ -3,15 +3,15 @@ package ro.sapientia.ms.sapientiaorarend.Services;
 import android.app.*;
 import android.content.Intent;
 import android.graphics.BitmapFactory;
-import android.graphics.drawable.Icon;
-import android.os.IBinder;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
-import android.support.v4.app.NotificationCompat;
 import android.support.v4.app.NotificationManagerCompat;
 import com.google.firebase.database.*;
-import ro.sapientia.ms.sapientiaorarend.MainScreen;
+import ro.sapientia.ms.sapientiaorarend.Activity.MENU;
+import ro.sapientia.ms.sapientiaorarend.Activity.MainScreen;
+import ro.sapientia.ms.sapientiaorarend.Activity.Map;
 import ro.sapientia.ms.sapientiaorarend.R;
+import ro.sapientia.ms.sapientiaorarend.Util.Settings;
 import ro.sapientia.ms.sapientiaorarend.models.User;
 
 public class DatabaseListening extends IntentService {
@@ -19,7 +19,11 @@ public class DatabaseListening extends IntentService {
     private DatabaseReference timetable;
     private DatabaseReference message;
     private DatabaseReference menu;
-    private User user;
+    private boolean firststarttimetable = true;
+    private boolean firststartmenu = true;
+    private boolean firststartmessage = true
+            ;
+
 
     public DatabaseListening(String name) {
         super(name);
@@ -34,6 +38,7 @@ public class DatabaseListening extends IntentService {
 
     }
 
+
     /**
      * Creates an IntentService.  Invoked by your subclass's constructor.
      *
@@ -41,7 +46,6 @@ public class DatabaseListening extends IntentService {
      */
     public DatabaseListening(String name,User u) {
         super(name);
-        this.timetable = FirebaseDatabase.getInstance().getReference("/"+u.getDeparment());
         this.menu = FirebaseDatabase.getInstance().getReference("/menu");
         this.message = FirebaseDatabase.getInstance().getReference("/message");
 
@@ -51,15 +55,24 @@ public class DatabaseListening extends IntentService {
 
     @Override
     protected void onHandleIntent(@Nullable Intent intent) {
-        Intent intent1 = new Intent(this,MainScreen.class);
-        PendingIntent pendingIntent = PendingIntent.getActivity(this,0,intent1,0);
+
+        this.timetable = FirebaseDatabase.getInstance().getReference("/"+Settings.user.getDeparment());
+        Intent intentTimetable = new Intent(this,MainScreen.class);
+        PendingIntent pendingIntentTimetable = PendingIntent.getActivity(this,0,intentTimetable,0);
+        Intent intentMenu = new Intent(this,MENU.class);
+        PendingIntent pendingIntentMenu = PendingIntent.getActivity(this,0,intentMenu,0);
+        Intent intentMessage = new Intent(this,Map.class);
+        PendingIntent pendingIntentMessage = PendingIntent.getActivity(this,0,intentMessage,0);
         final Notification noti1 = new Notification.Builder(this)
                 .setContentTitle("Valtozas")
                 .setContentText("Orarendvaltozas tortent")
                 .setSmallIcon(R.drawable.ic_stat_adb )
                 .setLargeIcon(BitmapFactory.decodeResource(getResources(), R.mipmap.ic_launcher_round))
                 .setLargeIcon(BitmapFactory.decodeResource(getResources(), R.mipmap.ic_launcher_round))
-                .setContentIntent(pendingIntent)
+                .setContentIntent(pendingIntentTimetable)
+                .setDefaults(Notification.DEFAULT_ALL)
+                .setPriority(Notification.PRIORITY_HIGH)
+                .setAutoCancel(true)
                 .build();
         final Notification noti2 = new Notification.Builder(this)
                 .setContentTitle("Valtozas")
@@ -67,8 +80,11 @@ public class DatabaseListening extends IntentService {
                 .setSmallIcon(R.drawable.ic_stat_adb )
                 .setLargeIcon(BitmapFactory.decodeResource(getResources(), R.mipmap.ic_launcher_round))
         .setLargeIcon(BitmapFactory.decodeResource(getResources(), R.mipmap.ic_launcher_round))
-                .setContentIntent(pendingIntent)
+                .setContentIntent(pendingIntentMenu)
                 //.setSound(Notification.DEFAULT_SOUND)
+                .setAutoCancel(true)
+                .setPriority(Notification.PRIORITY_HIGH)
+                .setDefaults(Notification.DEFAULT_ALL)
                 .build();
         final Notification noti3 = new Notification.Builder(this)
                 .setContentTitle("Uzeneted erkezet")
@@ -76,28 +92,33 @@ public class DatabaseListening extends IntentService {
                 .setLargeIcon(BitmapFactory.decodeResource(getResources(), R.mipmap.ic_launcher_round))
                 .setSmallIcon(R.drawable.ic_stat_adb )
                 .setLargeIcon(BitmapFactory.decodeResource(getResources(), R.mipmap.ic_launcher_round))
-                .setContentIntent(pendingIntent)
+                .setContentIntent(pendingIntentMessage)
+                .setAutoCancel(true)
+                .setPriority(Notification.PRIORITY_HIGH)
+                .setDefaults(Notification.DEFAULT_ALL)
                 .build();
-        final NotificationManagerCompat notificationManager = NotificationManagerCompat.from(this);
-        /*        this.timetable.addValueEventListener(new ValueEventListener() {
+       final NotificationManagerCompat notificationManager = NotificationManagerCompat.from(this);
+       this.timetable.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                Notification noti = new Notification.Builder(getApplicationContext())
-                        .setContentTitle("Valtozas")
-                        .setContentText("Orarendvaltozas tortent")
-                        .build();
+                if (! DatabaseListening.this.firststarttimetable) {
+                    notificationManager.notify(1, noti1);
+                }
+                DatabaseListening.this.firststarttimetable = false;
             }
 
             @Override
             public void onCancelled(@NonNull DatabaseError databaseError) {
 
             }
-        });*/
+        });
         this.menu.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-
-             notificationManager.notify(1, noti2);
+                if (!DatabaseListening.this.firststartmenu) {
+                    notificationManager.notify(1, noti2);
+                }
+                DatabaseListening.this.firststartmenu = false;
             }
 
             @Override
@@ -108,7 +129,10 @@ public class DatabaseListening extends IntentService {
         this.message.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                notificationManager.notify(1, noti3);
+                if (! DatabaseListening.this.firststartmessage) {
+                    notificationManager.notify(1, noti3);
+                }
+                DatabaseListening.this.firststartmessage = false;
             }
 
             @Override

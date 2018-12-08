@@ -9,12 +9,14 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
-import ro.sapientia.ms.sapientiaorarend.Databuilder;
+import ro.sapientia.ms.sapientiaorarend.Util.Databuilder;
 import ro.sapientia.ms.sapientiaorarend.R;
-import ro.sapientia.ms.sapientiaorarend.models.ClassPathBuilder;
+import ro.sapientia.ms.sapientiaorarend.Util.ClassPathBuilder;
 
 import java.util.ArrayList;
 
+
+/** a regisztralashoz szukseg szak megadasa*/
 public class DeparmentSelectorAdapter extends RecyclerView.Adapter<DeparmentSelectorAdapter.DepartmentSelectorAdapterViewHolder> {
 
     private ArrayList<String> searchitem = new ArrayList<>() ;
@@ -39,6 +41,7 @@ public class DeparmentSelectorAdapter extends RecyclerView.Adapter<DeparmentSele
         this.data = data;
     }
 
+    /** a utilban levo classpath builder segitsegevel kiveszem az adatokat is bealitom az itteni adattagoknak*/
     public DeparmentSelectorAdapter(Context c,Dialog d, Button button){
         for(String deparment:ClassPathBuilder.classPath.keySet()){
             for(String year:ClassPathBuilder.classPath.get(deparment).keySet()){
@@ -82,6 +85,7 @@ public class DeparmentSelectorAdapter extends RecyclerView.Adapter<DeparmentSele
             this.text.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
+                    /* a regisztralasnal levo buttonra felteszem a kivalasztot szakot igy konnyen elerheto kintrol*/
                     DeparmentSelectorAdapter.this.button.setText(DeparmentSelectorAdapter.this.searchitem.get(DepartmentSelectorAdapterViewHolder.this.pos));
                     DeparmentSelectorAdapter.this.dialog.dismiss();
                 }

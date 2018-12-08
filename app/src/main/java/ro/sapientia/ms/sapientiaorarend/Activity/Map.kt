@@ -1,4 +1,4 @@
-package ro.sapientia.ms.sapientiaorarend
+package ro.sapientia.ms.sapientiaorarend.Activity
 
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
@@ -6,6 +6,7 @@ import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
 import android.widget.TextView
 import ro.sapientia.ms.sapientiaorarend.Adapters.MapAdapter
+import ro.sapientia.ms.sapientiaorarend.R
 
 class Map : AppCompatActivity() {
 

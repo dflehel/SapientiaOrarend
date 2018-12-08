@@ -1,7 +1,8 @@
-package ro.sapientia.ms.sapientiaorarend.models;
+package ro.sapientia.ms.sapientiaorarend.Util;
 
 import android.support.annotation.NonNull;
 import com.google.firebase.database.*;
+import ro.sapientia.ms.sapientiaorarend.Activity.LoginScreen;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -11,6 +12,8 @@ public class ClassPathBuilder {
 
     private DatabaseReference mdatabase;
     public static HashMap<String,HashMap<String,ArrayList<String>>>  classPath = new HashMap<>();
+    public static boolean terminated = false;
+    private static LoginScreen loginScreen;
 
 
     public ClassPathBuilder(HashMap<String, HashMap<String, ArrayList<String>>> classPath) {
@@ -26,7 +29,8 @@ public class ClassPathBuilder {
         this.classPath = classPath;
     }
 
-    public ClassPathBuilder() {
+    public ClassPathBuilder(LoginScreen loginScreen) {
+        this.loginScreen = loginScreen;
         this.mdatabase = FirebaseDatabase.getInstance().getReference().child("/timetables/");
         this.mdatabase.addValueEventListener(new ValueEventListener() {
             @Override
@@ -41,6 +45,11 @@ public class ClassPathBuilder {
                                 ClassPathBuilder.this.classPath.get(depatment.getKey()).get(departmentyear.getKey()).add(deparmentgroup.getKey());
                             }
                         }
+                    }
+                    ClassPathBuilder.terminated = true;
+                    if(ClassColorsBuilder.terminated && ClassPathBuilder.loginScreen.getTerminated()){
+                        ClassPathBuilder.loginScreen.startingmainscreen();
+                        ClassPathBuilder.loginScreen.getProgressDialog().dismiss();
                     }
             }
 
