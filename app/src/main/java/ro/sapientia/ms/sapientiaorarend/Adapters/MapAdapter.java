@@ -16,10 +16,10 @@ public class MapAdapter extends RecyclerView.Adapter<MapAdapter.MyViewHolderAdap
     private ArrayList<Rooms> x = new ArrayList<>();
 
     public MapAdapter() {
-        Rooms r0 = new Rooms("Pince", "Tornaterem\nJapan labor\nRoman kabinet\nKonyvtar\nGepesz labor\nFoldrajz labor");
-        Rooms r1 = new Rooms("Elso emelet", "Terem 114\nTerem 113\nTerem 112\nTerem 111\nTerem 128\nTerem 129\nTerem 130\nTerem 131\nTerem 132\nGepesz tanszek\n");
-        Rooms r2 = new Rooms("Masodik emelet", "Terem 230\nTerem 231\nTerem 216\nTerem 217\nTerem 218\nTerem 242\nTerem 243\nTitkarsag\nVillamos tanszek");
-        Rooms r3 = new Rooms("Harmadik emelet", "Terem 307\nTerem 308\nTerem 309\nTerem 310\nTerem 311\nTerem 312\nTerem 313\nInfo tanszek");
+        Rooms r0 = new Rooms("Pince", "Tornaterem\nJapán labor\nRomán kabinet\nKönyvtár\nGépész labor\nFöldrajz labor");
+        Rooms r1 = new Rooms("Első emelet", "Terem 114\nTerem 113\nTerem 112\nTerem 111\nTerem 128\nTerem 129\nTerem 130\nTerem 131\nTerem 132\nGépész tanszék\n");
+        Rooms r2 = new Rooms("Második emelet", "Terem 230\nTerem 231\nTerem 216\nTerem 217\nTerem 218\nTerem 242\nTerem 243\nTitkárság\nVillamos tanszék");
+        Rooms r3 = new Rooms("Harmadik emelet", "Terem 307\nTerem 308\nTerem 309\nTerem 310\nTerem 311\nTerem 312\nTerem 313\nInfo tanszék");
         Rooms r4 = new Rooms("Negyedik emelet", "Terem 408\nTerem 409\nTerem 410\nTerem 411\nTerem 412\nTerem 413\nTerem 414\nTerem 415\nTerem 416");
         this.x.add(r0);
         this.x.add(r1);

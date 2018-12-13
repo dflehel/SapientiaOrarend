@@ -12,7 +12,7 @@
 
         <item
                 android:id="@+id/terkep"
-                android:title="terkep"
+                android:title="Térkép"
                 app:showAsAction="always"
         >
 
@@ -20,14 +20,14 @@
 
         <item
                 android:id="@+id/uzenet"
-                android:title="Uzenet"
+                android:title="Üzenet"
                 app:showAsAction="always"
         >
 
         </item>
         <item
                 android:id="@+id/bealitasok"
-                android:title="Bealitasok"
+                android:title="Beállítások"
                 app:showAsAction="always"
         >
 
