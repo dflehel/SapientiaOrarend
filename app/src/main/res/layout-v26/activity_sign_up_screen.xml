@@ -70,7 +70,7 @@
         android:layout_marginStart="8dp"
         app:layout_constraintTop_toBottomOf="@+id/textView2"
         android:importantForAutofill="no"
-        android:autofillHints="" tools:targetApi="o"/>
+        android:autofillHints=""/>
     <EditText
         android:layout_height="wrap_content"
         android:inputType="phone"
@@ -81,7 +81,7 @@
         android:layout_marginLeft="8dp" android:layout_marginStart="8dp" app:layout_constraintEnd_toEndOf="parent"
         android:layout_marginEnd="8dp" android:layout_marginRight="8dp" android:layout_width="0dp"
         android:importantForAutofill="no"
-        android:autofillHints="" tools:targetApi="o"/>
+        android:autofillHints=""/>
     <EditText
         android:layout_width="0dp"
         android:layout_height="wrap_content"
@@ -94,7 +94,7 @@
         app:layout_constraintStart_toStartOf="parent" android:layout_marginLeft="8dp"
         android:layout_marginStart="8dp"
         android:importantForAutofill="no"
-        android:autofillHints="" tools:targetApi="o"/>
+        android:autofillHints=""/>
     <TextView
         android:text="@string/signup_screen_password2"
         android:layout_width="0dp"

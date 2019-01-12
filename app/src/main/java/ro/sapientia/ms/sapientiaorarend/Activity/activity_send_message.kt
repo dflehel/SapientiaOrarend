@@ -21,7 +21,7 @@ class activity_send_message : AppCompatActivity() {
 
             dialog.setContentView(R.layout.search_view)
 
-            var recyclerView: RecyclerView = dialog.findViewById<RecyclerView>(R.id.search_screen_rec)
+            var recyclerView: RecyclerView = dialog.findViewById(R.id.search_screen_rec)
             var deparmentSelectorAdapter: SendMessageDeparmentSelectorAdapter = SendMessageDeparmentSelectorAdapter(dialog.context, dialog, this.buttondeparment)
             recyclerView.adapter = deparmentSelectorAdapter
             recyclerView.layoutManager = LinearLayoutManager(dialog.context)

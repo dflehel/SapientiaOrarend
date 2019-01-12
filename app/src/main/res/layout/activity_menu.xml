@@ -8,7 +8,6 @@
         tools:context=".Activity.MENU">
 
     <TextView
-            android:text="TextView"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:id="@+id/menu_screen_day" app:layout_constraintTop_toTopOf="parent"
@@ -18,7 +17,6 @@
             android:gravity="center_vertical|center_horizontal"
             android:textAppearance="@style/TextAppearance.AppCompat.Display2"/>
     <TextView
-            android:text="TextView"
             android:layout_width="0dp"
             android:layout_height="0dp"
             android:id="@+id/menu_screen_foods" android:layout_marginTop="32dp"

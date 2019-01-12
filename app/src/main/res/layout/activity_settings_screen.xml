@@ -15,7 +15,7 @@
             app:layout_constraintStart_toEndOf="@+id/textView7" app:layout_constraintTop_toTopOf="parent"
             android:layout_marginTop="16dp"/>
     <TextView
-            android:text="Ebresztes funkcio"
+            android:text="@string/settings_screen_alarm"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:id="@+id/textView7" app:layout_constraintTop_toTopOf="parent"
@@ -30,7 +30,7 @@
             app:layout_constraintTop_toBottomOf="@+id/ebresztesonoff"
             app:layout_constraintBottom_toTopOf="@+id/settinsgscreenmentes" android:visibility="invisible"/>
     <Button
-            android:text="mentes"
+            android:text="@string/settings_screen_save"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:id="@+id/settinsgscreenmentes" android:layout_marginEnd="8dp" android:layout_marginRight="8dp"

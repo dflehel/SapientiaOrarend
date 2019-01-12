@@ -25,7 +25,7 @@ public class DailyMenu {
         this.daydisplay = daydisplay;
         this.foodsdisplay = foodsdisplay;
         this.progressDialog = new ProgressDialog(c);
-        this.progressDialog.setMessage("Betoltes");
+        this.progressDialog.setMessage("Betöltés");
         this.progressDialog.show();
         this.mdatabase = FirebaseDatabase.getInstance().getReference().child("/menu");
 
