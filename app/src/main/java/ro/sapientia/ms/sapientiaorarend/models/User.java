@@ -1,5 +1,7 @@
 package ro.sapientia.ms.sapientiaorarend.models;
 
+import android.net.Uri;
+
 import java.io.Serializable;
 
 public class User implements Serializable {
@@ -9,15 +11,16 @@ public class User implements Serializable {
     private String phonenumber;
     private String deparment;
     private TimeTable timetable;
+    private Uri uri;
 
 
-    public User(String name, String email, String phonenumber, String deparment, TimeTable timetable) {
+    public User(String name, String email, String phonenumber, String deparment, TimeTable timetable, Uri uri) {
         this.name = name;
         this.email = email;
         this.phonenumber = phonenumber;
         this.deparment = deparment;
         this.timetable = timetable;
-
+        this.uri = uri;
     }
 
 
@@ -80,5 +83,13 @@ public class User implements Serializable {
 
     public void setDeparment(String deparment) {
         this.deparment = deparment;
+    }
+
+    public Uri getUri() {
+        return uri;
+    }
+
+    public void setUri(Uri uri) {
+        this.uri = uri;
     }
 }

@@ -20,8 +20,15 @@ import ro.sapientia.ms.sapientiaorarend.R
 import ro.sapientia.ms.sapientiaorarend.Util.RealPathUtil
 import ro.sapientia.ms.sapientiaorarend.Util.Settings
 import java.io.File
+import android.R.attr.path
+import android.R.attr.bitmap
+import android.R.attr.data
+import android.provider.MediaStore
+import android.R.attr.data
+import com.bumptech.glide.Glide
 
 
+val RESULT_LOAD_IMAGE = 1
 class Profil : Fragment() {
 
     private var email: TextView? = null
@@ -84,26 +91,43 @@ class Profil : Fragment() {
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
         if (resultCode == Activity.RESULT_OK && data != null) {
-
             if (Build.VERSION.SDK_INT < 19) {
                 var realPath = RealPathUtil.getRealPathFromURI_API11to18(this.context, data.getData());
             } else {
                 var realPath = RealPathUtil.getRealPathFromURI_API19(this.context, data.getData());
             }
+
+            /*
+
+            val selectedImage = data.data
+            val filePathColumn = arrayOf(MediaStore.Images.Media.DATA)
+            val cursor = this.activity!!.getContentResolver().query(
+                selectedImage,
+                filePathColumn, null, null, null)
+            cursor.moveToFirst();
+            val columnIndex = cursor.getColumnIndex(filePathColumn[0])
+            val picturePath = cursor.getString(columnIndex)
+            cursor.close();
+            val imageView = this.activity!!.findViewById(R.id.prifile_screen_image_view) as ImageView
+            imageView.setImageBitmap(BitmapFactory.decodeFile(picturePath));
+             */
+
+            val selectedImageUri = data.data
+            val imageView = this.activity!!.findViewById(R.id.prifile_screen_image_view) as ImageView
+            Glide.with(this).load(selectedImageUri).into(imageView)
         }
     }
-
+/*
     private fun imageload(uripath: String, realpath: String) {
 
         var urifrompath = Uri.fromFile(File(realpath));
         var bitmap: Bitmap? = null;
         try {
             bitmap = BitmapFactory.decodeFile(realpath)
-
         } catch (e: Exception) {
             print(e)
         }
         this.imageView!!.setImageBitmap(bitmap!!)
 
-    }
+    }*/
 }
