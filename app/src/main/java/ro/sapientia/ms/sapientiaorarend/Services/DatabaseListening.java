@@ -37,6 +37,7 @@ public class DatabaseListening extends IntentService {
         this.menu = FirebaseDatabase.getInstance().getReference("/menu");
         this.message = FirebaseDatabase.getInstance().getReference("/message");
 
+
     }
 
 
@@ -50,6 +51,7 @@ public class DatabaseListening extends IntentService {
         this.menu = FirebaseDatabase.getInstance().getReference("/menu");
         this.message = FirebaseDatabase.getInstance().getReference("/message");
 
+
     }
     // @androidx.annotation.Nullable
 
@@ -57,11 +59,10 @@ public class DatabaseListening extends IntentService {
     @Override
     protected void onHandleIntent(@Nullable Intent intent) {
         if (Settings.user != null) {
-            this.timetable = FirebaseDatabase.getInstance().getReference("/" + Settings.user.getDeparment());
+            this.timetable = FirebaseDatabase.getInstance().getReference("/timetables/" + Settings.user.getDeparment() + "/");
         }
         Intent intentTimetable = new Intent(this, MainScreen.class);
         PendingIntent pendingIntentTimetable = PendingIntent.getActivity(this, 0, intentTimetable, 0);
-
         Intent intentMenu = new Intent(this, MENU.class);
         PendingIntent pendingIntentMenu = PendingIntent.getActivity(this, 0, intentMenu, 0);
         Intent intentMessage = new Intent(this, Map.class);
@@ -70,8 +71,7 @@ public class DatabaseListening extends IntentService {
                 .setContentTitle("Valtozas")
                 .setContentText("Orarendvaltozas tortent")
                 .setSmallIcon(R.drawable.ic__update_timetable)
-                .setLargeIcon(BitmapFactory.decodeResource(getResources(), R.mipmap.ic_launcher_round))
-                .setLargeIcon(BitmapFactory.decodeResource(getResources(), R.mipmap.ic_launcher_round))
+                .setLargeIcon(BitmapFactory.decodeResource(getResources(), R.mipmap.ic_update_time_table_round))
                 .setContentIntent(pendingIntentTimetable)
                 .setDefaults(Notification.DEFAULT_ALL)
                 .setPriority(Notification.PRIORITY_HIGH)
@@ -81,8 +81,7 @@ public class DatabaseListening extends IntentService {
                 .setContentTitle("Valtozas")
                 .setContentText("UJ napi menu")
                 .setSmallIcon(R.drawable.ic__update_restaurante)
-                .setLargeIcon(BitmapFactory.decodeResource(getResources(), R.mipmap.ic_launcher_round))
-                .setLargeIcon(BitmapFactory.decodeResource(getResources(), R.mipmap.ic_launcher_round))
+                .setLargeIcon(BitmapFactory.decodeResource(getResources(), R.mipmap.ic_update_restaurante_round))
                 .setContentIntent(pendingIntentMenu)
                 //.setSound(Notification.DEFAULT_SOUND)
                 .setAutoCancel(true)
@@ -92,9 +91,8 @@ public class DatabaseListening extends IntentService {
         final Notification noti3 = new Notification.Builder(this)
                 .setContentTitle("Uzeneted erkezet")
                 .setContentText("Orarendvaltozas tortent")
-                .setLargeIcon(BitmapFactory.decodeResource(getResources(), R.mipmap.ic_launcher_round))
+                .setLargeIcon(BitmapFactory.decodeResource(getResources(), R.mipmap.ic_message_update_round))
                 .setSmallIcon(R.drawable.ic_message)
-                .setLargeIcon(BitmapFactory.decodeResource(getResources(), R.mipmap.ic_launcher_round))
                 .setContentIntent(pendingIntentMessage)
                 .setAutoCancel(true)
                 .setPriority(Notification.PRIORITY_HIGH)
@@ -102,7 +100,7 @@ public class DatabaseListening extends IntentService {
                 .build();
         final NotificationManagerCompat notificationManager = NotificationManagerCompat.from(this);
         if (Settings.user != null) {
-            this.timetable.addValueEventListener(new ValueEventListener() {
+          this.timetable.addValueEventListener(new ValueEventListener() {
                 @Override
                 public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                     if (!DatabaseListening.this.firststarttimetable) {
@@ -116,6 +114,7 @@ public class DatabaseListening extends IntentService {
 
                 }
             });
+
         }
         this.menu.addValueEventListener(new ValueEventListener() {
             @Override
@@ -147,4 +146,4 @@ public class DatabaseListening extends IntentService {
         });
 
     }
-}
+    }
