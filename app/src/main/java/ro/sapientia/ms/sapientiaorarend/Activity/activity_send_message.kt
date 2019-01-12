@@ -6,9 +6,9 @@ import android.os.Bundle
 import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
 import android.widget.Button
-import ro.sapientia.ms.sapientiaorarend.Adapters.DeparmentSelectorAdapter
 import ro.sapientia.ms.sapientiaorarend.Adapters.SendMessageDeparmentSelectorAdapter
 import ro.sapientia.ms.sapientiaorarend.R
+import java.util.ArrayList
 
 class activity_send_message : AppCompatActivity() {
     private var buttondeparment: Button? = null

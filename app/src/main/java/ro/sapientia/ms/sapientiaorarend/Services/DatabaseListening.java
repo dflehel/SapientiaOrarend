@@ -67,9 +67,9 @@ public class DatabaseListening extends IntentService {
         Intent intentMessage = new Intent(this, Map.class);
         PendingIntent pendingIntentMessage = PendingIntent.getActivity(this, 0, intentMessage, 0);
         final Notification noti1 = new Notification.Builder(this)
-                .setContentTitle("Valtozas")
-                .setContentText("Orarendvaltozas tortent")
                 .setSmallIcon(R.drawable.ic__update_timetable)
+                .setContentTitle("Változás")
+                .setContentText("Órarendváltozás történt")
                 .setLargeIcon(BitmapFactory.decodeResource(getResources(), R.mipmap.ic_launcher_round))
                 .setLargeIcon(BitmapFactory.decodeResource(getResources(), R.mipmap.ic_launcher_round))
                 .setContentIntent(pendingIntentTimetable)
@@ -78,9 +78,9 @@ public class DatabaseListening extends IntentService {
                 .setAutoCancel(true)
                 .build();
         final Notification noti2 = new Notification.Builder(this)
-                .setContentTitle("Valtozas")
-                .setContentText("UJ napi menu")
                 .setSmallIcon(R.drawable.ic__update_restaurante)
+                .setContentTitle("Változás")
+                .setContentText("Új napi menü")
                 .setLargeIcon(BitmapFactory.decodeResource(getResources(), R.mipmap.ic_launcher_round))
                 .setLargeIcon(BitmapFactory.decodeResource(getResources(), R.mipmap.ic_launcher_round))
                 .setContentIntent(pendingIntentMenu)
@@ -90,8 +90,8 @@ public class DatabaseListening extends IntentService {
                 .setDefaults(Notification.DEFAULT_ALL)
                 .build();
         final Notification noti3 = new Notification.Builder(this)
-                .setContentTitle("Uzeneted erkezet")
-                .setContentText("Orarendvaltozas tortent")
+                .setContentTitle("Üzeneted érkezett")
+                .setContentText("Órarendváltozás történt")
                 .setLargeIcon(BitmapFactory.decodeResource(getResources(), R.mipmap.ic_launcher_round))
                 .setSmallIcon(R.drawable.ic_message)
                 .setLargeIcon(BitmapFactory.decodeResource(getResources(), R.mipmap.ic_launcher_round))
