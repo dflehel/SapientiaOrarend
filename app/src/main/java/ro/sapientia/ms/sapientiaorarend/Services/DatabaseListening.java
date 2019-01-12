@@ -56,7 +56,7 @@ public class DatabaseListening extends IntentService {
 
     @Override
     protected void onHandleIntent(@Nullable Intent intent) {
-        if (Settings.user == null) {
+        if (Settings.user != null) {
             this.timetable = FirebaseDatabase.getInstance().getReference("/" + Settings.user.getDeparment());
         }
         Intent intentTimetable = new Intent(this, MainScreen.class);
@@ -101,7 +101,7 @@ public class DatabaseListening extends IntentService {
                 .setDefaults(Notification.DEFAULT_ALL)
                 .build();
         final NotificationManagerCompat notificationManager = NotificationManagerCompat.from(this);
-        if (Settings.user == null) {
+        if (Settings.user != null) {
             this.timetable.addValueEventListener(new ValueEventListener() {
                 @Override
                 public void onDataChange(@NonNull DataSnapshot dataSnapshot) {

@@ -4,17 +4,14 @@
 >
 
     <item android:id="@+id/kereses"
+          android:icon="@drawable/ic_search"
           android:title="@string/options_screen_search"
           app:showAsAction="always"/>
     <item android:id="@+id/switchbetweenweeks"
-          android:title="@string/options_screen_second"
+          android:icon="@drawable/ic_first_week"
+          android:title="Első hét"
           app:showAsAction="always"/>
-    <item android:id="@+id/menu"
-          android:title="@string/options_screen_food"
-          app:showAsAction="always"/>
-    <item android:id="@+id/uzenet"
-          android:title="@string/options_screen_message"
-          app:showAsAction="always"/>
+
 
 
 </menu>
