@@ -4,6 +4,7 @@
         <item
                 android:id="@+id/etkezde"
                 android:title="@string/draw_screen_food"
+                android:icon="@drawable/ic_restaurant"
                 app:showAsAction="always"
         >
 
@@ -13,6 +14,7 @@
         <item
                 android:id="@+id/terkep"
                 android:title="terkep"
+                android:icon="@drawable/ic_map"
                 app:showAsAction="always"
         >
 
@@ -21,6 +23,7 @@
         <item
                 android:id="@+id/uzenet"
                 android:title="Uzenet"
+                android:icon="@drawable/ic_message"
                 app:showAsAction="always"
         >
 
@@ -28,6 +31,7 @@
         <item
                 android:id="@+id/bealitasok"
                 android:title="Bealitasok"
+                android:icon="@drawable/ic_settings"
                 app:showAsAction="always"
         >
 
