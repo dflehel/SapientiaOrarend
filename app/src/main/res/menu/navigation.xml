@@ -3,17 +3,17 @@
 
     <item
             android:id="@+id/navigation_general_time_table"
-            android:icon="@drawable/ic_home_black_24dp"
+            android:icon="@drawable/ic_timetable"
             android:title="@string/navigation_screen_general"/>
 
     <item
             android:id="@+id/navigation_own_time_table"
-            android:icon="@drawable/ic_dashboard_black_24dp"
+            android:icon="@drawable/ic_timetable"
             android:title="@string/navigation_screen_own"/>
 
     <item
             android:id="@+id/navigation_notifications"
-            android:icon="@drawable/ic_notifications_black_24dp"
+            android:icon="@drawable/ic_profile"
             android:title="@string/navigation_screen_profile"/>
 
 </menu>
