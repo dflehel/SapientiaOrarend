@@ -1,8 +1,10 @@
 package ro.sapientia.ms.sapientiaorarend.Activity
 
 import android.app.Dialog
+import android.content.BroadcastReceiver
 import android.content.Context
 import android.content.Intent
+import android.content.IntentFilter
 import android.os.Bundle
 import android.support.design.widget.BottomNavigationView
 import android.support.design.widget.NavigationView
@@ -51,6 +53,7 @@ class MainScreen : AppCompatActivity() {
     private var data: Databuilder? = null;
     private var context: Context? = this
     private var generalTimeTableAdapter: GeneralTimeTableAdapter? = null
+    private var notireciver : BroadcastReceiver? = null
     private var user: User? = null
     companion object {
         public var iscreated: Boolean? = false
@@ -184,6 +187,16 @@ class MainScreen : AppCompatActivity() {
         supportActionBar!!.setDisplayHomeAsUpEnabled(true)
         var intent = Intent(this, DatabaseListening::class.java)
         startService(intent)
+
+        val intentFilter:IntentFilter? = IntentFilter("time")
+        val revicer:BroadcastReceiver? = object : BroadcastReceiver(){
+            override fun onReceive(context: Context?, intent: Intent?) {
+                Databuilder(ownTimeTable!!, context, Settings.user)
+
+            }
+
+        }
+        this.registerReceiver( revicer,intentFilter)
     }
 
     /** a menu activiti elinditasara szolgal*/
