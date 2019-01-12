@@ -1,21 +1,27 @@
 package ro.sapientia.ms.sapientiaorarend.Activity
 
+import android.app.PendingIntent.getActivity
 import android.app.ProgressDialog
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
+import android.util.Log
 import android.widget.Button
 import android.widget.EditText
 import android.widget.TextView
 import android.widget.Toast
+import com.google.firebase.FirebaseException
 import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.auth.PhoneAuthCredential
+import com.google.firebase.auth.PhoneAuthProvider
 import com.google.firebase.database.*
 import ro.sapientia.ms.sapientiaorarend.R
 import ro.sapientia.ms.sapientiaorarend.Util.ClassColorsBuilder
 import ro.sapientia.ms.sapientiaorarend.Util.ClassPathBuilder
 import ro.sapientia.ms.sapientiaorarend.Util.Settings
 import ro.sapientia.ms.sapientiaorarend.models.User
+import java.util.concurrent.TimeUnit
 
 
 /** A bejelenkezes kepernyo*/
@@ -35,6 +41,9 @@ class LoginScreen : AppCompatActivity() {
     var progressDialog: ProgressDialog? = null
     private var user: User? = null
     var terminated: Boolean? = false
+    private lateinit var resendToken: PhoneAuthProvider.ForceResendingToken
+    private lateinit var callbacks: PhoneAuthProvider.OnVerificationStateChangedCallbacks
+    private lateinit var auth: FirebaseAuth
 
 
     /**A fugvenybe kapcsolom ossze a view elemek azokkal az osztalymezokkel melyekkel majd ellenorzom a bejelentkezest
@@ -60,6 +69,7 @@ class LoginScreen : AppCompatActivity() {
         this.progressDialog = ProgressDialog(this)
         this.Login.setOnClickListener {
             loggingig()
+           // logginginwhitphone()
         }
         this.Signup.setOnClickListener {
             var intent2 = Intent(this, SignUpScreen::class.java)
@@ -155,5 +165,51 @@ class LoginScreen : AppCompatActivity() {
         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK)
         startActivity(intent)
     }
+
+  /*  fun logginginwhitphone() {
+        var phone =  this.Phone.text.toString()
+        val smsCode = "123456"
+
+        val firebaseAuth = FirebaseAuth.getInstance()
+        val firebaseAuthSettings = firebaseAuth.firebaseAuthSettings
+
+       // firebaseAuthSettings.setAutoRetrievedSmsCodeForPhoneNumber(phone, smsCode)
+
+        PhoneAuthProvider.getInstance().verifyPhoneNumber(
+            phone, 1 /*timeout*/, TimeUnit.MINUTES,
+            this, object : PhoneAuthProvider.OnVerificationStateChangedCallbacks() {
+
+                override fun onCodeSent(
+                    verificationId: String?,
+                    forceResendingToken: PhoneAuthProvider.ForceResendingToken?
+                ) {
+                    // Save the verification id somewhere
+                    // ...
+                    mProgressDialog.dismiss();
+                    // The corresponding whitelisted code above should be used to complete sign-in.
+                    // this@MainActivity.enableUserManuallyInputCode()
+                }
+
+                override fun onVerificationCompleted(phoneAuthCredential: PhoneAuthCredential) {
+                    // Sign in with the credential
+                    // ...
+                    var mAuthCredentials = phoneAuthCredential;
+                   // startingmainscreen()
+                }
+
+                override fun onVerificationFailed(e: FirebaseException) {
+                    e.printStackTrace();
+                    Log.e("dgsgf", e.message);
+                    // ...
+                }
+            })
+        var mProgressDialog =  ProgressDialog (this);
+        mProgressDialog.setMessage("Sending verification code...");
+        mProgressDialog.show();
+
+    }*/
+
+
+
 }
 
