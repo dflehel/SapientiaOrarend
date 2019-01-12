@@ -105,6 +105,10 @@ public class DatabaseListening extends IntentService {
                 public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                     if (!DatabaseListening.this.firststarttimetable) {
                         notificationManager.notify(1, noti1);
+                        Intent intent = new Intent();
+                        intent.setAction("time");
+                        intent.putExtra("Dfdsfdf",1);
+                        sendBroadcast(intent);
                     }
                     DatabaseListening.this.firststarttimetable = false;
                 }
@@ -121,6 +125,10 @@ public class DatabaseListening extends IntentService {
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 if (!DatabaseListening.this.firststartmenu) {
                     notificationManager.notify(1, noti2);
+                    Intent intent = new Intent();
+                    intent.setAction("menu");
+                    intent.putExtra("Dfdsfdf",1);
+                    sendBroadcast(intent);
                 }
                 DatabaseListening.this.firststartmenu = false;
             }
