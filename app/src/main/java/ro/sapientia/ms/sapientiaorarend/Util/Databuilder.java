@@ -111,6 +111,7 @@ public class Databuilder {
                 DatabaseReference databse = FirebaseDatabase.getInstance().getReference().child("/user").child(FirebaseAuth.getInstance().getUid());
                 user.setTimetable(m);
                 databse.setValue(user);
+                Databuilder.this.ownTimeTable.refersh();
                 Databuilder.this.progressDialog.dismiss();
             }
 
