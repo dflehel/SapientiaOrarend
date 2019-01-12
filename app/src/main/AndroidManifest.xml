@@ -33,6 +33,8 @@
         <activity android:name=".Activity.activity_send_message"/>
         <activity android:name=".Activity.SettingsScreen">
         </activity>
+        <activity android:name=".Activity.MessageDisplay">
+        </activity>
     </application>
 
 </manifest>

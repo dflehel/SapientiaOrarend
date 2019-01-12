@@ -22,7 +22,7 @@
 
         <item
                 android:id="@+id/uzenet"
-                android:title="Üzenet"
+                android:title="Üzenet kuldes"
                 android:icon="@drawable/ic_message"
                 app:showAsAction="always"
         >
@@ -35,5 +35,11 @@
                 app:showAsAction="always"
         >
 
+        </item>
+        <item
+                android:id="@+id/uzenetek"
+                android:icon="@drawable/ic_message"
+                android:title="Kapot uzenetek"
+                app:showAsAction="always">
         </item>
 </menu>
