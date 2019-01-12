@@ -13,7 +13,7 @@
 
         <item
                 android:id="@+id/terkep"
-                android:title="terkep"
+                android:title="Térkép"
                 android:icon="@drawable/ic_map"
                 app:showAsAction="always"
         >
@@ -22,7 +22,7 @@
 
         <item
                 android:id="@+id/uzenet"
-                android:title="Uzenet"
+                android:title="Üzenet"
                 android:icon="@drawable/ic_message"
                 app:showAsAction="always"
         >
@@ -30,7 +30,7 @@
         </item>
         <item
                 android:id="@+id/bealitasok"
-                android:title="Bealitasok"
+                android:title="Beállítások"
                 android:icon="@drawable/ic_settings"
                 app:showAsAction="always"
         >
