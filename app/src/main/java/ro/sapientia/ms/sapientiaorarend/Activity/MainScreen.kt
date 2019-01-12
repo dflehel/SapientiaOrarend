@@ -52,6 +52,9 @@ class MainScreen : AppCompatActivity() {
     private var context: Context? = this
     private var generalTimeTableAdapter: GeneralTimeTableAdapter? = null
     private var user: User? = null
+    companion object {
+        public var iscreated: Boolean? = false
+    }
 
 
     /** az also mennu kezelesere szolgalo fuggveny*/
@@ -130,10 +133,17 @@ class MainScreen : AppCompatActivity() {
     }
 
 
+    override fun onDestroy() {
+        super.onDestroy()
+        MainScreen.iscreated = false
+    }
+
+
     /**letrehozza a fokepernyot fragmentek nelkul*/
     override fun onCreate(savedInstanceState: Bundle?) {
         this.mAuth = FirebaseAuth.getInstance()
         super.onCreate(savedInstanceState)
+        MainScreen.iscreated = true
         /*vendegkent vagy nem ugy van bejelenkezve*/
         if (this.mAuth!!.currentUser == null) {
             setContentView(R.layout.activity_main_screen_guest)
