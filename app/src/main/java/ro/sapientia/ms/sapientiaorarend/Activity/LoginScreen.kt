@@ -182,7 +182,7 @@ class LoginScreen : AppCompatActivity() {
             Toast.makeText(this, "Az emailcimnek tartalmaznia kell '@'-ot es '.'-ot", Toast.LENGTH_LONG).show()
             return false
         }
-        /*if (TextUtils.isEmpty(phone) || phone.contains("[0-9]")) {
+        /*if (TextUtils.isEmpty(phone) || !phone.matches("-?\\d+(\\.\\d+)?".toRegex())) {
             Toast.makeText(this, "A telefonszam nem lehet ures es csak szamokat tartalmazhat", Toast.LENGTH_LONG).show()
             return false
         }*/
