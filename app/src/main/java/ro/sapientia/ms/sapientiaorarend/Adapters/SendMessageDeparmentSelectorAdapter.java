@@ -2,6 +2,7 @@ package ro.sapientia.ms.sapientiaorarend.Adapters;
 
 import android.app.Dialog;
 import android.content.Context;
+import android.graphics.Color;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -22,6 +23,7 @@ public class SendMessageDeparmentSelectorAdapter extends RecyclerView.Adapter<Se
     private Context con;
     private Databuilder data;
     private Dialog dialog;
+    private ArrayList<String> revivers = new ArrayList<>();
 
     public Databuilder getData() {
         return data;
@@ -39,7 +41,7 @@ public class SendMessageDeparmentSelectorAdapter extends RecyclerView.Adapter<Se
         this.data = data;
     }
 
-    public SendMessageDeparmentSelectorAdapter(Context c, Dialog d, Button button){
+    public SendMessageDeparmentSelectorAdapter(Context c, Dialog d, Button button,ArrayList<String> recivers){
         for(String deparment:ClassPathBuilder.classPath.keySet()){
             for(String year:ClassPathBuilder.classPath.get(deparment).keySet()){
                 for(String group:ClassPathBuilder.classPath.get(deparment).get(year)){
@@ -50,6 +52,7 @@ public class SendMessageDeparmentSelectorAdapter extends RecyclerView.Adapter<Se
         this.button = button;
         this.dialog = d;
         this.con =c;
+        this.revivers = recivers;
     }
 
     @NonNull
@@ -63,6 +66,7 @@ public class SendMessageDeparmentSelectorAdapter extends RecyclerView.Adapter<Se
     @Override
     public void onBindViewHolder(@NonNull DepartmentSelectorAdapterViewHolder departmentSelectorAdapterViewHolder, int i) {
         departmentSelectorAdapterViewHolder.text.setText(this.searchitem.get(i).toString());
+
         departmentSelectorAdapterViewHolder.pos = i;
     }
 
@@ -75,15 +79,27 @@ public class SendMessageDeparmentSelectorAdapter extends RecyclerView.Adapter<Se
 
         public TextView text;
         public int pos;
+        public int color = Color.BLACK;
 
         public DepartmentSelectorAdapterViewHolder(@NonNull View itemView) {
             super(itemView);
             this.text = (TextView) itemView.findViewById(R.id.search_screen_item_text);
+            this.text.setBackgroundColor(this.color);
             this.text.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    SendMessageDeparmentSelectorAdapter.this.button.setText(SendMessageDeparmentSelectorAdapter.this.searchitem.get(DepartmentSelectorAdapterViewHolder.this.pos));
-                    //SendMessageDeparmentSelectorAdapter.this.dialog.dismiss();
+                    if (DepartmentSelectorAdapterViewHolder.this.color == Color.BLACK) {
+                        DepartmentSelectorAdapterViewHolder.this.color = Color.RED;
+                        DepartmentSelectorAdapterViewHolder.this.text.setBackgroundColor(DepartmentSelectorAdapterViewHolder.this.color);
+                        SendMessageDeparmentSelectorAdapter.this.revivers.add(SendMessageDeparmentSelectorAdapter.this.searchitem.get(DepartmentSelectorAdapterViewHolder.this.pos));
+                    }
+                    else {
+                        if (DepartmentSelectorAdapterViewHolder.this.color == Color.RED) {
+                            DepartmentSelectorAdapterViewHolder.this.color = Color.BLACK;
+                            DepartmentSelectorAdapterViewHolder.this.text.setBackgroundColor(DepartmentSelectorAdapterViewHolder.this.color);
+                            SendMessageDeparmentSelectorAdapter.this.revivers.remove(SendMessageDeparmentSelectorAdapter.this.searchitem.get(DepartmentSelectorAdapterViewHolder.this.pos));
+                        }
+                    }
                 }
             });
         }

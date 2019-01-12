@@ -29,13 +29,11 @@ public class DatabaseListening extends IntentService {
     public DatabaseListening(String name) {
         super(name);
         this.menu = FirebaseDatabase.getInstance().getReference("/menu");
-        this.message = FirebaseDatabase.getInstance().getReference("/message");
     }
 
     public DatabaseListening() {
         super("szia");
         this.menu = FirebaseDatabase.getInstance().getReference("/menu");
-        this.message = FirebaseDatabase.getInstance().getReference("/message");
 
 
     }
@@ -49,7 +47,6 @@ public class DatabaseListening extends IntentService {
     public DatabaseListening(String name, User u) {
         super(name);
         this.menu = FirebaseDatabase.getInstance().getReference("/menu");
-        this.message = FirebaseDatabase.getInstance().getReference("/message");
 
 
     }
@@ -60,6 +57,7 @@ public class DatabaseListening extends IntentService {
     protected void onHandleIntent(@Nullable Intent intent) {
         if (Settings.user != null) {
             this.timetable = FirebaseDatabase.getInstance().getReference("/timetables/" + Settings.user.getDeparment() + "/");
+            this.message = FirebaseDatabase.getInstance().getReference("/messages/"+Settings.user.getDeparment()+"/");
         }
         Intent intentTimetable = new Intent(this, MainScreen.class);
         PendingIntent pendingIntentTimetable = PendingIntent.getActivity(this, 0, intentTimetable, 0);
@@ -90,7 +88,6 @@ public class DatabaseListening extends IntentService {
                 .build();
         final Notification noti3 = new Notification.Builder(this)
                 .setContentTitle("Uzeneted erkezet")
-                .setContentText("Orarendvaltozas tortent")
                 .setLargeIcon(BitmapFactory.decodeResource(getResources(), R.mipmap.ic_message_update_round))
                 .setSmallIcon(R.drawable.ic_message)
                 .setContentIntent(pendingIntentMessage)
@@ -143,6 +140,10 @@ public class DatabaseListening extends IntentService {
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 if (!DatabaseListening.this.firststartmessage) {
                     notificationManager.notify(1, noti3);
+                    Intent intent = new Intent();
+                    intent.setAction("mess");
+                    intent.putExtra("Dfdsfdf",1);
+                    sendBroadcast(intent);
                 }
                 DatabaseListening.this.firststartmessage = false;
             }

@@ -122,6 +122,12 @@ class MainScreen : AppCompatActivity() {
                     this.drawerLayout!!.closeDrawer(Gravity.START,false)
                     true
                 }
+                R.id.uzenetek->{
+                    var intent = Intent(this,MessageDisplay::class.java)
+                    startActivity(intent)
+                    this.drawerLayout!!.closeDrawer(Gravity.START,false)
+                    true
+                }
             }
             false
         }
