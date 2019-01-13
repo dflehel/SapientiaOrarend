@@ -2,8 +2,8 @@ package ro.sapientia.ms.sapientiaorarend.Activity
 
 import android.app.Dialog
 import android.graphics.Color
-import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
+import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
 import android.widget.*
@@ -11,7 +11,7 @@ import ro.sapientia.ms.sapientiaorarend.Adapters.SendMessageDeparmentSelectorAda
 import ro.sapientia.ms.sapientiaorarend.R
 import ro.sapientia.ms.sapientiaorarend.Util.Settings
 import ro.sapientia.ms.sapientiaorarend.models.SendMessage
-import java.util.ArrayList
+import java.util.*
 
 class activity_send_message : AppCompatActivity() {
 
@@ -78,7 +78,7 @@ class activity_send_message : AppCompatActivity() {
                     var text: TextView? = TextView(applicationContext)
                     text!!.setText(recivers!![i])
                    // text!!.setTextSize(10.00F)
-                    text!!.setTextAppearance(applicationContext,android.R.style.TextAppearance_DeviceDefault_Medium)
+                    text!!.setTextAppearance(applicationContext, android.R.style.TextAppearance_DeviceDefault_Medium)
                     text.setTextColor(Color.BLACK)
                     mlayout!!.addView(text!!)
             }

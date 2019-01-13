@@ -19,8 +19,8 @@ public class SendMessage {
         this.content = content;
 
         this.recivers = new ArrayList<>();
-        for (String s : recivers){
-            this.recivers.add(s.replace(" ","/"));
+        for (String s : recivers) {
+            this.recivers.add(s.replace(" ", "/"));
         }
         this.timestamp = timestamp;
     }
@@ -67,9 +67,9 @@ public class SendMessage {
         this.recivers = recivers;
     }
 
-    public void sendingmesage(){
+    public void sendingmesage() {
         this.databaseReference = FirebaseDatabase.getInstance().getReference().child("/messages");
-        for(String s:this.recivers){
+        for (String s : this.recivers) {
             this.databaseReference.child(s).child(this.timestamp.toString()).child("sender").setValue(this.sender);
             this.databaseReference.child(s).child(this.timestamp.toString()).child("content").setValue(this.content);
         }

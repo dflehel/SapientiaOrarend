@@ -1,20 +1,16 @@
 package ro.sapientia.ms.sapientiaorarend.Activity
 
-import android.app.PendingIntent.getActivity
 import android.app.ProgressDialog
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
 import android.text.TextUtils
-import android.util.Log
 import android.widget.Button
 import android.widget.EditText
 import android.widget.TextView
 import android.widget.Toast
-import com.google.firebase.FirebaseException
 import com.google.firebase.auth.FirebaseAuth
-import com.google.firebase.auth.PhoneAuthCredential
 import com.google.firebase.auth.PhoneAuthProvider
 import com.google.firebase.database.*
 import ro.sapientia.ms.sapientiaorarend.R
@@ -22,7 +18,6 @@ import ro.sapientia.ms.sapientiaorarend.Util.ClassColorsBuilder
 import ro.sapientia.ms.sapientiaorarend.Util.ClassPathBuilder
 import ro.sapientia.ms.sapientiaorarend.Util.Settings
 import ro.sapientia.ms.sapientiaorarend.models.User
-import java.util.concurrent.TimeUnit
 
 
 /** A bejelenkezes kepernyo*/

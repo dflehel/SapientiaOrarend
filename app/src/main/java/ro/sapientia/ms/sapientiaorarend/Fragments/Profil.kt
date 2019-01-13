@@ -3,9 +3,6 @@ package ro.sapientia.ms.sapientiaorarend.Fragments
 import android.app.Activity
 import android.content.ContentResolver
 import android.content.Intent
-import android.graphics.Bitmap
-import android.graphics.drawable.BitmapDrawable
-import android.net.Uri
 import android.os.Build
 import android.os.Bundle
 import android.provider.MediaStore
@@ -19,8 +16,8 @@ import android.widget.ImageView
 import android.widget.TextView
 import android.widget.Toast
 import com.bumptech.glide.Glide
-import com.bumptech.glide.load.engine.DiskCacheStrategy
-import com.bumptech.glide.request.RequestOptions
+
+
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.FirebaseDatabase
@@ -29,7 +26,11 @@ import com.google.firebase.storage.StorageReference
 import ro.sapientia.ms.sapientiaorarend.R
 import ro.sapientia.ms.sapientiaorarend.Util.RealPathUtil
 import ro.sapientia.ms.sapientiaorarend.Util.Settings
-import java.util.*
+
+
+
+val RESULT_LOAD_IMAGE = 1
+
 
 class Profil : Fragment() {
 
