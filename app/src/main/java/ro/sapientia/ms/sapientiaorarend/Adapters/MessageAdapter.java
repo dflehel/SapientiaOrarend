@@ -10,7 +10,6 @@ import ro.sapientia.ms.sapientiaorarend.R;
 import ro.sapientia.ms.sapientiaorarend.models.Message;
 
 import java.util.ArrayList;
-import java.util.Calendar;
 import java.util.Date;
 
 public class MessageAdapter extends RecyclerView.Adapter<MessageAdapter.MessageAdapterViewHolder> {
@@ -55,7 +54,7 @@ public class MessageAdapter extends RecyclerView.Adapter<MessageAdapter.MessageA
         return this.messages.size();
     }
 
-    public class MessageAdapterViewHolder extends RecyclerView.ViewHolder{
+    public class MessageAdapterViewHolder extends RecyclerView.ViewHolder {
 
         public TextView temistamp;
         public TextView sender;

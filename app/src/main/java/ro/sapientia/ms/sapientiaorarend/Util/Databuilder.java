@@ -30,19 +30,19 @@ public class Databuilder {
     private TextView deparmentview;
 
 
-    public Databuilder(final MessageAdapter messageAdapter,Context c){
-        this.mdatabase = FirebaseDatabase.getInstance().getReference("/messages/"+Settings.user.getDeparment()+"/");
+    public Databuilder(final MessageAdapter messageAdapter, Context c) {
+        this.mdatabase = FirebaseDatabase.getInstance().getReference("/messages/" + Settings.user.getDeparment() + "/");
         this.progressDialog = new ProgressDialog(c);
         this.progressDialog.setMessage("Betöltés");
         this.progressDialog.show();
         this.mdatabase.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                for (DataSnapshot data:dataSnapshot.getChildren()){
+                for (DataSnapshot data : dataSnapshot.getChildren()) {
                     Long time = Long.parseLong(data.getKey());
                     Message m = data.getValue(Message.class);
                     m.setTimestamp(time);
-                    messageAdapter.getMessages().add(0,m);
+                    messageAdapter.getMessages().add(0, m);
                 }
                 messageAdapter.notifyDataSetChanged();
                 progressDialog.dismiss();
@@ -54,8 +54,6 @@ public class Databuilder {
             }
         });
     }
-
-
 
 
     public Databuilder(ArrayList<Classes> classes) {

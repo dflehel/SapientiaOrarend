@@ -2,9 +2,6 @@ package ro.sapientia.ms.sapientiaorarend.Fragments
 
 import android.app.Activity
 import android.content.Intent
-import android.graphics.Bitmap
-import android.graphics.BitmapFactory
-import android.net.Uri
 import android.os.Build
 import android.os.Bundle
 import android.support.v4.app.Fragment
@@ -15,20 +12,15 @@ import android.widget.Button
 import android.widget.ImageView
 import android.widget.TextView
 import android.widget.Toast
+import com.bumptech.glide.Glide
 import com.google.firebase.auth.FirebaseAuth
 import ro.sapientia.ms.sapientiaorarend.R
 import ro.sapientia.ms.sapientiaorarend.Util.RealPathUtil
 import ro.sapientia.ms.sapientiaorarend.Util.Settings
-import java.io.File
-import android.R.attr.path
-import android.R.attr.bitmap
-import android.R.attr.data
-import android.provider.MediaStore
-import android.R.attr.data
-import com.bumptech.glide.Glide
 
 
 val RESULT_LOAD_IMAGE = 1
+
 class Profil : Fragment() {
 
     private var email: TextView? = null

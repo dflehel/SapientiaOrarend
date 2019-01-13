@@ -80,7 +80,7 @@ class SignUpScreen : AppCompatActivity() {
     }
 
     fun fullcheck(name: String, edittextemail: String, phone: String, edittextpassword: String): Boolean {
-        if (TextUtils.isEmpty(name) || name.length > 25 ) {
+        if (TextUtils.isEmpty(name) || name.length > 25) {
             Toast.makeText(this, "A nev hosszusaga limitalt vagy ures", Toast.LENGTH_LONG).show()
             return false
         }

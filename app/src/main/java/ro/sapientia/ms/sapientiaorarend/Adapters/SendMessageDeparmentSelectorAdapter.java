@@ -11,14 +11,14 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
 import ro.sapientia.ms.sapientiaorarend.R;
-import ro.sapientia.ms.sapientiaorarend.Util.Databuilder;
 import ro.sapientia.ms.sapientiaorarend.Util.ClassPathBuilder;
+import ro.sapientia.ms.sapientiaorarend.Util.Databuilder;
 
 import java.util.ArrayList;
 
 public class SendMessageDeparmentSelectorAdapter extends RecyclerView.Adapter<SendMessageDeparmentSelectorAdapter.DepartmentSelectorAdapterViewHolder> {
 
-    private ArrayList<String> searchitem = new ArrayList<>() ;
+    private ArrayList<String> searchitem = new ArrayList<>();
     private ArrayList<Integer> colors = new ArrayList<>();
     private Button button;
     private Context con;
@@ -42,18 +42,18 @@ public class SendMessageDeparmentSelectorAdapter extends RecyclerView.Adapter<Se
         this.data = data;
     }
 
-    public SendMessageDeparmentSelectorAdapter(Context c, Dialog d, Button button,ArrayList<String> recivers){
-        for(String deparment:ClassPathBuilder.classPath.keySet()){
-            for(String year:ClassPathBuilder.classPath.get(deparment).keySet()){
-                for(String group:ClassPathBuilder.classPath.get(deparment).get(year)){
-                    this.searchitem.add(new String(deparment+" "+year+" "+group));
+    public SendMessageDeparmentSelectorAdapter(Context c, Dialog d, Button button, ArrayList<String> recivers) {
+        for (String deparment : ClassPathBuilder.classPath.keySet()) {
+            for (String year : ClassPathBuilder.classPath.get(deparment).keySet()) {
+                for (String group : ClassPathBuilder.classPath.get(deparment).get(year)) {
+                    this.searchitem.add(new String(deparment + " " + year + " " + group));
                     this.colors.add(Color.BLACK);
                 }
             }
         }
         this.button = button;
         this.dialog = d;
-        this.con =c;
+        this.con = c;
         this.revivers = recivers;
     }
 
@@ -61,7 +61,7 @@ public class SendMessageDeparmentSelectorAdapter extends RecyclerView.Adapter<Se
     @Override
     public DepartmentSelectorAdapterViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int i) {
 
-        View v = LayoutInflater.from(con).inflate(R.layout.search_item_view,viewGroup,false);
+        View v = LayoutInflater.from(con).inflate(R.layout.search_item_view, viewGroup, false);
         return new DepartmentSelectorAdapterViewHolder(v);
     }
 
@@ -78,7 +78,7 @@ public class SendMessageDeparmentSelectorAdapter extends RecyclerView.Adapter<Se
         return this.searchitem.size();
     }
 
-    public class DepartmentSelectorAdapterViewHolder extends RecyclerView.ViewHolder{
+    public class DepartmentSelectorAdapterViewHolder extends RecyclerView.ViewHolder {
 
         public TextView text;
         public int pos;
@@ -94,17 +94,16 @@ public class SendMessageDeparmentSelectorAdapter extends RecyclerView.Adapter<Se
 
                     if (DepartmentSelectorAdapterViewHolder.this.color == Color.BLACK) {
                         SendMessageDeparmentSelectorAdapter.this.revivers.add(SendMessageDeparmentSelectorAdapter.this.searchitem.get(DepartmentSelectorAdapterViewHolder.this.pos));
-                            DepartmentSelectorAdapterViewHolder.this.color = Color.RED;
-                            DepartmentSelectorAdapterViewHolder.this.text.setBackgroundColor(DepartmentSelectorAdapterViewHolder.this.color);
-                            SendMessageDeparmentSelectorAdapter.this.colors.set(DepartmentSelectorAdapterViewHolder.this.pos,Color.RED);
+                        DepartmentSelectorAdapterViewHolder.this.color = Color.RED;
+                        DepartmentSelectorAdapterViewHolder.this.text.setBackgroundColor(DepartmentSelectorAdapterViewHolder.this.color);
+                        SendMessageDeparmentSelectorAdapter.this.colors.set(DepartmentSelectorAdapterViewHolder.this.pos, Color.RED);
 
-                    }
-                    else {
+                    } else {
                         if (DepartmentSelectorAdapterViewHolder.this.color == Color.RED) {
                             DepartmentSelectorAdapterViewHolder.this.color = Color.BLACK;
                             DepartmentSelectorAdapterViewHolder.this.text.setBackgroundColor(DepartmentSelectorAdapterViewHolder.this.color);
                             SendMessageDeparmentSelectorAdapter.this.revivers.remove(SendMessageDeparmentSelectorAdapter.this.searchitem.get(DepartmentSelectorAdapterViewHolder.this.pos));
-                            SendMessageDeparmentSelectorAdapter.this.colors.set(DepartmentSelectorAdapterViewHolder.this.pos,Color.BLACK);
+                            SendMessageDeparmentSelectorAdapter.this.colors.set(DepartmentSelectorAdapterViewHolder.this.pos, Color.BLACK);
                         }
                     }
                 }

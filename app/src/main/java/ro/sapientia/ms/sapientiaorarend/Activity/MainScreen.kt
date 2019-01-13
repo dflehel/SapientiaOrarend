@@ -31,8 +31,6 @@ import ro.sapientia.ms.sapientiaorarend.R
 import ro.sapientia.ms.sapientiaorarend.Services.DatabaseListening
 import ro.sapientia.ms.sapientiaorarend.Util.Databuilder
 import ro.sapientia.ms.sapientiaorarend.Util.Settings
-import ro.sapientia.ms.sapientiaorarend.Activity.activity_send_message
-
 import ro.sapientia.ms.sapientiaorarend.models.Classes
 import ro.sapientia.ms.sapientiaorarend.models.User
 import java.util.*
@@ -53,8 +51,9 @@ class MainScreen : AppCompatActivity() {
     private var data: Databuilder? = null;
     private var context: Context? = this
     private var generalTimeTableAdapter: GeneralTimeTableAdapter? = null
-    private var notireciver : BroadcastReceiver? = null
+    private var notireciver: BroadcastReceiver? = null
     private var user: User? = null
+
     companion object {
         public var iscreated: Boolean? = false
     }
@@ -116,16 +115,16 @@ class MainScreen : AppCompatActivity() {
                     this.drawerLayout!!.closeDrawer(Gravity.START, false)
                     true
                 }
-                R.id.bealitasok->{
-                    var intent = Intent(this,SettingsScreen::class.java)
+                R.id.bealitasok -> {
+                    var intent = Intent(this, SettingsScreen::class.java)
                     startActivity(intent)
-                    this.drawerLayout!!.closeDrawer(Gravity.START,false)
+                    this.drawerLayout!!.closeDrawer(Gravity.START, false)
                     true
                 }
-                R.id.uzenetek->{
-                    var intent = Intent(this,MessageDisplay::class.java)
+                R.id.uzenetek -> {
+                    var intent = Intent(this, MessageDisplay::class.java)
                     startActivity(intent)
-                    this.drawerLayout!!.closeDrawer(Gravity.START,false)
+                    this.drawerLayout!!.closeDrawer(Gravity.START, false)
                     true
                 }
             }
@@ -145,7 +144,10 @@ class MainScreen : AppCompatActivity() {
     override fun onDestroy() {
         super.onDestroy()
         MainScreen.iscreated = false
+        unregisterReceiver(this.notireciver!!)
     }
+
+
 
 
     /**letrehozza a fokepernyot fragmentek nelkul*/
@@ -194,15 +196,15 @@ class MainScreen : AppCompatActivity() {
         var intent = Intent(this, DatabaseListening::class.java)
         startService(intent)
 
-        val intentFilter:IntentFilter? = IntentFilter("time")
-        val revicer:BroadcastReceiver? = object : BroadcastReceiver(){
+        val intentFilter: IntentFilter? = IntentFilter("time")
+        this.notireciver= object : BroadcastReceiver() {
             override fun onReceive(context: Context?, intent: Intent?) {
                 Databuilder(ownTimeTable!!, context, Settings.user)
 
             }
 
         }
-        this.registerReceiver( revicer,intentFilter)
+        this.registerReceiver(this.notireciver!!, intentFilter)
     }
 
     /** a menu activiti elinditasara szolgal*/
