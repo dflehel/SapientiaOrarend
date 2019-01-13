@@ -150,6 +150,7 @@ public class DatabaseListening extends IntentService {
 
             @Override
             public void onCancelled(@NonNull DatabaseError databaseError) {
+                System.out.println("csdfdsff");
 
             }
         });
