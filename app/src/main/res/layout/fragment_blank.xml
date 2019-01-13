@@ -12,7 +12,6 @@
             android:layout_height="match_parent">
 
         <TextView
-                android:text="TextView"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content" android:id="@+id/gen_time_table_department_text_view"
                 app:layout_constraintTop_toTopOf="parent"
