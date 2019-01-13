@@ -1,6 +1,7 @@
 package ro.sapientia.ms.sapientiaorarend.Activity
 
 import android.app.Dialog
+import android.graphics.Color
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import android.support.v7.widget.LinearLayoutManager
@@ -77,6 +78,7 @@ class activity_send_message : AppCompatActivity() {
                     var text: TextView? = TextView(applicationContext)
                     text!!.setText(recivers!![i])
                     text.setTextSize(text.textSize * 1.5F)
+                    text.setTextColor(Color.BLACK)
                     mlayout!!.addView(text!!)
             }
                 dialog.dismiss()
