@@ -3,13 +3,13 @@
 
     <item
             android:id="@+id/navigation_general_time_table"
-            android:icon="@drawable/ic_timetable"
-            android:title="@string/navigation_screen_general"/>
+            android:icon="@drawable/ic_general_time_table"
+            android:title="Általanos"/>
 
     <item
             android:id="@+id/navigation_own_time_table"
-            android:icon="@drawable/ic_timetable"
-            android:title="@string/navigation_screen_own"/>
+            android:icon="@drawable/ic_own_time_table"
+            android:title="Saját"/>
 
     <item
             android:id="@+id/navigation_notifications"

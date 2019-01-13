@@ -22,6 +22,7 @@ class activity_send_message : AppCompatActivity() {
     private var mlayout: LinearLayout?= null
     private var buttonsend : Button?=null
     private var content : EditText?=null
+    private var deletebutton : ImageButton?=null
 
 
 
@@ -31,6 +32,14 @@ class activity_send_message : AppCompatActivity() {
         this.recivers = ArrayList<String>()
         this.content = findViewById<EditText>(R.id.send_message_screen_edittext)
         this.buttonsend = findViewById<Button>(R.id.send_message_screen_send)
+        this.deletebutton =  findViewById<ImageButton>(R.id.send_message_delete_button)
+        this.deletebutton!!.setOnClickListener {
+            recivers!!.clear()
+            mlayout!!.removeAllViews()
+            mlayout!!.refreshDrawableState()
+            content!!.setText("")
+            content!!.refreshDrawableState()
+        }
         this.buttonsend!!.setOnClickListener {
             var sendMessage: SendMessage =
                 SendMessage(
@@ -39,13 +48,17 @@ class activity_send_message : AppCompatActivity() {
                     recivers!!,
                     System.currentTimeMillis()
                 )
-            sendMessage.sendingmesage()
+            recivers!!.clear()
+            mlayout!!.removeAllViews()
+            mlayout!!.refreshDrawableState()
+            content!!.setText("")
+            content!!.refreshDrawableState()
         }
         this.mlayout = findViewById<LinearLayout>(R.id.send_activity_scrool_view_layout)
         this.buttondeparment = findViewById<Button>(R.id.send_message_screen_deparment_selector)
         this.buttondeparment!!.setOnClickListener {
 
-
+            recivers!!.clear()
             var dialog: Dialog = Dialog(this)
             dialog.setCancelable(true)
             dialog.setTitle("Vallasz csoportokat")
