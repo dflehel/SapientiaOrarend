@@ -9,10 +9,7 @@ import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.NotificationManagerCompat;
 import com.google.firebase.database.*;
-import ro.sapientia.ms.sapientiaorarend.Activity.MENU;
-import ro.sapientia.ms.sapientiaorarend.Activity.MainScreen;
-import ro.sapientia.ms.sapientiaorarend.Activity.Map;
-import ro.sapientia.ms.sapientiaorarend.Activity.MessageDisplay;
+import ro.sapientia.ms.sapientiaorarend.Activity.*;
 import ro.sapientia.ms.sapientiaorarend.R;
 import ro.sapientia.ms.sapientiaorarend.Util.Settings;
 import ro.sapientia.ms.sapientiaorarend.models.User;
@@ -64,7 +61,7 @@ public class DatabaseListening extends IntentService {
         PendingIntent pendingIntentTimetable = PendingIntent.getActivity(this, 0, intentTimetable, 0);
         Intent intentMenu = new Intent(this, MENU.class);
         PendingIntent pendingIntentMenu = PendingIntent.getActivity(this, 0, intentMenu, 0);
-        Intent intentMessage = new Intent(this, MessageDisplay.class);
+        Intent intentMessage = new Intent(this, CheckPassword.class);
         PendingIntent pendingIntentMessage = PendingIntent.getActivity(this, 0, intentMessage, 0);
         final Notification noti1 = new Notification.Builder(this)
                 .setContentTitle("Valtozas")
