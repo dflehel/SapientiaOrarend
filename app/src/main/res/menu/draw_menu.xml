@@ -23,7 +23,7 @@
         <item
                 android:id="@+id/uzenet"
                 android:title="Üzenet kuldes"
-                android:icon="@drawable/ic_message"
+                android:icon="@drawable/ic_sending_message_icon"
                 app:showAsAction="always"
         >
 
