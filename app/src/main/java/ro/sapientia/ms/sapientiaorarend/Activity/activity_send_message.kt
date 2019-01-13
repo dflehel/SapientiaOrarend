@@ -48,11 +48,12 @@ class activity_send_message : AppCompatActivity() {
                     recivers!!,
                     System.currentTimeMillis()
                 )
+            sendMessage.sendingmesage()
             recivers!!.clear()
             mlayout!!.removeAllViews()
             mlayout!!.refreshDrawableState()
             content!!.setText("")
-            content!!.refreshDrawableState()
+           content!!.refreshDrawableState()
         }
         this.mlayout = findViewById<LinearLayout>(R.id.send_activity_scrool_view_layout)
         this.buttondeparment = findViewById<Button>(R.id.send_message_screen_deparment_selector)
