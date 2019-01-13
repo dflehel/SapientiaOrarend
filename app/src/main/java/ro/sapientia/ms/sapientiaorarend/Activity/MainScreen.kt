@@ -235,7 +235,7 @@ class MainScreen : AppCompatActivity() {
         if (item.itemId == R.id.switchbetweenweeks) {
             if (item.title.toString().equals("Második hét")) {
                 item.title = "Első hét"
-                item.setIcon(resources.getDrawable(R.drawable.ic_first_week))
+                item.setIcon(resources.getDrawable(R.drawable.ic_second_week))
                 this.generalTimeTable!!.adaptar!!.wichweek = "paroshet"
                 this.generalTimeTable!!.adaptar!!.notifyDataSetChanged()
                 this.ownTimeTable!!.adapter.wichweek = "paroshet"
@@ -245,7 +245,7 @@ class MainScreen : AppCompatActivity() {
                 this.generalTimeTable!!.adaptar!!.wichweek = "paratlanhet"
                 this.generalTimeTable!!.adaptar!!.notifyDataSetChanged()
                 item.title = "Második hét"
-                item.setIcon(resources.getDrawable(R.drawable.ic_second_week))
+                item.setIcon(resources.getDrawable(R.drawable.ic_first_week))
                 this.ownTimeTable!!.adapter!!.wichweek = "paratlanhet"
                 this.ownTimeTable!!.adapter!!.notifyDataSetChanged()
 
