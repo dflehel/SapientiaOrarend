@@ -119,12 +119,12 @@ class SignUpScreen : AppCompatActivity() {
             return
         }
         if (TextUtils.isEmpty(password)) {
-            Toast.makeText(this, "Irjon be passwordot", Toast.LENGTH_LONG).show()
+            Toast.makeText(this, "Írjon be egy jelszót!", Toast.LENGTH_LONG).show()
             return
         }
 
         if (this.edittextpassword.text.toString().equals(this.edittextpasswordconfirm.text.toString()) == false) {
-            Toast.makeText(this, "Nem egyezik meg a jelszo", Toast.LENGTH_LONG).show()
+            Toast.makeText(this, "A jelszavak nem egyeznek!", Toast.LENGTH_LONG).show()
             return
         }*/
 
@@ -162,7 +162,6 @@ class SignUpScreen : AppCompatActivity() {
                         Toast.makeText(this, "Sikeretelen Registracio", Toast.LENGTH_LONG).show()
                         this.progressDialog.dismiss()
                     }
-
                 }
         }
     }
