@@ -77,7 +77,8 @@ class activity_send_message : AppCompatActivity() {
                 for (i in recivers!!.indices){
                     var text: TextView? = TextView(applicationContext)
                     text!!.setText(recivers!![i])
-                    text.setTextSize(text.textSize * 1.5F)
+                   // text!!.setTextSize(10.00F)
+                    text!!.setTextAppearance(applicationContext,android.R.style.TextAppearance_DeviceDefault_Medium)
                     text.setTextColor(Color.BLACK)
                     mlayout!!.addView(text!!)
             }
