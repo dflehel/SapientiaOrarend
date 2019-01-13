@@ -58,6 +58,7 @@ dependencies {
     implementation 'com.github.bumptech.glide:glide:4.8.0'
     annotationProcessor 'com.github.bumptech.glide:compiler:4.8.0'
     implementation 'gr.pantrif:easy-android-splash-screen:0.0.1'
+    implementation 'me.aflak.libraries:fingerprint:2.5.3'
 
 }
 

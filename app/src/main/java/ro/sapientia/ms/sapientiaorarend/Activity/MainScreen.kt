@@ -5,6 +5,7 @@ import android.content.BroadcastReceiver
 import android.content.Context
 import android.content.Intent
 import android.content.IntentFilter
+import android.graphics.Color
 import android.os.Bundle
 import android.support.design.widget.BottomNavigationView
 import android.support.design.widget.NavigationView
@@ -17,11 +18,13 @@ import android.support.v7.widget.RecyclerView
 import android.view.Gravity
 import android.view.Menu
 import android.view.MenuItem
-import android.widget.Toast
-import com.google.firebase.auth.FirebaseAuth
+import android.widget.*
+import com.google.firebase.auth.*
 import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.FirebaseDatabase
 import kotlinx.android.synthetic.main.activity_main_screen.*
+import me.aflak.libraries.callback.FingerprintDialogCallback
+import me.aflak.libraries.dialog.FingerprintDialog
 import ro.sapientia.ms.sapientiaorarend.Adapters.GeneralTimeTableAdapter
 import ro.sapientia.ms.sapientiaorarend.Adapters.SearchAdapter
 import ro.sapientia.ms.sapientiaorarend.Fragments.GeneralTimeTable
@@ -110,9 +113,31 @@ class MainScreen : AppCompatActivity() {
                     true
                 }
                 R.id.uzenet -> {
-                    var intent2 = Intent(this, activity_send_message::class.java)
-                    startActivity(intent2)
-                    this.drawerLayout!!.closeDrawer(Gravity.START, false)
+                    if ( android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.M) {
+                        if (FingerprintDialog.isAvailable(this)) {
+                            FingerprintDialog.initialize(this)
+                                .title("Ellenorzes")
+                                .message("Hasznalja az ujlenyomatat a tovabb lepeshez")
+                                .callback(object : FingerprintDialogCallback {
+                                    override fun onAuthenticationSucceeded() {
+                                        var intent2 = Intent(context, activity_send_message::class.java)
+                                        startActivity(intent2)
+                                        drawerLayout!!.closeDrawer(Gravity.START, false)
+                                    }
+
+                                    override fun onAuthenticationCancel() {
+                                            passwordformessagewritiing()
+                                    }
+                                })
+                                .show();
+                        }
+                        else{
+                            passwordformessagewritiing()
+                        }
+                    }
+                    else{
+                        passwordformessagewritiing()
+                    }
                     true
                 }
                 R.id.bealitasok -> {
@@ -122,15 +147,125 @@ class MainScreen : AppCompatActivity() {
                     true
                 }
                 R.id.uzenetek -> {
-                    var intent = Intent(this, MessageDisplay::class.java)
-                    startActivity(intent)
-                    this.drawerLayout!!.closeDrawer(Gravity.START, false)
+                    if ( android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.M) {
+                        if (FingerprintDialog.isAvailable(this)) {
+                            FingerprintDialog.initialize(this)
+                                .title("Ellenorzes")
+                                .message("Hasznalja az ujlenyomatat a tovabb lepeshez")
+                                .callback(object : FingerprintDialogCallback {
+                                    override fun onAuthenticationSucceeded() {
+                                        var intent = Intent(context, MessageDisplay::class.java)
+                                        startActivity(intent)
+                                        drawerLayout!!.closeDrawer(Gravity.START, false)
+                                    }
+
+                                    override fun onAuthenticationCancel() {
+                                          passwordformessageview()
+                                    }
+                                })
+                                .show();
+                        }
+                        else{
+                            passwordformessageview()
+                        }
+                    }
+                    else{
+                        passwordformessageview()
+                    }
                     true
                 }
             }
             false
         }
 
+
+
+    fun passwordformessageview(){
+        val dialog:Dialog? = Dialog(this)
+        dialog!!.setContentView(R.layout.passwordcheck)
+        dialog!!.setTitle("Ellenorzes")
+        var cancelbutton : Button? = dialog.findViewById<Button>(R.id.password_button_cancel)
+        var checkbutton : Button? = dialog.findViewById<Button>(R.id.password_check_passwod_button)
+        var image : ImageView? = dialog.findViewById<ImageView>(R.id.password_image)
+        var pass : EditText? = dialog.findViewById<EditText>(R.id.assword_input)
+        var paslabel: TextView? = dialog.findViewById<TextView>(R.id.password_label)
+        cancelbutton!!.setOnClickListener {
+            dialog.dismiss()
+        }
+        checkbutton!!.setOnClickListener {
+            var user: FirebaseUser? = FirebaseAuth.getInstance().currentUser
+            var credential: AuthCredential? =
+                EmailAuthProvider.getCredential(user!!.email!!, pass!!.text.toString())
+            user!!.reauthenticate(credential!!).addOnCompleteListener {
+                if (it.isSuccessful) {
+
+
+                    image!!.setImageResource(R.mipmap.ic_unlock)
+                    paslabel!!.setText("Sikeres bejelentkezes")
+                    Toast.makeText(context,"Sikeres",Toast.LENGTH_SHORT)
+                    paslabel!!.setTextColor(resources.getColor(R.color.slapshcolor))
+                    var intent2 = Intent(context, MessageDisplay::class.java)
+                    startActivity(intent2)
+                    drawerLayout!!.closeDrawer(Gravity.START, false)
+                    dialog.dismiss()
+                }
+                else {
+                    image!!.setImageResource(R.mipmap.ic_lock_error_round)
+                    paslabel!!.setText("Sikertelen bejelentkezes")
+                    Toast.makeText(context,"Sikertelen",Toast.LENGTH_SHORT)
+                    paslabel!!.setTextColor(Color.RED)
+                }
+
+            }
+
+
+        }
+        dialog!!.show()
+
+    }
+
+    fun passwordformessagewritiing(){
+        val dialog:Dialog? = Dialog(this)
+        dialog!!.setContentView(R.layout.passwordcheck)
+        dialog!!.setTitle("Ellenorzes")
+        var cancelbutton : Button? = dialog.findViewById<Button>(R.id.password_button_cancel)
+        var checkbutton : Button? = dialog.findViewById<Button>(R.id.password_check_passwod_button)
+        var image : ImageView? = dialog.findViewById<ImageView>(R.id.password_image)
+        var pass : EditText? = dialog.findViewById<EditText>(R.id.assword_input)
+        var paslabel: TextView? = dialog.findViewById<TextView>(R.id.password_label)
+        cancelbutton!!.setOnClickListener {
+            dialog.dismiss()
+        }
+        checkbutton!!.setOnClickListener {
+            var user: FirebaseUser? = FirebaseAuth.getInstance().currentUser
+            var credential: AuthCredential? =
+                EmailAuthProvider.getCredential(user!!.email!!, pass!!.text.toString())
+            user!!.reauthenticate(credential!!).addOnCompleteListener {
+                if (it.isSuccessful) {
+
+
+                    image!!.setImageResource(R.mipmap.ic_unlock)
+                    paslabel!!.setText("Sikeres bejelentkezes")
+                    Toast.makeText(context,"Sikeres",Toast.LENGTH_SHORT)
+                    paslabel!!.setTextColor(resources.getColor(R.color.slapshcolor))
+                    var intent2 = Intent(context, activity_send_message::class.java)
+                    startActivity(intent2)
+                    drawerLayout!!.closeDrawer(Gravity.START, false)
+                    dialog.dismiss()
+                }
+                else {
+                    image!!.setImageResource(R.mipmap.ic_lock_error_round)
+                    paslabel!!.setText("Sikertelen bejelentkezes")
+                    Toast.makeText(context,"Sikertelen",Toast.LENGTH_SHORT)
+                    paslabel!!.setTextColor(Color.RED)
+                }
+
+            }
+
+
+        }
+        dialog!!.show()
+    }
 
     /** A frament cserelest oldja meg*/
     private fun openFragment(fragment: Fragment) {
@@ -146,8 +281,6 @@ class MainScreen : AppCompatActivity() {
         MainScreen.iscreated = false
         unregisterReceiver(this.notireciver!!)
     }
-
-
 
 
     /**letrehozza a fokepernyot fragmentek nelkul*/
@@ -197,7 +330,7 @@ class MainScreen : AppCompatActivity() {
         startService(intent)
 
         val intentFilter: IntentFilter? = IntentFilter("time")
-        this.notireciver= object : BroadcastReceiver() {
+        this.notireciver = object : BroadcastReceiver() {
             override fun onReceive(context: Context?, intent: Intent?) {
                 Databuilder(ownTimeTable!!, context, Settings.user)
 
