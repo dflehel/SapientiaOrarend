@@ -3,6 +3,7 @@ package ro.sapientia.ms.sapientiaorarend.Util;
 import android.support.annotation.NonNull;
 import com.google.firebase.database.*;
 import ro.sapientia.ms.sapientiaorarend.Activity.LoginScreen;
+import ro.sapientia.ms.sapientiaorarend.Activity.MainScreen;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -40,7 +41,9 @@ public class ClassPathBuilder {
                 }
                 ClassPathBuilder.terminated = true;
                 if (ClassColorsBuilder.terminated && ClassPathBuilder.loginScreen.getTerminated()) {
-                    ClassPathBuilder.loginScreen.startingmainscreen();
+                    if (!MainScreen.Companion.getIscreated()) {
+                        ClassPathBuilder.loginScreen.startingmainscreen();
+                    }
                     ClassPathBuilder.loginScreen.getProgressDialog().dismiss();
                 }
             }

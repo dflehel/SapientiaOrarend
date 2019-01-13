@@ -3,6 +3,7 @@ package ro.sapientia.ms.sapientiaorarend.Util;
 import android.support.annotation.NonNull;
 import com.google.firebase.database.*;
 import ro.sapientia.ms.sapientiaorarend.Activity.LoginScreen;
+import ro.sapientia.ms.sapientiaorarend.Activity.MainScreen;
 import ro.sapientia.ms.sapientiaorarend.models.ClassColor;
 
 import java.util.HashMap;
@@ -28,7 +29,9 @@ public class ClassColorsBuilder {
                 }
                 ClassColorsBuilder.terminated = true;
                 if (ClassPathBuilder.terminated && ClassColorsBuilder.loginScreen.getTerminated()) {
-                    ClassColorsBuilder.loginScreen.startingmainscreen();
+                   if(!MainScreen.Companion.getIscreated()) {
+                       ClassColorsBuilder.loginScreen.startingmainscreen();
+                   }
                     ClassColorsBuilder.loginScreen.getProgressDialog().dismiss();
                 }
             }

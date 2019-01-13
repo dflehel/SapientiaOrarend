@@ -29,13 +29,12 @@ public class DatabaseListening extends IntentService {
     public DatabaseListening(String name) {
         super(name);
         this.menu = FirebaseDatabase.getInstance().getReference("/menu");
-        this.message = FirebaseDatabase.getInstance().getReference("/message");
     }
 
     public DatabaseListening() {
         super("szia");
         this.menu = FirebaseDatabase.getInstance().getReference("/menu");
-        this.message = FirebaseDatabase.getInstance().getReference("/message");
+
 
     }
 
@@ -48,7 +47,7 @@ public class DatabaseListening extends IntentService {
     public DatabaseListening(String name, User u) {
         super(name);
         this.menu = FirebaseDatabase.getInstance().getReference("/menu");
-        this.message = FirebaseDatabase.getInstance().getReference("/message");
+
 
     }
     // @androidx.annotation.Nullable
@@ -57,32 +56,30 @@ public class DatabaseListening extends IntentService {
     @Override
     protected void onHandleIntent(@Nullable Intent intent) {
         if (Settings.user != null) {
-            this.timetable = FirebaseDatabase.getInstance().getReference("/" + Settings.user.getDeparment());
+            this.timetable = FirebaseDatabase.getInstance().getReference("/timetables/" + Settings.user.getDeparment() + "/");
+            this.message = FirebaseDatabase.getInstance().getReference("/messages/"+Settings.user.getDeparment()+"/");
         }
         Intent intentTimetable = new Intent(this, MainScreen.class);
         PendingIntent pendingIntentTimetable = PendingIntent.getActivity(this, 0, intentTimetable, 0);
-
         Intent intentMenu = new Intent(this, MENU.class);
         PendingIntent pendingIntentMenu = PendingIntent.getActivity(this, 0, intentMenu, 0);
         Intent intentMessage = new Intent(this, Map.class);
         PendingIntent pendingIntentMessage = PendingIntent.getActivity(this, 0, intentMessage, 0);
         final Notification noti1 = new Notification.Builder(this)
+                .setContentTitle("Valtozas")
+                .setContentText("Orarendvaltozas tortent")
                 .setSmallIcon(R.drawable.ic__update_timetable)
-                .setContentTitle("Változás")
-                .setContentText("Órarendváltozás történt")
-                .setLargeIcon(BitmapFactory.decodeResource(getResources(), R.mipmap.ic_launcher_round))
-                .setLargeIcon(BitmapFactory.decodeResource(getResources(), R.mipmap.ic_launcher_round))
+                .setLargeIcon(BitmapFactory.decodeResource(getResources(), R.mipmap.ic_update_time_table_round))
                 .setContentIntent(pendingIntentTimetable)
                 .setDefaults(Notification.DEFAULT_ALL)
                 .setPriority(Notification.PRIORITY_HIGH)
                 .setAutoCancel(true)
                 .build();
         final Notification noti2 = new Notification.Builder(this)
+                .setContentTitle("Valtozas")
+                .setContentText("UJ napi menu")
                 .setSmallIcon(R.drawable.ic__update_restaurante)
-                .setContentTitle("Változás")
-                .setContentText("Új napi menü")
-                .setLargeIcon(BitmapFactory.decodeResource(getResources(), R.mipmap.ic_launcher_round))
-                .setLargeIcon(BitmapFactory.decodeResource(getResources(), R.mipmap.ic_launcher_round))
+                .setLargeIcon(BitmapFactory.decodeResource(getResources(), R.mipmap.ic_update_restaurante_round))
                 .setContentIntent(pendingIntentMenu)
                 //.setSound(Notification.DEFAULT_SOUND)
                 .setAutoCancel(true)
@@ -90,11 +87,9 @@ public class DatabaseListening extends IntentService {
                 .setDefaults(Notification.DEFAULT_ALL)
                 .build();
         final Notification noti3 = new Notification.Builder(this)
-                .setContentTitle("Üzeneted érkezett")
-                .setContentText("Órarendváltozás történt")
-                .setLargeIcon(BitmapFactory.decodeResource(getResources(), R.mipmap.ic_launcher_round))
+                .setContentTitle("Uzeneted erkezet")
+                .setLargeIcon(BitmapFactory.decodeResource(getResources(), R.mipmap.ic_message_update_round))
                 .setSmallIcon(R.drawable.ic_message)
-                .setLargeIcon(BitmapFactory.decodeResource(getResources(), R.mipmap.ic_launcher_round))
                 .setContentIntent(pendingIntentMessage)
                 .setAutoCancel(true)
                 .setPriority(Notification.PRIORITY_HIGH)
@@ -102,11 +97,15 @@ public class DatabaseListening extends IntentService {
                 .build();
         final NotificationManagerCompat notificationManager = NotificationManagerCompat.from(this);
         if (Settings.user != null) {
-            this.timetable.addValueEventListener(new ValueEventListener() {
+          this.timetable.addValueEventListener(new ValueEventListener() {
                 @Override
                 public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                     if (!DatabaseListening.this.firststarttimetable) {
                         notificationManager.notify(1, noti1);
+                        Intent intent = new Intent();
+                        intent.setAction("time");
+                        intent.putExtra("Dfdsfdf",1);
+                        sendBroadcast(intent);
                     }
                     DatabaseListening.this.firststarttimetable = false;
                 }
@@ -116,12 +115,17 @@ public class DatabaseListening extends IntentService {
 
                 }
             });
+
         }
         this.menu.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 if (!DatabaseListening.this.firststartmenu) {
                     notificationManager.notify(1, noti2);
+                    Intent intent = new Intent();
+                    intent.setAction("menu");
+                    intent.putExtra("Dfdsfdf",1);
+                    sendBroadcast(intent);
                 }
                 DatabaseListening.this.firststartmenu = false;
             }
@@ -136,6 +140,10 @@ public class DatabaseListening extends IntentService {
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 if (!DatabaseListening.this.firststartmessage) {
                     notificationManager.notify(1, noti3);
+                    Intent intent = new Intent();
+                    intent.setAction("mess");
+                    intent.putExtra("Dfdsfdf",1);
+                    sendBroadcast(intent);
                 }
                 DatabaseListening.this.firststartmessage = false;
             }
@@ -147,4 +155,4 @@ public class DatabaseListening extends IntentService {
         });
 
     }
-}
+    }

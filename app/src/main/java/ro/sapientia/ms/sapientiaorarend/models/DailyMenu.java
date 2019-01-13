@@ -39,6 +39,8 @@ public class DailyMenu {
                     DailyMenu.this.foodsdisplay.append(DailyMenu.this.foods[i] + "\n");
                 }
                 DailyMenu.this.progressDialog.dismiss();
+                DailyMenu.this.foodsdisplay.refreshDrawableState();
+                DailyMenu.this.daydisplay.refreshDrawableState();
 
             }
 

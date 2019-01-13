@@ -1,21 +1,33 @@
 package ro.sapientia.ms.sapientiaorarend.models;
 
-import java.util.ArrayList;
-
 public class Message {
 
     private String sender;
     private String content;
-    private ArrayList<String> recivers;
+    private Long timestamp;
 
 
-    public Message(String sender, String content, ArrayList<String> recivers) {
+    public Message(String sender, String content, Long timestamp) {
         this.sender = sender;
         this.content = content;
-        this.recivers = recivers;
+        this.timestamp = timestamp;
+    }
+
+    public Long getTimestamp() {
+        return timestamp;
+    }
+
+    public void setTimestamp(Long timestamp) {
+        this.timestamp = timestamp;
     }
 
     public Message() {
+    }
+
+
+    public Message(String sender, String content) {
+        this.sender = sender;
+        this.content = content;
     }
 
     public String getSender() {
@@ -32,13 +44,5 @@ public class Message {
 
     public void setContent(String content) {
         this.content = content;
-    }
-
-    public ArrayList<String> getRecivers() {
-        return recivers;
-    }
-
-    public void setRecivers(ArrayList<String> recivers) {
-        this.recivers = recivers;
     }
 }

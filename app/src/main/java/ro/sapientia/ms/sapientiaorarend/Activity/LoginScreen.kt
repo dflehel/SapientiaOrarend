@@ -6,6 +6,7 @@ import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
+import android.text.TextUtils
 import android.util.Log
 import android.widget.Button
 import android.widget.EditText
@@ -34,6 +35,7 @@ class LoginScreen : AppCompatActivity() {
     lateinit var Login: Button
     lateinit var Signup: TextView
     private var email: String? = null
+    private var phone: String? = null
     private var password: String? = null
     private var mAuth: FirebaseAuth? = null
     private var databasereferenc2: DatabaseReference? = null
@@ -116,10 +118,16 @@ class LoginScreen : AppCompatActivity() {
 
     /**a bejelenkezes ellenorzese*/
     fun loggingig() {
-        this.progressDialog!!.setMessage("Bejelentkezés")
-        this.progressDialog!!.show()
+        //this.progressDialog!!.setMessage("Bejelentkezés")
+        //this.progressDialog!!.show()
         this.email = this.Email.text.toString()
         this.password = this.Password.text.toString()
+        //this.phone = this.Phone.text.toString()
+
+        if (fullcheck(email!!, password!!)){
+            this.progressDialog!!.setMessage("Bejelentkezés")
+            this.progressDialog!!.show()
+
         mAuth!!.signInWithEmailAndPassword(this.email!!, this.password!!)
             .addOnCompleteListener(this) { task ->
                 if (task.isSuccessful) {
@@ -153,9 +161,10 @@ class LoginScreen : AppCompatActivity() {
                     Toast.makeText(this, "Sikertelen bejelentkezés", Toast.LENGTH_LONG).show()
                     this.progressDialog!!.dismiss()
                 }
+            }
 
                 // ...
-            }
+        }
     }
 
     /** fo kepernyo inditasa*/
@@ -166,6 +175,24 @@ class LoginScreen : AppCompatActivity() {
         startActivity(intent)
     }
 
+
+    fun fullcheck(email: String, password: String): Boolean {
+
+        if (TextUtils.isEmpty(email) || !email.contains("@") || !email.contains(".")) {
+            Toast.makeText(this, "Az emailcimnek tartalmaznia kell '@'-ot es '.'-ot", Toast.LENGTH_LONG).show()
+            return false
+        }
+        /*if (TextUtils.isEmpty(phone) || !phone.matches("-?\\d+(\\.\\d+)?".toRegex())) {
+            Toast.makeText(this, "A telefonszam nem lehet ures es csak szamokat tartalmazhat", Toast.LENGTH_LONG).show()
+            return false
+        }*/
+        if (TextUtils.isEmpty(password) || password.length < 6) {
+            Toast.makeText(this, "A jelszo minimum 6 karaktert kell tartalmazzon.", Toast.LENGTH_LONG).show()
+            return false
+        }
+
+        return true
+    }
   /*  fun logginginwhitphone() {
         var phone =  this.Phone.text.toString()
         val smsCode = "123456"
@@ -208,6 +235,7 @@ class LoginScreen : AppCompatActivity() {
         mProgressDialog.show();
 
     }*/
+
 
 
 

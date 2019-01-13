@@ -1,8 +1,10 @@
 package ro.sapientia.ms.sapientiaorarend.Activity
 
 import android.app.Dialog
+import android.content.BroadcastReceiver
 import android.content.Context
 import android.content.Intent
+import android.content.IntentFilter
 import android.os.Bundle
 import android.support.design.widget.BottomNavigationView
 import android.support.design.widget.NavigationView
@@ -51,7 +53,11 @@ class MainScreen : AppCompatActivity() {
     private var data: Databuilder? = null;
     private var context: Context? = this
     private var generalTimeTableAdapter: GeneralTimeTableAdapter? = null
+    private var notireciver : BroadcastReceiver? = null
     private var user: User? = null
+    companion object {
+        public var iscreated: Boolean? = false
+    }
 
 
     /** az also mennu kezelesere szolgalo fuggveny*/
@@ -116,6 +122,12 @@ class MainScreen : AppCompatActivity() {
                     this.drawerLayout!!.closeDrawer(Gravity.START,false)
                     true
                 }
+                R.id.uzenetek->{
+                    var intent = Intent(this,MessageDisplay::class.java)
+                    startActivity(intent)
+                    this.drawerLayout!!.closeDrawer(Gravity.START,false)
+                    true
+                }
             }
             false
         }
@@ -130,10 +142,17 @@ class MainScreen : AppCompatActivity() {
     }
 
 
+    override fun onDestroy() {
+        super.onDestroy()
+        MainScreen.iscreated = false
+    }
+
+
     /**letrehozza a fokepernyot fragmentek nelkul*/
     override fun onCreate(savedInstanceState: Bundle?) {
         this.mAuth = FirebaseAuth.getInstance()
         super.onCreate(savedInstanceState)
+        MainScreen.iscreated = true
         /*vendegkent vagy nem ugy van bejelenkezve*/
         if (this.mAuth!!.currentUser == null) {
             setContentView(R.layout.activity_main_screen_guest)
@@ -174,6 +193,16 @@ class MainScreen : AppCompatActivity() {
         supportActionBar!!.setDisplayHomeAsUpEnabled(true)
         var intent = Intent(this, DatabaseListening::class.java)
         startService(intent)
+
+        val intentFilter:IntentFilter? = IntentFilter("time")
+        val revicer:BroadcastReceiver? = object : BroadcastReceiver(){
+            override fun onReceive(context: Context?, intent: Intent?) {
+                Databuilder(ownTimeTable!!, context, Settings.user)
+
+            }
+
+        }
+        this.registerReceiver( revicer,intentFilter)
     }
 
     /** a menu activiti elinditasara szolgal*/
