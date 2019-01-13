@@ -19,6 +19,8 @@ import android.widget.ImageView
 import android.widget.TextView
 import android.widget.Toast
 import com.bumptech.glide.Glide
+import com.bumptech.glide.load.engine.DiskCacheStrategy
+import com.bumptech.glide.request.RequestOptions
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.FirebaseDatabase
@@ -59,6 +61,7 @@ class Profil : Fragment() {
     private var existingImage: Boolean = false
     private val filename = Settings.user.email + "-" + Settings.user.name
     private val storageRef2 = FirebaseStorage.getInstance().getReference("profilkepek/$filename")
+    private var pImageURI2: Uri? = null
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -81,8 +84,8 @@ class Profil : Fragment() {
         this.group_year!!.text = Settings.user.deparment.split("/")[1] + " ev " +
                 Settings.user.deparment.split("/")[2] + " csoport"
 
-        this.storageRef = FirebaseStorage.getInstance().getReference("profilkep")
-        this.databaseRef = FirebaseDatabase.getInstance().getReference("profilkep")
+        //this.storageRef = FirebaseStorage.getInstance().getReference("profilkep")
+        //this.databaseRef = FirebaseDatabase.getInstance().getReference("profilkep")
 
         this.button!!.setOnClickListener {
             this.mAuth!!.signOut()
@@ -96,25 +99,23 @@ class Profil : Fragment() {
             startActivityForResult(intent, PICK_IMAGE_REQUEST)
         }
 
-
-        storageRef2.downloadUrl.addOnFailureListener {
-            // Handle unsuccessful uploads
-            Log.d("UploadLog", "no url here: $storageRef2.downloadUrl")
-            //this.imageView = root.findViewById<ImageView>(R.id.prifile_screen_image_view)
-        }.addOnSuccessListener {
-            // taskSnapshot.metadata contains file metadata such as size, content-type, etc.
-            // ...
-            Log.d("UploadLog", "existing url: $storageRef2.downloadUrl")
-            //val imageView = this.activity!!.findViewById(R.id.prifile_screen_image_view) as ImageView
-            Glide.with(this).load(it).into(imageView!!)
-        }
-
-
         if (existingImage)
         {
-            Log.d("UploadLog", "existing true")
+            Log.d("UploadLog", "Load image from uri to avatar")
             Glide.with(this).load(pImageURI).into(imageView!!)
         }
+        else {
+            storageRef2.downloadUrl.addOnFailureListener {
+                // Handle unsuccessful uploads
+                Log.d("UploadLog", "no url here")
+            }.addOnSuccessListener {
+                // taskSnapshot.metadata contains file metadata such as size, content-type, etc.
+                // ...
+                Log.d("UploadLog", "Load image from URL to avatar")
+                Glide.with(this).load(it).into(imageView!!)
+            }
+        }
+
         return root
     }
 
@@ -134,13 +135,12 @@ class Profil : Fragment() {
                 var realPath = RealPathUtil.getRealPathFromURI_API19(this.context, data.data);
             }
             Log.d("UploadLog", "ImageSelectorSuccess")
-            val cR: ContentResolver? = null
+            //val cR: ContentResolver? = null
             pImageURI = data.data
             val imageView = this.activity!!.findViewById(R.id.prifile_screen_image_view) as ImageView
             Glide.with(this).load(pImageURI).into(imageView)
-
-
-
+            Log.d("UploadLog", "URI: ${pImageURI.toString()}")
+            existingImage = true
             storageRef2.putFile(pImageURI!!)
                 .addOnFailureListener {
                     // Handle unsuccessful uploads
@@ -149,15 +149,14 @@ class Profil : Fragment() {
                     // taskSnapshot.metadata contains file metadata such as size, content-type, etc.
                     // ...
                     Log.d("UploadLog", "Upload Success")
-                    storageRef2.downloadUrl.addOnFailureListener {
+                   /* storageRef2.downloadUrl.addOnFailureListener {
                         // Handle unsuccessful uploads
                         Log.d("UploadLog", "URL FAILED Failed")
                     }.addOnSuccessListener {
                         // taskSnapshot.metadata contains file metadata such as size, content-type, etc.
                         // ...
                         Log.d("UploadLog", "URL success: $storageRef2.downloadUrl")
-                        }
-                    existingImage = true
+                        }*/
                 }
             /*
 
