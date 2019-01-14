@@ -194,6 +194,7 @@ class MainScreen : AppCompatActivity() {
             dialog.dismiss()
         }
         checkbutton!!.setOnClickListener {
+            if(pass!!.text != null && pass!!.text.length >0){
             progressDialog!!.setMessage("Ellenorzes folyamatban")
             progressDialog!!.show()
             var user: FirebaseUser? = FirebaseAuth.getInstance().currentUser
@@ -219,7 +220,15 @@ class MainScreen : AppCompatActivity() {
                     paslabel!!.setTextColor(Color.RED)
                     progressDialog!!.dismiss()
                 }
+            }
 
+            }
+            else{
+                image!!.setImageResource(R.mipmap.ic_lock_error_round)
+                paslabel!!.setText("Sikertelen bejelentkezes nem adot meg jelszot")
+                Toast.makeText(context, "Sikertelen", Toast.LENGTH_SHORT)
+                paslabel!!.setTextColor(Color.RED)
+                progressDialog!!.dismiss()
             }
 
 
@@ -243,34 +252,42 @@ class MainScreen : AppCompatActivity() {
             dialog.dismiss()
         }
         checkbutton!!.setOnClickListener {
-            progressDialog!!.setMessage("Ellenorzes folyamatban")
-            progressDialog!!.show()
-            var user: FirebaseUser? = FirebaseAuth.getInstance().currentUser
-            var credential: AuthCredential? =
-                EmailAuthProvider.getCredential(user!!.email!!, pass!!.text.toString())
-            user!!.reauthenticate(credential!!).addOnCompleteListener {
-                if (it.isSuccessful) {
+            if(pass!!.text != null && pass!!.text.length >0) {
+                progressDialog!!.setMessage("Ellenorzes folyamatban")
+                progressDialog!!.show()
+                var user: FirebaseUser? = FirebaseAuth.getInstance().currentUser
+                var credential: AuthCredential? =
+                    EmailAuthProvider.getCredential(user!!.email!!, pass!!.text.toString())
+                user!!.reauthenticate(credential!!).addOnCompleteListener {
+                    if (it.isSuccessful) {
 
 
-                    image!!.setImageResource(R.mipmap.ic_unlock)
-                    paslabel!!.setText("Sikeres bejelentkezes")
-                    Toast.makeText(context, "Sikeres", Toast.LENGTH_SHORT)
-                    paslabel!!.setTextColor(resources.getColor(R.color.slapshcolor))
-                    var intent2 = Intent(context, activity_send_message::class.java)
-                    startActivity(intent2)
-                    progressDialog!!.dismiss()
-                    drawerLayout!!.closeDrawer(Gravity.START, false)
-                    dialog.dismiss()
-                } else {
-                    image!!.setImageResource(R.mipmap.ic_lock_error_round)
-                    paslabel!!.setText("Sikertelen bejelentkezes")
-                    Toast.makeText(context, "Sikertelen", Toast.LENGTH_SHORT)
-                    paslabel!!.setTextColor(Color.RED)
-                    progressDialog!!.dismiss()
+                        image!!.setImageResource(R.mipmap.ic_unlock)
+                        paslabel!!.setText("Sikeres bejelentkezes")
+                        Toast.makeText(context, "Sikeres", Toast.LENGTH_SHORT)
+                        paslabel!!.setTextColor(resources.getColor(R.color.slapshcolor))
+                        var intent2 = Intent(context, activity_send_message::class.java)
+                        startActivity(intent2)
+                        progressDialog!!.dismiss()
+                        drawerLayout!!.closeDrawer(Gravity.START, false)
+                        dialog.dismiss()
+                    } else {
+                        image!!.setImageResource(R.mipmap.ic_lock_error_round)
+                        paslabel!!.setText("Sikertelen bejelentkezes")
+                        Toast.makeText(context, "Sikertelen", Toast.LENGTH_SHORT)
+                        paslabel!!.setTextColor(Color.RED)
+                        progressDialog!!.dismiss()
+                    }
+
                 }
-
             }
-
+            else{
+                image!!.setImageResource(R.mipmap.ic_lock_error_round)
+                paslabel!!.setText("Sikertelen bejelentkezes nem adot meg jelszot")
+                Toast.makeText(context, "Sikertelen", Toast.LENGTH_SHORT)
+                paslabel!!.setTextColor(Color.RED)
+                progressDialog!!.dismiss()
+            }
 
         }
         dialog!!.show()
