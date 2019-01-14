@@ -9,7 +9,7 @@
           app:showAsAction="always"/>
     <item android:id="@+id/switchbetweenweeks"
           android:icon="@drawable/ic_first_week"
-          android:title="Első hét"
+          android:title="Második hét"
           app:showAsAction="always"/>
 
 
