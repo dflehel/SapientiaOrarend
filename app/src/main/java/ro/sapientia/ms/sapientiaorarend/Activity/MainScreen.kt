@@ -121,8 +121,8 @@ class MainScreen : AppCompatActivity() {
                     if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.M) {
                         if (FingerprintDialog.isAvailable(this)) {
                             FingerprintDialog.initialize(this)
-                                .title("Ellenőrzés")
-                                .message("Használja az újlenyomatát a továbblépéshez")
+                                .title("Ellenorzes")
+                                .message("Hasznalja az ujlenyomatat a tovabb lepeshez")
                                 .callback(object : FingerprintDialogCallback {
                                     override fun onAuthenticationSucceeded() {
                                         var intent2 = Intent(context, activity_send_message::class.java)
@@ -153,8 +153,8 @@ class MainScreen : AppCompatActivity() {
                     if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.M) {
                         if (FingerprintDialog.isAvailable(this)) {
                             FingerprintDialog.initialize(this)
-                                .title("Ellenőrzés")
-                                .message("Használja az újlenyomatát a továbblépéshez")
+                                .title("Ellenorzes")
+                                .message("Hasznalja az ujlenyomatat a tovabb lepeshez")
                                 .callback(object : FingerprintDialogCallback {
                                     override fun onAuthenticationSucceeded() {
                                         var intent = Intent(context, MessageDisplay::class.java)
@@ -181,9 +181,10 @@ class MainScreen : AppCompatActivity() {
 
     //uzenetek megtekindese szolgalok ellenorzes
     fun passwordformessageview() {
+        this.progressDialog = ProgressDialog(this)
         val dialog: Dialog? = Dialog(this)
         dialog!!.setContentView(R.layout.passwordcheck)
-        dialog!!.setTitle("Ellenőrzés")
+        dialog!!.setTitle("Ellenorzes")
         var cancelbutton: Button? = dialog.findViewById<Button>(R.id.password_button_cancel)
         var checkbutton: Button? = dialog.findViewById<Button>(R.id.password_check_passwod_button)
         var image: ImageView? = dialog.findViewById<ImageView>(R.id.password_image)
@@ -193,32 +194,41 @@ class MainScreen : AppCompatActivity() {
             dialog.dismiss()
         }
         checkbutton!!.setOnClickListener {
-           if(pass!!.text != null && pass!!.text.length>0){
+            if(pass!!.text != null && pass!!.text.length >0){
+            progressDialog!!.setMessage("Ellenorzes folyamatban")
+            progressDialog!!.show()
             var user: FirebaseUser? = FirebaseAuth.getInstance().currentUser
             var credential: AuthCredential? =
                 EmailAuthProvider.getCredential(user!!.email!!, pass!!.text.toString())
             user!!.reauthenticate(credential!!).addOnCompleteListener {
                 if (it.isSuccessful) {
+
+
                     image!!.setImageResource(R.mipmap.ic_unlock)
-                    paslabel!!.setText("Sikeres bejelentkezés")
+                    paslabel!!.setText("Sikeres bejelentkezes")
                     Toast.makeText(context, "Sikeres", Toast.LENGTH_SHORT)
                     paslabel!!.setTextColor(resources.getColor(R.color.slapshcolor))
+                    progressDialog!!.dismiss()
                     var intent2 = Intent(context, MessageDisplay::class.java)
                     startActivity(intent2)
                     drawerLayout!!.closeDrawer(Gravity.START, false)
                     dialog.dismiss()
                 } else {
                     image!!.setImageResource(R.mipmap.ic_lock_error_round)
-                    paslabel!!.setText("Sikertelen bejelentkezés")
+                    paslabel!!.setText("Sikertelen bejelentkezes")
                     Toast.makeText(context, "Sikertelen", Toast.LENGTH_SHORT)
                     paslabel!!.setTextColor(Color.RED)
+                    progressDialog!!.dismiss()
                 }
             }
-            } else {
+
+            }
+            else{
                 image!!.setImageResource(R.mipmap.ic_lock_error_round)
-                paslabel!!.setText("Sikertelen bejelentkezés")
-                Toast.makeText(context, "nem irt be jelszot", Toast.LENGTH_LONG)
+                paslabel!!.setText("Sikertelen bejelentkezes nem adot meg jelszot")
+                Toast.makeText(context, "Sikertelen", Toast.LENGTH_SHORT)
                 paslabel!!.setTextColor(Color.RED)
+                progressDialog!!.dismiss()
             }
 
 
@@ -229,9 +239,10 @@ class MainScreen : AppCompatActivity() {
 
     //uzenet irashoz szukseges ellenorzes
     fun passwordformessagewritiing() {
+        this.progressDialog = ProgressDialog(this)
         val dialog: Dialog? = Dialog(this)
         dialog!!.setContentView(R.layout.passwordcheck)
-        dialog!!.setTitle("Ellenőrzés")
+        dialog!!.setTitle("Ellenorzes")
         var cancelbutton: Button? = dialog.findViewById<Button>(R.id.password_button_cancel)
         var checkbutton: Button? = dialog.findViewById<Button>(R.id.password_check_passwod_button)
         var image: ImageView? = dialog.findViewById<ImageView>(R.id.password_image)
@@ -241,16 +252,18 @@ class MainScreen : AppCompatActivity() {
             dialog.dismiss()
         }
         checkbutton!!.setOnClickListener {
-            if (pass!!.text != null && pass!!.text.length> 0 ) {
-            progressDialog!!.setTitle("Ellenőrzés folyamatban")
-            progressDialog!!.show()
-            var user: FirebaseUser? = FirebaseAuth.getInstance().currentUser
-            var credential: AuthCredential? =
-                EmailAuthProvider.getCredential(user!!.email!!, pass!!.text.toString())
+            if(pass!!.text != null && pass!!.text.length >0) {
+                progressDialog!!.setMessage("Ellenorzes folyamatban")
+                progressDialog!!.show()
+                var user: FirebaseUser? = FirebaseAuth.getInstance().currentUser
+                var credential: AuthCredential? =
+                    EmailAuthProvider.getCredential(user!!.email!!, pass!!.text.toString())
                 user!!.reauthenticate(credential!!).addOnCompleteListener {
                     if (it.isSuccessful) {
+
+
                         image!!.setImageResource(R.mipmap.ic_unlock)
-                        paslabel!!.setText("Sikeres bejelentkezés")
+                        paslabel!!.setText("Sikeres bejelentkezes")
                         Toast.makeText(context, "Sikeres", Toast.LENGTH_SHORT)
                         paslabel!!.setTextColor(resources.getColor(R.color.slapshcolor))
                         var intent2 = Intent(context, activity_send_message::class.java)
@@ -260,20 +273,21 @@ class MainScreen : AppCompatActivity() {
                         dialog.dismiss()
                     } else {
                         image!!.setImageResource(R.mipmap.ic_lock_error_round)
-                        paslabel!!.setText("Sikertelen bejelentkezés")
+                        paslabel!!.setText("Sikertelen bejelentkezes")
                         Toast.makeText(context, "Sikertelen", Toast.LENGTH_SHORT)
                         paslabel!!.setTextColor(Color.RED)
                         progressDialog!!.dismiss()
                     }
 
                 }
-            } else {
-                image!!.setImageResource(R.mipmap.ic_lock_error_round)
-                paslabel!!.setText("Sikertelen bejelentkezés")
-                Toast.makeText(context, "Nem irt be jelszot", Toast.LENGTH_LONG)
-                paslabel!!.setTextColor(Color.RED)
             }
-
+            else{
+                image!!.setImageResource(R.mipmap.ic_lock_error_round)
+                paslabel!!.setText("Sikertelen bejelentkezes nem adot meg jelszot")
+                Toast.makeText(context, "Sikertelen", Toast.LENGTH_SHORT)
+                paslabel!!.setTextColor(Color.RED)
+                progressDialog!!.dismiss()
+            }
 
         }
         dialog!!.show()
@@ -317,7 +331,7 @@ class MainScreen : AppCompatActivity() {
             setContentView(R.layout.activity_main_screen)
         }
         this.progressDialog = ProgressDialog(this)
-        this.progressDialog!!.setMessage("Betöltés")
+        this.progressDialog!!.setMessage("betoltes")
         this.progressDialog!!.show()
         bottonnavigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener)
         val navigationView: NavigationView = findViewById(R.id.drawernavigation)
