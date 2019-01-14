@@ -46,7 +46,7 @@ class CheckPassword : AppCompatActivity() {
             if (pass!!.text != null && pass!!.text.length > 0) {
             
 
-            this.progressDialog!!.setTitle("Ellenőrzeűés folyamatban")
+            this.progressDialog!!.setTitle("Ellenőrzés folyamatban")
             this.progressDialog!!.show()
             var user: FirebaseUser? = FirebaseAuth.getInstance().currentUser
             var credential: AuthCredential? =
@@ -76,7 +76,7 @@ class CheckPassword : AppCompatActivity() {
             }
             else{
                 image!!.setImageResource(R.mipmap.ic_lock_error_round)
-                paslabel!!.setText("Sikertelen bejelentkezes nem adot meg jelszot")
+                paslabel!!.setText("Nem adott meg jelszót")
                 Toast.makeText(applicationContext, "Sikertelen", Toast.LENGTH_SHORT)
                 paslabel!!.setTextColor(Color.RED)
                 progressDialog!!.dismiss()
