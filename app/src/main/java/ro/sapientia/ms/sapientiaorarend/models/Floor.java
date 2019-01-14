@@ -1,7 +1,5 @@
 package ro.sapientia.ms.sapientiaorarend.models;
 
-import android.net.Uri;
-
 public class Floor {
 
     private String name;

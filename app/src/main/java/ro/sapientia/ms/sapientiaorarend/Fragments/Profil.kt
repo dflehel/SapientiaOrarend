@@ -1,12 +1,13 @@
 package ro.sapientia.ms.sapientiaorarend.Fragments
 
+
+//import com.google.firebase.storage.FirebaseStorage
+//import com.google.firebase.storage.StorageReference
 import android.app.Activity
-import android.content.ContentResolver
 import android.content.Intent
 import android.net.Uri
 import android.os.Build
 import android.os.Bundle
-import android.provider.MediaStore
 import android.support.v4.app.Fragment
 import android.util.Log
 import android.view.LayoutInflater
@@ -17,17 +18,11 @@ import android.widget.ImageView
 import android.widget.TextView
 import android.widget.Toast
 import com.bumptech.glide.Glide
-
-
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.DatabaseReference
-import com.google.firebase.database.FirebaseDatabase
-//import com.google.firebase.storage.FirebaseStorage
-//import com.google.firebase.storage.StorageReference
 import ro.sapientia.ms.sapientiaorarend.R
 import ro.sapientia.ms.sapientiaorarend.Util.RealPathUtil
 import ro.sapientia.ms.sapientiaorarend.Util.Settings
-
 
 
 val RESULT_LOAD_IMAGE = 1
@@ -51,18 +46,18 @@ class Profil : Fragment() {
 
     private var imageView: ImageView? = null
 
-   // private var selectedImageUri: Uri? = null
+    // private var selectedImageUri: Uri? = null
     private var pImageURI: Uri? = null
     private val PICK_IMAGE_REQUEST = 1
 
-   // private var storageRef: StorageReference? = null
-  //  private var fileRef: StorageReference? = null
+    // private var storageRef: StorageReference? = null
+    //  private var fileRef: StorageReference? = null
     private var databaseRef: DatabaseReference? = null
-       // private var bitmap: Bitmap? = null
+    // private var bitmap: Bitmap? = null
 
     private var existingImage: Boolean = false
     private val filename = Settings.user.email + "-" + Settings.user.name
-  //  private val storageRef2 = FirebaseStorage.getInstance().getReference("profilkepek/$filename")
+    //  private val storageRef2 = FirebaseStorage.getInstance().getReference("profilkepek/$filename")
     private var pImageURI2: Uri? = null
 
     override fun onCreateView(
@@ -101,12 +96,10 @@ class Profil : Fragment() {
             startActivityForResult(intent, PICK_IMAGE_REQUEST)
         }
 
-        if (existingImage)
-        {
+        if (existingImage) {
             Log.d("UploadLog", "Load image from uri to avatar")
             Glide.with(this).load(pImageURI).into(imageView!!)
-        }
-        else { /*storageRef2.downloadUrl.addOnFailureListener {
+        } else { /*storageRef2.downloadUrl.addOnFailureListener {
                 // Handle unsuccessful uploads
                 Log.d("UploadLog", "no url here")
             }.addOnSuccessListener {
@@ -142,23 +135,23 @@ class Profil : Fragment() {
             Glide.with(this).load(pImageURI).into(imageView)
             Log.d("UploadLog", "URI: ${pImageURI.toString()}")
             existingImage = true
-          /*  storageRef2.putFile(pImageURI!!)
-                .addOnFailureListener {
-                    // Handle unsuccessful uploads
-                    Log.d("UploadLog", "Upload Failed")
-                }.addOnSuccessListener {
-                    // taskSnapshot.metadata contains file metadata such as size, content-type, etc.
-                    // ...
-                    Log.d("UploadLog", "Upload Success")
-                   /* storageRef2.downloadUrl.addOnFailureListener {
-                        // Handle unsuccessful uploads
-                        Log.d("UploadLog", "URL FAILED Failed")
-                    }.addOnSuccessListener {
-                        // taskSnapshot.metadata contains file metadata such as size, content-type, etc.
-                        // ...
-                        Log.d("UploadLog", "URL success: $storageRef2.downloadUrl")
-                        }*/
-                }*/
+            /*  storageRef2.putFile(pImageURI!!)
+                  .addOnFailureListener {
+                      // Handle unsuccessful uploads
+                      Log.d("UploadLog", "Upload Failed")
+                  }.addOnSuccessListener {
+                      // taskSnapshot.metadata contains file metadata such as size, content-type, etc.
+                      // ...
+                      Log.d("UploadLog", "Upload Success")
+                     /* storageRef2.downloadUrl.addOnFailureListener {
+                          // Handle unsuccessful uploads
+                          Log.d("UploadLog", "URL FAILED Failed")
+                      }.addOnSuccessListener {
+                          // taskSnapshot.metadata contains file metadata such as size, content-type, etc.
+                          // ...
+                          Log.d("UploadLog", "URL success: $storageRef2.downloadUrl")
+                          }*/
+                  }*/
             /*
 
             val selectedImage = data.data
@@ -180,31 +173,31 @@ class Profil : Fragment() {
             Glide.with(this).load(pImageURI).into(imageView)*/
 
 //            fileRef = storageRef!!.child(System.currentTimeMillis().toString() +  "." + getFileExtension(pImageURI))
-                /*fileRef!!.putFile(this.pImageURI!!)
-                .addOnFailureListener {
-                // Handle unsuccessful uploads
-                Log.d("kep2", "nincsfeltoltes")
-                }.addOnSuccessListener {
-                // taskSnapshot.metadata contains file metadata such as size, content-type, etc.
-                // ...
-                Log.d("kep", "feltoltes")
-                }*/
+            /*fileRef!!.putFile(this.pImageURI!!)
+            .addOnFailureListener {
+            // Handle unsuccessful uploads
+            Log.d("kep2", "nincsfeltoltes")
+            }.addOnSuccessListener {
+            // taskSnapshot.metadata contains file metadata such as size, content-type, etc.
+            // ...
+            Log.d("kep", "feltoltes")
+            }*/
 
             //storage reference
-           /* val urifrompath = Uri.fromFile(File(realPath));
+            /* val urifrompath = Uri.fromFile(File(realPath));
 
-            val storage = FirebaseStorage.getInstance()
-            val storageRef = storage.reference
+             val storage = FirebaseStorage.getInstance()
+             val storageRef = storage.reference
 
-            val uploadTask = storageRef.putFile(urifrompath)
-            uploadTask.addOnFailureListener {
-                // Handle unsuccessful uploads
-                Log.d("kep2", "nincsfeltoltes")
-            }.addOnSuccessListener {
-                // taskSnapshot.metadata contains file metadata such as size, content-type, etc.
-                // ...
-                Log.d("kep", "feltoltes")
-            }*/
+             val uploadTask = storageRef.putFile(urifrompath)
+             uploadTask.addOnFailureListener {
+                 // Handle unsuccessful uploads
+                 Log.d("kep2", "nincsfeltoltes")
+             }.addOnSuccessListener {
+                 // taskSnapshot.metadata contains file metadata such as size, content-type, etc.
+                 // ...
+                 Log.d("kep", "feltoltes")
+             }*/
 /*
             val storage = FirebaseStorage.getInstance()
             val storageRef = storage.reference;

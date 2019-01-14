@@ -13,27 +13,27 @@ import ro.sapientia.ms.sapientiaorarend.Util.Settings
 import ro.sapientia.ms.sapientiaorarend.models.SendMessage
 import java.util.*
 
+/**uzenetkuldes kepernyo*/
 class activity_send_message : AppCompatActivity() {
 
 
     private var buttondeparment: Button? = null
-    private var recivers:ArrayList<String>? = null
-    private var buttoncancel : Button?=null
-    private var buttonok : Button? = null
-    private var mlayout: LinearLayout?= null
-    private var buttonsend : Button?=null
-    private var content : EditText?=null
-    private var deletebutton : ImageButton?=null
+    private var recivers: TreeSet<String>? = null
+    private var buttoncancel: Button? = null
+    private var buttonok: Button? = null
+    private var mlayout: LinearLayout? = null
+    private var buttonsend: Button? = null
+    private var content: EditText? = null
+    private var deletebutton: ImageButton? = null
 
-
-
+    //bealitom a valtozokat
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_send_message)
-        this.recivers = ArrayList<String>()
+        this.recivers = TreeSet<String>()
         this.content = findViewById<EditText>(R.id.send_message_screen_edittext)
         this.buttonsend = findViewById<Button>(R.id.send_message_screen_send)
-        this.deletebutton =  findViewById<ImageButton>(R.id.send_message_delete_button)
+        this.deletebutton = findViewById<ImageButton>(R.id.send_message_delete_button)
         this.deletebutton!!.setOnClickListener {
             recivers!!.clear()
             mlayout!!.removeAllViews()
@@ -54,9 +54,10 @@ class activity_send_message : AppCompatActivity() {
             mlayout!!.removeAllViews()
             mlayout!!.refreshDrawableState()
             content!!.setText("")
-           content!!.refreshDrawableState()
+            content!!.refreshDrawableState()
         }
         this.mlayout = findViewById<LinearLayout>(R.id.send_activity_scrool_view_layout)
+        //bealittom hogy lehessen szakokat kivalasztani
         this.buttondeparment = findViewById<Button>(R.id.send_message_screen_deparment_selector)
         this.buttondeparment!!.setOnClickListener {
 
@@ -74,19 +75,20 @@ class activity_send_message : AppCompatActivity() {
             }
             buttonok = dialog.findViewById<Button>(R.id.send_view_ok_button)
             buttonok!!.setOnClickListener {
-                for (i in recivers!!.indices){
+                for (i in recivers!!.iterator()) {
                     var text: TextView? = TextView(applicationContext)
-                    text!!.setText(recivers!![i])
-                   // text!!.setTextSize(10.00F)
+                    text!!.setText(i.toString())
+                    // text!!.setTextSize(10.00F)
                     text!!.setTextAppearance(applicationContext, android.R.style.TextAppearance_DeviceDefault_Medium)
                     text.setTextColor(Color.BLACK)
                     mlayout!!.addView(text!!)
-            }
+                }
                 dialog.dismiss()
             }
 
             var recyclerView: RecyclerView = dialog.findViewById<RecyclerView>(R.id.search_screen_rec)
-            var deparmentSelectorAdapter: SendMessageDeparmentSelectorAdapter = SendMessageDeparmentSelectorAdapter(dialog.context, dialog, this.buttondeparment,recivers)
+            var deparmentSelectorAdapter: SendMessageDeparmentSelectorAdapter =
+                SendMessageDeparmentSelectorAdapter(dialog.context, dialog, this.buttondeparment, recivers)
             recyclerView.adapter = deparmentSelectorAdapter
             recyclerView.layoutManager = LinearLayoutManager(dialog.context)
 

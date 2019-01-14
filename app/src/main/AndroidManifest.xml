@@ -20,19 +20,27 @@
             android:theme="@style/AppTheme">
         <activity
                 android:name=".Activity.LoginScreen"
-                android:label="@string/title_activity_main_screen">
+                android:label="bejelentkezo kepernyo">
         </activity>
-        <activity android:name=".Activity.SignUpScreen"/>
-        <activity android:name=".Activity.MainScreen"/>
-        <activity android:name=".Activity.MENU"/>
-        <activity android:name=".Activity.Map"/>
+        <activity android:name=".Activity.SignUpScreen"
+                  android:label="Regisztracio kepernyo"/>
+        <activity android:name=".Activity.MainScreen"
+                  android:label="FO kepernyo"/>
+        <activity android:name=".Activity.DailyMenuScreen"
+                  android:label="Ebedlo kepernyo"/>
+        <activity android:name=".Activity.MapScreen"
+                  android:label="Terkep kepernyo"/>
 
         <service android:name=".Services.DatabaseListening"/>
 
-        <activity android:name=".Activity.activity_send_message"/>
-        <activity android:name=".Activity.SettingsScreen">
+        <activity android:name=".Activity.activity_send_message"
+                  android:label="Uzenet kuldes kepernyi"/>
+        <activity android:name=".Activity.SettingsScreen"
+                  android:label="Bealitas kepernyo">
+
         </activity>
-        <activity android:name=".Activity.MessageDisplay">
+        <activity android:name=".Activity.MessageDisplay"
+                  android:label="Beerkezet uzenetek kepernyo">
         </activity>
         <activity
                 android:name=".Activity.SplashScreen"
@@ -43,7 +51,8 @@
                 <category android:name="android.intent.category.LAUNCHER"/>
             </intent-filter>
         </activity>
-        <activity android:name=".Activity.CheckPassword">
+        <activity android:name=".Activity.CheckPassword"
+                  android:label="Jelszo ellenorzo kepernyo">
         </activity>
     </application>
 

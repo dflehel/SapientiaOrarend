@@ -9,7 +9,6 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 import com.bumptech.glide.Glide;
 import com.github.chrisbanes.photoview.PhotoView;
-import retrofit2.http.Url;
 import ro.sapientia.ms.sapientiaorarend.R;
 import ro.sapientia.ms.sapientiaorarend.models.Floor;
 
@@ -17,7 +16,7 @@ import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.ArrayList;
 
-public class MapFloorAdapter extends RecyclerView.Adapter<MapFloorAdapter.MyViewHolderAdapter>{
+public class MapFloorAdapter extends RecyclerView.Adapter<MapFloorAdapter.MyViewHolderAdapter> {
 
     private ArrayList<Floor> floors;
     private Context c;
@@ -66,9 +65,6 @@ public class MapFloorAdapter extends RecyclerView.Adapter<MapFloorAdapter.MyView
     public int getItemCount() {
         return this.floors.size();
     }
-
-
-
 
 
     public class MyViewHolderAdapter extends RecyclerView.ViewHolder {

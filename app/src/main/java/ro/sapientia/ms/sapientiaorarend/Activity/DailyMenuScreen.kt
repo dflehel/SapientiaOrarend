@@ -11,7 +11,7 @@ import ro.sapientia.ms.sapientiaorarend.R
 import ro.sapientia.ms.sapientiaorarend.models.DailyMenu
 
 /** az az napi menu megjelenitese*/
-class MENU : AppCompatActivity() {
+class DailyMenuScreen : AppCompatActivity() {
 
 
     private var dailyMenu: DailyMenu? = null;
