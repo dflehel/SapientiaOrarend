@@ -8,7 +8,7 @@
 >
 
     <TextView
-            android:text="TextView"
+            android:text="@string/own_timetable_weekday"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:id="@+id/own_time_table_item_day" app:layout_constraintTop_toTopOf="parent"

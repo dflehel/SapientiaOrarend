@@ -64,7 +64,7 @@ class activity_send_message : AppCompatActivity() {
             recivers!!.clear()
             var dialog: Dialog = Dialog(this)
             dialog.setCancelable(true)
-            dialog.setTitle("Vallasz csoportokat")
+            dialog.setTitle("Vállasz csoportokat")
             dialog.setCanceledOnTouchOutside(true)
 
             dialog.setContentView(R.layout.send_view)

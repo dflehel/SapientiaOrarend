@@ -5,7 +5,7 @@
                                              android:layout_height="match_parent" android:id="@+id/linearLayout">
 
     <Button
-            android:text="Megse"
+            android:text="@string/send_message_screen_select_cancel"
             android:layout_width="0dp"
             android:layout_height="wrap_content" android:id="@+id/send_view_cancel_button"
             app:layout_constraintStart_toStartOf="parent" android:layout_marginLeft="8dp"
@@ -13,7 +13,7 @@
             app:layout_constraintEnd_toStartOf="@+id/send_view_ok_button" android:layout_marginEnd="8dp"
             android:layout_marginRight="8dp"/>
     <Button
-            android:text="Mentes"
+            android:text="@string/send_message_screen_select_save"
             android:layout_width="0dp"
             android:layout_height="wrap_content" android:id="@+id/send_view_ok_button"
             android:layout_marginEnd="8dp" android:layout_marginRight="8dp"

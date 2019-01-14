@@ -5,7 +5,7 @@
                                              android:layout_height="match_parent" android:id="@+id/linearLayout2">
 
     <TextView
-            android:text="TextView"
+            android:text="@string/send_message_screen_selecting"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:id="@+id/send_item_text_view" app:layout_constraintTop_toTopOf="parent"

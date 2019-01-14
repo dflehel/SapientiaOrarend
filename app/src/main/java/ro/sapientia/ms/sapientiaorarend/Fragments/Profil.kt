@@ -20,6 +20,7 @@ import android.widget.Toast
 import com.bumptech.glide.Glide
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.DatabaseReference
+import com.google.firebase.storage.FirebaseStorage
 import ro.sapientia.ms.sapientiaorarend.R
 import ro.sapientia.ms.sapientiaorarend.Util.RealPathUtil
 import ro.sapientia.ms.sapientiaorarend.Util.Settings
@@ -57,7 +58,7 @@ class Profil : Fragment() {
 
     private var existingImage: Boolean = false
     private val filename = Settings.user.email + "-" + Settings.user.name
-    //  private val storageRef2 = FirebaseStorage.getInstance().getReference("profilkepek/$filename")
+    private val storageRef2 = FirebaseStorage.getInstance().getReference("profilkepek/$filename")
     private var pImageURI2: Uri? = null
 
     override fun onCreateView(
@@ -99,7 +100,7 @@ class Profil : Fragment() {
         if (existingImage) {
             Log.d("UploadLog", "Load image from uri to avatar")
             Glide.with(this).load(pImageURI).into(imageView!!)
-        } else { /*storageRef2.downloadUrl.addOnFailureListener {
+        } else { storageRef2.downloadUrl.addOnFailureListener {
                 // Handle unsuccessful uploads
                 Log.d("UploadLog", "no url here")
             }.addOnSuccessListener {
@@ -107,7 +108,7 @@ class Profil : Fragment() {
                 // ...
                 Log.d("UploadLog", "Load image from URL to avatar")
                 Glide.with(this).load(it).into(imageView!!)
-            }*/
+            }
         }
 
         return root
@@ -135,7 +136,7 @@ class Profil : Fragment() {
             Glide.with(this).load(pImageURI).into(imageView)
             Log.d("UploadLog", "URI: ${pImageURI.toString()}")
             existingImage = true
-            /*  storageRef2.putFile(pImageURI!!)
+              storageRef2.putFile(pImageURI!!)
                   .addOnFailureListener {
                       // Handle unsuccessful uploads
                       Log.d("UploadLog", "Upload Failed")
@@ -151,7 +152,7 @@ class Profil : Fragment() {
                           // ...
                           Log.d("UploadLog", "URL success: $storageRef2.downloadUrl")
                           }*/
-                  }*/
+                  }
             /*
 
             val selectedImage = data.data

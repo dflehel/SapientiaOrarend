@@ -20,27 +20,27 @@
             android:theme="@style/AppTheme">
         <activity
                 android:name=".Activity.LoginScreen"
-                android:label="bejelentkezo kepernyo">
+                android:label="@string/android_manifest_login">
         </activity>
         <activity android:name=".Activity.SignUpScreen"
-                  android:label="Regisztracio kepernyo"/>
+                  android:label="@string/android_manifest_signup"/>
         <activity android:name=".Activity.MainScreen"
-                  android:label="FO kepernyo"/>
+                  android:label="@string/android_manifest_main"/>
         <activity android:name=".Activity.DailyMenuScreen"
-                  android:label="Ebedlo kepernyo"/>
+                  android:label="@string/android_manifest_lunch"/>
         <activity android:name=".Activity.MapScreen"
-                  android:label="Terkep kepernyo"/>
+                  android:label="@string/android_manifest_map"/>
 
         <service android:name=".Services.DatabaseListening"/>
 
         <activity android:name=".Activity.activity_send_message"
-                  android:label="Uzenet kuldes kepernyi"/>
+                  android:label="@string/android_manifest_send_message"/>
         <activity android:name=".Activity.SettingsScreen"
-                  android:label="Bealitas kepernyo">
+                  android:label="@string/android_manifest_settings">
 
         </activity>
         <activity android:name=".Activity.MessageDisplay"
-                  android:label="Beerkezet uzenetek kepernyo">
+                  android:label="@string/android_manifest_received_messages">
         </activity>
         <activity
                 android:name=".Activity.SplashScreen"
@@ -52,7 +52,7 @@
             </intent-filter>
         </activity>
         <activity android:name=".Activity.CheckPassword"
-                  android:label="Jelszo ellenorzo kepernyo">
+                  android:label="@string/android_manifest_authentificate">
         </activity>
     </application>
 

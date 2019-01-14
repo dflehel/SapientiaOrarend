@@ -5,17 +5,16 @@
             android:id="@+id/etkezde"
             android:title="@string/draw_screen_food"
             android:icon="@drawable/ic_restaurant"
-            app:showAsAction="always"
+            app:showAsAction="ifRoom"
     >
 
     </item>
     <item
             android:id="@+id/terkep"
-            android:title="Térkép"
+            android:title="@string/draw_menu_map"
             android:icon="@drawable/ic_map"
             app:showAsAction="always"
     >
 
     </item>
-
 </menu>

@@ -178,12 +178,12 @@ class LoginScreen : AppCompatActivity() {
 
 
         if (TextUtils.isEmpty(email) || !android.util.Patterns.EMAIL_ADDRESS.matcher(email).matches()) {
-            Toast.makeText(this, "Nem valos email cimet addot meg", Toast.LENGTH_LONG).show()
+            Toast.makeText(this, "Nem valós e-mail címet addot meg", Toast.LENGTH_LONG).show()
             return false
         }
 
         if (TextUtils.isEmpty(password) || password.length < 6) {
-            Toast.makeText(this, "A jelszo minimum 6 karaktert kell tartalmazzon.", Toast.LENGTH_LONG).show()
+            Toast.makeText(this, "A jelszó minimum 6 karaktert kell tartalmazzon.", Toast.LENGTH_LONG).show()
             return false
         }
 

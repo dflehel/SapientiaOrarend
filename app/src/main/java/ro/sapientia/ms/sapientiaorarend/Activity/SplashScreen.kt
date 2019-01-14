@@ -27,10 +27,10 @@ class SplashScreen : AppCompatActivity() {
             .withSplashTimeOut(5000)
             .withBackgroundColor(Color.WHITE)
             .withLogo(R.drawable.splash)
-            .withHeaderText("Udvozoljuk")
+            .withHeaderText("Üdvözöljük")
             .withFooterText("Copyrigth lehel atti")
-            .withBeforeLogoText("Sapientia orarend")
-            .withAfterLogoText("Hogy mindig napra kesz legyen")
+            .withBeforeLogoText("Sapientia órarend")
+            .withAfterLogoText("Hogy mindig napra kész legyen")
 
 
 

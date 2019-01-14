@@ -7,7 +7,7 @@
         android:layout_height="match_parent"
 >
     <TextView
-            android:text="TextView"
+            android:text="@string/own_timetable_class_number"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:id="@+id/class_number"
@@ -16,7 +16,7 @@
             android:layout_marginRight="8dp"
             android:textAppearance="@style/TextAppearance.AppCompat.Button"/>
     <TextView
-            android:text="TextView"
+            android:text="@string/own_timetable_teacher_name"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:id="@+id/teacher_name" app:layout_constraintStart_toStartOf="parent" android:layout_marginLeft="8dp"
@@ -25,7 +25,7 @@
             android:layout_marginEnd="8dp" android:layout_marginRight="8dp"
             android:textAppearance="@style/TextAppearance.AppCompat.Button"/>
     <TextView
-            android:text="TextView"
+            android:text="@string/own_timetable_start"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:id="@+id/start_time" app:layout_constraintTop_toTopOf="parent"
@@ -33,14 +33,14 @@
             android:layout_marginLeft="8dp" android:layout_marginStart="8dp"
             android:textAppearance="@style/TextAppearance.AppCompat.Body1"/>
     <TextView
-            android:text="TextView"
+            android:text="@string/own_timetable_end"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:id="@+id/end_time" android:layout_marginEnd="8dp" android:layout_marginRight="8dp"
             app:layout_constraintEnd_toEndOf="parent" app:layout_constraintTop_toTopOf="parent"
             android:layout_marginTop="8dp" android:textAppearance="@style/TextAppearance.AppCompat.Body1"/>
     <TextView
-            android:text="TextView"
+            android:text="@string/own_timetable_class_name"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:id="@+id/class_name" android:layout_marginBottom="16dp"
