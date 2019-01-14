@@ -43,31 +43,40 @@ class CheckPassword : AppCompatActivity() {
         }
         //megprobalok ujra bejelenkezni az altala beirt jelszoval ha sikeres tovabb lepek ha nem akkot leallok s ujra kerem
         checkbutton!!.setOnClickListener {
-            this.progressDialog!!.setTitle("Ellenorzes folyamatban")
-            this.progressDialog!!.show()
-            var user: FirebaseUser? = FirebaseAuth.getInstance().currentUser
-            var credential: AuthCredential? =
-                EmailAuthProvider.getCredential(user!!.email!!, pass!!.text.toString())
-            user!!.reauthenticate(credential!!).addOnCompleteListener {
-                if (it.isSuccessful) {
+            if (pass!!.text != null && pass!!.text.length > 0) {
+                this.progressDialog!!.setTitle("Ellenorzes folyamatban")
+                this.progressDialog!!.show()
+                var user: FirebaseUser? = FirebaseAuth.getInstance().currentUser
+                var credential: AuthCredential? =
+                    EmailAuthProvider.getCredential(user!!.email!!, pass!!.text.toString())
+                user!!.reauthenticate(credential!!).addOnCompleteListener {
+                    if (it.isSuccessful) {
 
 
-                    image!!.setImageResource(R.mipmap.ic_unlock)
-                    paslabel!!.setText("Sikeres bejelentkezes")
-                    Toast.makeText(applicationContext, "Sikeres", Toast.LENGTH_SHORT)
-                    paslabel!!.setTextColor(resources.getColor(R.color.slapshcolor))
-                    var intent2 = Intent(applicationContext, MessageDisplay::class.java)
-                    progressDialog!!.dismiss()
-                    startActivity(intent2)
-                    finish()
-                } else {
-                    image!!.setImageResource(R.mipmap.ic_lock_error_round)
-                    paslabel!!.setText("Sikertelen bejelentkezes")
-                    Toast.makeText(applicationContext, "Sikertelen", Toast.LENGTH_SHORT)
-                    paslabel!!.setTextColor(Color.RED)
-                    progressDialog!!.dismiss()
+                        image!!.setImageResource(R.mipmap.ic_unlock)
+                        paslabel!!.setText("Sikeres bejelentkezes")
+                        Toast.makeText(applicationContext, "Sikeres", Toast.LENGTH_SHORT)
+                        paslabel!!.setTextColor(resources.getColor(R.color.slapshcolor))
+                        var intent2 = Intent(applicationContext, MessageDisplay::class.java)
+                        progressDialog!!.dismiss()
+                        startActivity(intent2)
+                        finish()
+                    } else {
+                        image!!.setImageResource(R.mipmap.ic_lock_error_round)
+                        paslabel!!.setText("Sikertelen bejelentkezes")
+                        Toast.makeText(applicationContext, "Sikertelen", Toast.LENGTH_SHORT)
+                        paslabel!!.setTextColor(Color.RED)
+                        progressDialog!!.dismiss()
+                    }
+
                 }
-
+            }
+            else{
+                image!!.setImageResource(R.mipmap.ic_lock_error_round)
+                paslabel!!.setText("Sikertelen bejelentkezes nem adot meg jelszot")
+                Toast.makeText(applicationContext, "Sikertelen", Toast.LENGTH_SHORT)
+                paslabel!!.setTextColor(Color.RED)
+                progressDialog!!.dismiss()
             }
         }
         //ellenorzom hogy lehet_e ujlenyometot hasznalni ha igen eloszor az jelenik meg
