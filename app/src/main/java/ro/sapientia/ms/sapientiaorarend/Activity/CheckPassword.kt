@@ -43,6 +43,9 @@ class CheckPassword : AppCompatActivity() {
         }
         //megprobalok ujra bejelenkezni az altala beirt jelszoval ha sikeres tovabb lepek ha nem akkot leallok s ujra kerem
         checkbutton!!.setOnClickListener {
+            if (pass!!.text != null && pass!!.text.length > 0) {
+            
+
             this.progressDialog!!.setTitle("Ellenőrzeűés folyamatban")
             this.progressDialog!!.show()
             var user: FirebaseUser? = FirebaseAuth.getInstance().currentUser
@@ -68,6 +71,15 @@ class CheckPassword : AppCompatActivity() {
                     progressDialog!!.dismiss()
                 }
 
+
+                }
+            }
+            else{
+                image!!.setImageResource(R.mipmap.ic_lock_error_round)
+                paslabel!!.setText("Sikertelen bejelentkezes nem adot meg jelszot")
+                Toast.makeText(applicationContext, "Sikertelen", Toast.LENGTH_SHORT)
+                paslabel!!.setTextColor(Color.RED)
+                progressDialog!!.dismiss()
             }
         }
         //ellenorzom hogy lehet_e ujlenyometot hasznalni ha igen eloszor az jelenik meg
