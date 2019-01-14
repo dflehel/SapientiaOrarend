@@ -73,7 +73,7 @@
     <string name="signup_screen_choose">Válassz szakot</string>
 
     <!--Navigation screen strings-->
-    <string name="navigation_screen_general">Általános órarend</string>
+    <string name="navigation_screen_general">Általános</string>
     <string name="navigation_screen_own">Saját órarend</string>
     <string name="navigation_screen_profile">Profil</string>
 
