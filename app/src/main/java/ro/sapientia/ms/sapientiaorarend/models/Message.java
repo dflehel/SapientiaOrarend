@@ -13,21 +13,20 @@ public class Message {
         this.timestamp = timestamp;
     }
 
+    public Message() {
+    }
+
+    public Message(String sender, String content) {
+        this.sender = sender;
+        this.content = content;
+    }
+
     public Long getTimestamp() {
         return timestamp;
     }
 
     public void setTimestamp(Long timestamp) {
         this.timestamp = timestamp;
-    }
-
-    public Message() {
-    }
-
-
-    public Message(String sender, String content) {
-        this.sender = sender;
-        this.content = content;
     }
 
     public String getSender() {

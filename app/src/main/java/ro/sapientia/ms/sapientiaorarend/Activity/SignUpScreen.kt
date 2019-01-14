@@ -84,8 +84,8 @@ class SignUpScreen : AppCompatActivity() {
             Toast.makeText(this, "A nev hosszusaga limitalt vagy ures", Toast.LENGTH_LONG).show()
             return false
         }
-        if (TextUtils.isEmpty(edittextemail) || !edittextemail.contains("@") || !edittextemail.contains(".")) {
-            Toast.makeText(this, "Az emailcimnek tartalmaznia kell '@'-ot es '.'-ot", Toast.LENGTH_LONG).show()
+        if (TextUtils.isEmpty(email) || !android.util.Patterns.EMAIL_ADDRESS.matcher(email).matches()) {
+            Toast.makeText(this, "Nem valos email cimet addot meg", Toast.LENGTH_LONG).show()
             return false
         }
         if (TextUtils.isEmpty(phone) || !phone.matches("-?\\d+(\\.\\d+)?".toRegex())) {
@@ -100,6 +100,10 @@ class SignUpScreen : AppCompatActivity() {
             Toast.makeText(this, "Nem egyezik meg a jelszo", Toast.LENGTH_LONG).show()
             return false
         }
+        if (this.buttondeparment!!.text.toString().equals(resources.getString(R.string.signup_screen_choose))) {
+            Toast.makeText(this, "Nem valasztot szakot  ", Toast.LENGTH_LONG).show()
+            return false
+        }
         return true
     }
 
@@ -111,27 +115,9 @@ class SignUpScreen : AppCompatActivity() {
         this.password = this.edittextpassword.text.toString()
         this.phone = this.edittexphone.text.toString()
         this.progressDialog.setMessage("Regisztralas")
-        //this.progressDialog.show()
-
-
-        /*if (TextUtils.isEmpty(email)) {
-            Toast.makeText(this, "Adjon Email cimmet", Toast.LENGTH_LONG).show()
-            return
-        }
-        if (TextUtils.isEmpty(password)) {
-            Toast.makeText(this, "Irjon be passwordot", Toast.LENGTH_LONG).show()
-            return
-        }
-
-        if (this.edittextpassword.text.toString().equals(this.edittextpasswordconfirm.text.toString()) == false) {
-            Toast.makeText(this, "Nem egyezik meg a jelszo", Toast.LENGTH_LONG).show()
-            return
-        }*/
-
+        this.progressDialog.show()
 
         if (fullcheck(name, email, phone, password)) {
-            this.progressDialog.show()
-
             mAuth!!.createUserWithEmailAndPassword(email, password)
                 .addOnCompleteListener(this) { task ->
                     if (task.isSuccessful) {
@@ -164,6 +150,8 @@ class SignUpScreen : AppCompatActivity() {
                     }
 
                 }
+        } else {
+            this.progressDialog!!.dismiss()
         }
     }
 }

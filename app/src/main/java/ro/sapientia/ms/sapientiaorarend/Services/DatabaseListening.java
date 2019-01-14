@@ -9,7 +9,9 @@ import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.NotificationManagerCompat;
 import com.google.firebase.database.*;
-import ro.sapientia.ms.sapientiaorarend.Activity.*;
+import ro.sapientia.ms.sapientiaorarend.Activity.CheckPassword;
+import ro.sapientia.ms.sapientiaorarend.Activity.DailyMenuScreen;
+import ro.sapientia.ms.sapientiaorarend.Activity.MainScreen;
 import ro.sapientia.ms.sapientiaorarend.R;
 import ro.sapientia.ms.sapientiaorarend.Util.Settings;
 import ro.sapientia.ms.sapientiaorarend.models.User;
@@ -55,11 +57,11 @@ public class DatabaseListening extends IntentService {
     protected void onHandleIntent(@Nullable Intent intent) {
         if (Settings.user != null) {
             this.timetable = FirebaseDatabase.getInstance().getReference("/timetables/" + Settings.user.getDeparment() + "/");
-            this.message = FirebaseDatabase.getInstance().getReference("/messages/"+Settings.user.getDeparment()+"/");
+            this.message = FirebaseDatabase.getInstance().getReference("/messages/" + Settings.user.getDeparment() + "/");
         }
         Intent intentTimetable = new Intent(this, MainScreen.class);
         PendingIntent pendingIntentTimetable = PendingIntent.getActivity(this, 0, intentTimetable, 0);
-        Intent intentMenu = new Intent(this, MENU.class);
+        Intent intentMenu = new Intent(this, DailyMenuScreen.class);
         PendingIntent pendingIntentMenu = PendingIntent.getActivity(this, 0, intentMenu, 0);
         Intent intentMessage = new Intent(this, CheckPassword.class);
         PendingIntent pendingIntentMessage = PendingIntent.getActivity(this, 0, intentMessage, 0);
@@ -95,14 +97,14 @@ public class DatabaseListening extends IntentService {
                 .build();
         final NotificationManagerCompat notificationManager = NotificationManagerCompat.from(this);
         if (Settings.user != null) {
-          this.timetable.addValueEventListener(new ValueEventListener() {
+            this.timetable.addValueEventListener(new ValueEventListener() {
                 @Override
                 public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                     if (!DatabaseListening.this.firststarttimetable) {
                         notificationManager.notify(1, noti1);
                         Intent intent = new Intent();
                         intent.setAction("time");
-                        intent.putExtra("Dfdsfdf",1);
+                        intent.putExtra("Dfdsfdf", 1);
                         sendBroadcast(intent);
                     }
                     DatabaseListening.this.firststarttimetable = false;
@@ -122,7 +124,7 @@ public class DatabaseListening extends IntentService {
                     notificationManager.notify(1, noti2);
                     Intent intent = new Intent();
                     intent.setAction("menu");
-                    intent.putExtra("Dfdsfdf",1);
+                    intent.putExtra("Dfdsfdf", 1);
                     sendBroadcast(intent);
                 }
                 DatabaseListening.this.firststartmenu = false;
@@ -140,7 +142,7 @@ public class DatabaseListening extends IntentService {
                     notificationManager.notify(1, noti3);
                     Intent intent = new Intent();
                     intent.setAction("mess");
-                    intent.putExtra("Dfdsfdf",1);
+                    intent.putExtra("Dfdsfdf", 1);
                     sendBroadcast(intent);
                 }
                 DatabaseListening.this.firststartmessage = false;
@@ -154,4 +156,4 @@ public class DatabaseListening extends IntentService {
         });
 
     }
-    }
+}

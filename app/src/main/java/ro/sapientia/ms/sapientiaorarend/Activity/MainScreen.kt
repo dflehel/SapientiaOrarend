@@ -1,6 +1,7 @@
 package ro.sapientia.ms.sapientiaorarend.Activity
 
 import android.app.Dialog
+import android.app.ProgressDialog
 import android.content.BroadcastReceiver
 import android.content.Context
 import android.content.Intent
@@ -19,7 +20,10 @@ import android.view.Gravity
 import android.view.Menu
 import android.view.MenuItem
 import android.widget.*
-import com.google.firebase.auth.*
+import com.google.firebase.auth.AuthCredential
+import com.google.firebase.auth.EmailAuthProvider
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.FirebaseDatabase
 import kotlinx.android.synthetic.main.activity_main_screen.*
@@ -56,6 +60,7 @@ class MainScreen : AppCompatActivity() {
     private var generalTimeTableAdapter: GeneralTimeTableAdapter? = null
     private var notireciver: BroadcastReceiver? = null
     private var user: User? = null
+    private var progressDialog: ProgressDialog? = null
 
     companion object {
         public var iscreated: Boolean? = false
@@ -101,19 +106,19 @@ class MainScreen : AppCompatActivity() {
         NavigationView.OnNavigationItemSelectedListener {
             when (it.itemId) {
                 R.id.etkezde -> {
-                    var intent2 = Intent(this, MENU::class.java)
+                    var intent2 = Intent(this, DailyMenuScreen::class.java)
                     startActivity(intent2)
                     this.drawerLayout!!.closeDrawer(Gravity.START, false)
                     true
                 }
                 R.id.terkep -> {
-                    var intent2 = Intent(this, Map::class.java)
+                    var intent2 = Intent(this, MapScreen::class.java)
                     startActivity(intent2)
                     this.drawerLayout!!.closeDrawer(Gravity.START, false)
                     true
                 }
                 R.id.uzenet -> {
-                    if ( android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.M) {
+                    if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.M) {
                         if (FingerprintDialog.isAvailable(this)) {
                             FingerprintDialog.initialize(this)
                                 .title("Ellenorzes")
@@ -126,16 +131,14 @@ class MainScreen : AppCompatActivity() {
                                     }
 
                                     override fun onAuthenticationCancel() {
-                                            passwordformessagewritiing()
+                                        passwordformessagewritiing()
                                     }
                                 })
                                 .show();
-                        }
-                        else{
+                        } else {
                             passwordformessagewritiing()
                         }
-                    }
-                    else{
+                    } else {
                         passwordformessagewritiing()
                     }
                     true
@@ -147,7 +150,7 @@ class MainScreen : AppCompatActivity() {
                     true
                 }
                 R.id.uzenetek -> {
-                    if ( android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.M) {
+                    if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.M) {
                         if (FingerprintDialog.isAvailable(this)) {
                             FingerprintDialog.initialize(this)
                                 .title("Ellenorzes")
@@ -160,16 +163,14 @@ class MainScreen : AppCompatActivity() {
                                     }
 
                                     override fun onAuthenticationCancel() {
-                                          passwordformessageview()
+                                        passwordformessageview()
                                     }
                                 })
                                 .show();
-                        }
-                        else{
+                        } else {
                             passwordformessageview()
                         }
-                    }
-                    else{
+                    } else {
                         passwordformessageview()
                     }
                     true
@@ -178,16 +179,15 @@ class MainScreen : AppCompatActivity() {
             false
         }
 
-
-
-    fun passwordformessageview(){
-        val dialog:Dialog? = Dialog(this)
+    //uzenetek megtekindese szolgalok ellenorzes
+    fun passwordformessageview() {
+        val dialog: Dialog? = Dialog(this)
         dialog!!.setContentView(R.layout.passwordcheck)
         dialog!!.setTitle("Ellenorzes")
-        var cancelbutton : Button? = dialog.findViewById<Button>(R.id.password_button_cancel)
-        var checkbutton : Button? = dialog.findViewById<Button>(R.id.password_check_passwod_button)
-        var image : ImageView? = dialog.findViewById<ImageView>(R.id.password_image)
-        var pass : EditText? = dialog.findViewById<EditText>(R.id.assword_input)
+        var cancelbutton: Button? = dialog.findViewById<Button>(R.id.password_button_cancel)
+        var checkbutton: Button? = dialog.findViewById<Button>(R.id.password_check_passwod_button)
+        var image: ImageView? = dialog.findViewById<ImageView>(R.id.password_image)
+        var pass: EditText? = dialog.findViewById<EditText>(R.id.assword_input)
         var paslabel: TextView? = dialog.findViewById<TextView>(R.id.password_label)
         cancelbutton!!.setOnClickListener {
             dialog.dismiss()
@@ -202,17 +202,16 @@ class MainScreen : AppCompatActivity() {
 
                     image!!.setImageResource(R.mipmap.ic_unlock)
                     paslabel!!.setText("Sikeres bejelentkezes")
-                    Toast.makeText(context,"Sikeres",Toast.LENGTH_SHORT)
+                    Toast.makeText(context, "Sikeres", Toast.LENGTH_SHORT)
                     paslabel!!.setTextColor(resources.getColor(R.color.slapshcolor))
                     var intent2 = Intent(context, MessageDisplay::class.java)
                     startActivity(intent2)
                     drawerLayout!!.closeDrawer(Gravity.START, false)
                     dialog.dismiss()
-                }
-                else {
+                } else {
                     image!!.setImageResource(R.mipmap.ic_lock_error_round)
                     paslabel!!.setText("Sikertelen bejelentkezes")
-                    Toast.makeText(context,"Sikertelen",Toast.LENGTH_SHORT)
+                    Toast.makeText(context, "Sikertelen", Toast.LENGTH_SHORT)
                     paslabel!!.setTextColor(Color.RED)
                 }
 
@@ -224,19 +223,22 @@ class MainScreen : AppCompatActivity() {
 
     }
 
-    fun passwordformessagewritiing(){
-        val dialog:Dialog? = Dialog(this)
+    //uzenet irashoz szukseges ellenorzes
+    fun passwordformessagewritiing() {
+        val dialog: Dialog? = Dialog(this)
         dialog!!.setContentView(R.layout.passwordcheck)
         dialog!!.setTitle("Ellenorzes")
-        var cancelbutton : Button? = dialog.findViewById<Button>(R.id.password_button_cancel)
-        var checkbutton : Button? = dialog.findViewById<Button>(R.id.password_check_passwod_button)
-        var image : ImageView? = dialog.findViewById<ImageView>(R.id.password_image)
-        var pass : EditText? = dialog.findViewById<EditText>(R.id.assword_input)
+        var cancelbutton: Button? = dialog.findViewById<Button>(R.id.password_button_cancel)
+        var checkbutton: Button? = dialog.findViewById<Button>(R.id.password_check_passwod_button)
+        var image: ImageView? = dialog.findViewById<ImageView>(R.id.password_image)
+        var pass: EditText? = dialog.findViewById<EditText>(R.id.assword_input)
         var paslabel: TextView? = dialog.findViewById<TextView>(R.id.password_label)
         cancelbutton!!.setOnClickListener {
             dialog.dismiss()
         }
         checkbutton!!.setOnClickListener {
+            progressDialog!!.setTitle("Ellenorzes folyamatban")
+            progressDialog!!.show()
             var user: FirebaseUser? = FirebaseAuth.getInstance().currentUser
             var credential: AuthCredential? =
                 EmailAuthProvider.getCredential(user!!.email!!, pass!!.text.toString())
@@ -246,18 +248,19 @@ class MainScreen : AppCompatActivity() {
 
                     image!!.setImageResource(R.mipmap.ic_unlock)
                     paslabel!!.setText("Sikeres bejelentkezes")
-                    Toast.makeText(context,"Sikeres",Toast.LENGTH_SHORT)
+                    Toast.makeText(context, "Sikeres", Toast.LENGTH_SHORT)
                     paslabel!!.setTextColor(resources.getColor(R.color.slapshcolor))
                     var intent2 = Intent(context, activity_send_message::class.java)
                     startActivity(intent2)
+                    progressDialog!!.dismiss()
                     drawerLayout!!.closeDrawer(Gravity.START, false)
                     dialog.dismiss()
-                }
-                else {
+                } else {
                     image!!.setImageResource(R.mipmap.ic_lock_error_round)
                     paslabel!!.setText("Sikertelen bejelentkezes")
-                    Toast.makeText(context,"Sikertelen",Toast.LENGTH_SHORT)
+                    Toast.makeText(context, "Sikertelen", Toast.LENGTH_SHORT)
                     paslabel!!.setTextColor(Color.RED)
+                    progressDialog!!.dismiss()
                 }
 
             }
@@ -276,10 +279,18 @@ class MainScreen : AppCompatActivity() {
     }
 
 
+    override fun onStart() {
+        super.onStart()
+        this.progressDialog!!.dismiss()
+    }
+
     override fun onDestroy() {
         super.onDestroy()
         MainScreen.iscreated = false
-        unregisterReceiver(this.notireciver!!)
+        //leveszem a recivert mert mar nem kell fogadjon semmit hisz halot az activity
+        if (Settings.user != null) {
+            unregisterReceiver(this.notireciver!!)
+        }
     }
 
 
@@ -296,6 +307,9 @@ class MainScreen : AppCompatActivity() {
         } else {
             setContentView(R.layout.activity_main_screen)
         }
+        this.progressDialog = ProgressDialog(this)
+        this.progressDialog!!.setMessage("betoltes")
+        this.progressDialog!!.show()
         bottonnavigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener)
         val navigationView: NavigationView = findViewById(R.id.drawernavigation)
         navigationView.setNavigationItemSelectedListener(selector)
@@ -326,23 +340,27 @@ class MainScreen : AppCompatActivity() {
         this.drawerLayout!!.addDrawerListener(this.actionBarDrawerToggle!!)
         this.actionBarDrawerToggle!!.syncState()
         supportActionBar!!.setDisplayHomeAsUpEnabled(true)
-        var intent = Intent(this, DatabaseListening::class.java)
-        startService(intent)
 
-        val intentFilter: IntentFilter? = IntentFilter("time")
-        this.notireciver = object : BroadcastReceiver() {
-            override fun onReceive(context: Context?, intent: Intent?) {
-                Databuilder(ownTimeTable!!, context, Settings.user)
+        //ha letezik a felhasznalo elinditon a noti fogadot es a ricivert hogy lehessen egybol updatolni az adatokat
+        if (Settings.user != null) {
+            var intent = Intent(this, DatabaseListening::class.java)
+            startService(intent)
+
+            val intentFilter: IntentFilter? = IntentFilter("time")
+            this.notireciver = object : BroadcastReceiver() {
+                override fun onReceive(context: Context?, intent: Intent?) {
+                    Databuilder(ownTimeTable!!, context, Settings.user)
+
+                }
 
             }
-
+            this.registerReceiver(this.notireciver!!, intentFilter)
         }
-        this.registerReceiver(this.notireciver!!, intentFilter)
     }
 
     /** a menu activiti elinditasara szolgal*/
     fun start() {
-        var intent2 = Intent(this, MENU::class.java)
+        var intent2 = Intent(this, DailyMenuScreen::class.java)
         startActivity(intent2)
     }
 

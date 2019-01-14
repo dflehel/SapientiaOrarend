@@ -3,26 +3,35 @@ package ro.sapientia.ms.sapientiaorarend.models;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
-import java.util.ArrayList;
+import java.util.TreeSet;
 
 public class SendMessage {
 
     private String sender;
     private String content;
-    private ArrayList<String> recivers;
+    private TreeSet<String> recivers;
     private Long timestamp;
     private DatabaseReference databaseReference;
 
 
-    public SendMessage(String sender, String content, ArrayList<String> recivers, long timestamp) {
+    public SendMessage(String sender, String content, TreeSet<String> recivers, long timestamp) {
         this.sender = sender;
         this.content = content;
 
-        this.recivers = new ArrayList<>();
+        this.recivers = new TreeSet<>();
         for (String s : recivers) {
             this.recivers.add(s.replace(" ", "/"));
         }
         this.timestamp = timestamp;
+    }
+
+    public SendMessage(String sender, String content, TreeSet<String> recivers) {
+        this.sender = sender;
+        this.content = content;
+        this.recivers = recivers;
+    }
+
+    public SendMessage() {
     }
 
     public long getTimestamp() {
@@ -31,16 +40,6 @@ public class SendMessage {
 
     public void setTimestamp(long timestamp) {
         this.timestamp = timestamp;
-    }
-
-
-    public SendMessage(String sender, String content, ArrayList<String> recivers) {
-        this.sender = sender;
-        this.content = content;
-        this.recivers = recivers;
-    }
-
-    public SendMessage() {
     }
 
     public String getSender() {
@@ -59,11 +58,11 @@ public class SendMessage {
         this.content = content;
     }
 
-    public ArrayList<String> getRecivers() {
+    public TreeSet<String> getRecivers() {
         return recivers;
     }
 
-    public void setRecivers(ArrayList<String> recivers) {
+    public void setRecivers(TreeSet<String> recivers) {
         this.recivers = recivers;
     }
 
