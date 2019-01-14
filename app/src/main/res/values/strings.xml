@@ -7,8 +7,6 @@
     <string name="open">Open</string>
     <string name="close">Close</string>
     <!-- TODO: Remove or change this placeholder text -->
-
-    <!--Profile screen strings-->
     <string name="profile_screen_name">Név:</string>
     <string name="profile_screen_phone">Telefon:</string>
     <string name="profile_screen_email">E-mail:</string>
@@ -16,7 +14,6 @@
     <string name="profile_screen_year">Évfolyam:</string>
     <string name="profile_screen_signout">Sign Out</string>
     <string name="profile_screen_null">Unspecified</string>
-    <string name="profile_screen_image">Profile picture</string>
 
 
     <string name="hello_blank_fragment">Hello blank fragment</string>
@@ -70,8 +67,6 @@
     <string name="options_screen_second">Második hét</string>
     <string name="options_screen_message">Üzenet</string>
     <string name="options_screen_search">Keresés</string>
-    <string name="options_screen_week_1">Első hét</string>
-    <string name="options_screen_week_2">Második hét</string>
 
     <!--Draw menu strings-->
     <string name="draw_screen_food">Étkezde</string>
@@ -80,12 +75,5 @@
     <string name="send_message_screen_text_box_hint">Üzenet</string>
     <string name="send_message_screen_send_button">Üzenet küldése</string>
     <string name="send_message_screen_choose">Válassz szakot</string>
-
-    <!--Settings screen strings-->
-    <string name="settings_screen_alarm">Ébresztés funkció</string>
-    <string name="settings_screen_save">Mentés</string>
-
-    <!--Food screen strings-->
-    <string name="food_screen_menu">Menü</string>
 
 </resources>

@@ -85,7 +85,6 @@ class activity_send_message : AppCompatActivity() {
                 dialog.dismiss()
             }
 
-
             var recyclerView: RecyclerView = dialog.findViewById<RecyclerView>(R.id.search_screen_rec)
             var deparmentSelectorAdapter: SendMessageDeparmentSelectorAdapter = SendMessageDeparmentSelectorAdapter(dialog.context, dialog, this.buttondeparment,recivers)
             recyclerView.adapter = deparmentSelectorAdapter
