@@ -8,7 +8,7 @@
         tools:context=".Activity.MessageDisplay">
 
     <TextView
-            android:text="Uzeneteid"
+            android:text="@string/messages_screen_messages"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:id="@+id/textView9" app:layout_constraintTop_toTopOf="parent"

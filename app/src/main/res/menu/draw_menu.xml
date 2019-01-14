@@ -5,7 +5,7 @@
             android:id="@+id/etkezde"
             android:title="@string/draw_screen_food"
             android:icon="@drawable/ic_restaurant"
-            app:showAsAction="always"
+            app:showAsAction="ifRoom"
     >
 
     </item>
@@ -13,33 +13,33 @@
 
     <item
             android:id="@+id/terkep"
-            android:title="Térkép"
+            android:title="@string/draw_menu_map"
             android:icon="@drawable/ic_map"
-            app:showAsAction="always"
+            app:showAsAction="ifRoom"
     >
 
     </item>
 
     <item
             android:id="@+id/uzenet"
-            android:title="Üzenet kuldes"
+            android:title="@string/draw_menu_send_messages"
             android:icon="@drawable/ic_sending_message_icon"
-            app:showAsAction="always"
+            app:showAsAction="ifRoom"
     >
 
     </item>
     <item
             android:id="@+id/bealitasok"
-            android:title="Beállítások"
+            android:title="@string/draw_menu_settings"
             android:icon="@drawable/ic_settings"
-            app:showAsAction="always"
+            app:showAsAction="ifRoom"
     >
 
     </item>
     <item
             android:id="@+id/uzenetek"
             android:icon="@drawable/ic_message"
-            android:title="Kapot uzenetek"
-            app:showAsAction="always">
+            android:title="@string/draw_menu_messages"
+            app:showAsAction="ifRoom">
     </item>
 </menu>

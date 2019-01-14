@@ -66,8 +66,8 @@ public class DatabaseListening extends IntentService {
         Intent intentMessage = new Intent(this, CheckPassword.class);
         PendingIntent pendingIntentMessage = PendingIntent.getActivity(this, 0, intentMessage, 0);
         final Notification noti1 = new Notification.Builder(this)
-                .setContentTitle("Valtozas")
-                .setContentText("Orarendvaltozas tortent")
+                .setContentTitle("Változás")
+                .setContentText("Órarendváltozás történt")
                 .setSmallIcon(R.drawable.ic__update_timetable)
                 .setLargeIcon(BitmapFactory.decodeResource(getResources(), R.mipmap.ic_update_time_table_round))
                 .setContentIntent(pendingIntentTimetable)
@@ -76,8 +76,8 @@ public class DatabaseListening extends IntentService {
                 .setAutoCancel(true)
                 .build();
         final Notification noti2 = new Notification.Builder(this)
-                .setContentTitle("Valtozas")
-                .setContentText("UJ napi menu")
+                .setContentTitle("Változás")
+                .setContentText("Új napi menü")
                 .setSmallIcon(R.drawable.ic__update_restaurante)
                 .setLargeIcon(BitmapFactory.decodeResource(getResources(), R.mipmap.ic_update_restaurante_round))
                 .setContentIntent(pendingIntentMenu)
@@ -87,7 +87,7 @@ public class DatabaseListening extends IntentService {
                 .setDefaults(Notification.DEFAULT_ALL)
                 .build();
         final Notification noti3 = new Notification.Builder(this)
-                .setContentTitle("Uzeneted erkezet")
+                .setContentTitle("Üzeneted érkezett")
                 .setLargeIcon(BitmapFactory.decodeResource(getResources(), R.mipmap.ic_message_update_round))
                 .setSmallIcon(R.drawable.ic_message)
                 .setContentIntent(pendingIntentMessage)
