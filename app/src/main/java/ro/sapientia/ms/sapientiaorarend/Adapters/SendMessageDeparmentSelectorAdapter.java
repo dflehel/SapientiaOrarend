@@ -15,6 +15,7 @@ import ro.sapientia.ms.sapientiaorarend.Util.ClassPathBuilder;
 import ro.sapientia.ms.sapientiaorarend.Util.Databuilder;
 
 import java.util.ArrayList;
+import java.util.TreeSet;
 
 public class SendMessageDeparmentSelectorAdapter extends RecyclerView.Adapter<SendMessageDeparmentSelectorAdapter.DepartmentSelectorAdapterViewHolder> {
 
@@ -24,25 +25,9 @@ public class SendMessageDeparmentSelectorAdapter extends RecyclerView.Adapter<Se
     private Context con;
     private Databuilder data;
     private Dialog dialog;
-    private ArrayList<String> revivers = new ArrayList<>();
+    private TreeSet<String> revivers = new TreeSet<>();
 
-    public Databuilder getData() {
-        return data;
-    }
-
-    public Dialog getDialog() {
-        return dialog;
-    }
-
-    public void setDialog(Dialog dialog) {
-        this.dialog = dialog;
-    }
-
-    public void setData(Databuilder data) {
-        this.data = data;
-    }
-
-    public SendMessageDeparmentSelectorAdapter(Context c, Dialog d, Button button, ArrayList<String> recivers) {
+    public SendMessageDeparmentSelectorAdapter(Context c, Dialog d, Button button, TreeSet<String> recivers) {
         for (String deparment : ClassPathBuilder.classPath.keySet()) {
             for (String year : ClassPathBuilder.classPath.get(deparment).keySet()) {
                 for (String group : ClassPathBuilder.classPath.get(deparment).get(year)) {
@@ -55,6 +40,22 @@ public class SendMessageDeparmentSelectorAdapter extends RecyclerView.Adapter<Se
         this.dialog = d;
         this.con = c;
         this.revivers = recivers;
+    }
+
+    public Databuilder getData() {
+        return data;
+    }
+
+    public void setData(Databuilder data) {
+        this.data = data;
+    }
+
+    public Dialog getDialog() {
+        return dialog;
+    }
+
+    public void setDialog(Dialog dialog) {
+        this.dialog = dialog;
     }
 
     @NonNull
