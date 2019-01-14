@@ -181,6 +181,7 @@ class MainScreen : AppCompatActivity() {
 
     //uzenetek megtekindese szolgalok ellenorzes
     fun passwordformessageview() {
+        this.progressDialog = ProgressDialog(this)
         val dialog: Dialog? = Dialog(this)
         dialog!!.setContentView(R.layout.passwordcheck)
         dialog!!.setTitle("Ellenorzes")
@@ -193,6 +194,8 @@ class MainScreen : AppCompatActivity() {
             dialog.dismiss()
         }
         checkbutton!!.setOnClickListener {
+            progressDialog!!.setMessage("Ellenorzes folyamatban")
+            progressDialog!!.show()
             var user: FirebaseUser? = FirebaseAuth.getInstance().currentUser
             var credential: AuthCredential? =
                 EmailAuthProvider.getCredential(user!!.email!!, pass!!.text.toString())
@@ -204,6 +207,7 @@ class MainScreen : AppCompatActivity() {
                     paslabel!!.setText("Sikeres bejelentkezes")
                     Toast.makeText(context, "Sikeres", Toast.LENGTH_SHORT)
                     paslabel!!.setTextColor(resources.getColor(R.color.slapshcolor))
+                    progressDialog!!.dismiss()
                     var intent2 = Intent(context, MessageDisplay::class.java)
                     startActivity(intent2)
                     drawerLayout!!.closeDrawer(Gravity.START, false)
@@ -213,6 +217,7 @@ class MainScreen : AppCompatActivity() {
                     paslabel!!.setText("Sikertelen bejelentkezes")
                     Toast.makeText(context, "Sikertelen", Toast.LENGTH_SHORT)
                     paslabel!!.setTextColor(Color.RED)
+                    progressDialog!!.dismiss()
                 }
 
             }
@@ -225,6 +230,7 @@ class MainScreen : AppCompatActivity() {
 
     //uzenet irashoz szukseges ellenorzes
     fun passwordformessagewritiing() {
+        this.progressDialog = ProgressDialog(this)
         val dialog: Dialog? = Dialog(this)
         dialog!!.setContentView(R.layout.passwordcheck)
         dialog!!.setTitle("Ellenorzes")
@@ -237,7 +243,7 @@ class MainScreen : AppCompatActivity() {
             dialog.dismiss()
         }
         checkbutton!!.setOnClickListener {
-            progressDialog!!.setTitle("Ellenorzes folyamatban")
+            progressDialog!!.setMessage("Ellenorzes folyamatban")
             progressDialog!!.show()
             var user: FirebaseUser? = FirebaseAuth.getInstance().currentUser
             var credential: AuthCredential? =
