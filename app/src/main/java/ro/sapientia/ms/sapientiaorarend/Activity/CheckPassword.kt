@@ -44,30 +44,33 @@ class CheckPassword : AppCompatActivity() {
         //megprobalok ujra bejelenkezni az altala beirt jelszoval ha sikeres tovabb lepek ha nem akkot leallok s ujra kerem
         checkbutton!!.setOnClickListener {
             if (pass!!.text != null && pass!!.text.length > 0) {
-                this.progressDialog!!.setTitle("Ellenorzes folyamatban")
-                this.progressDialog!!.show()
-                var user: FirebaseUser? = FirebaseAuth.getInstance().currentUser
-                var credential: AuthCredential? =
-                    EmailAuthProvider.getCredential(user!!.email!!, pass!!.text.toString())
-                user!!.reauthenticate(credential!!).addOnCompleteListener {
-                    if (it.isSuccessful) {
+            
+
+            this.progressDialog!!.setTitle("Ellenőrzeűés folyamatban")
+            this.progressDialog!!.show()
+            var user: FirebaseUser? = FirebaseAuth.getInstance().currentUser
+            var credential: AuthCredential? =
+                EmailAuthProvider.getCredential(user!!.email!!, pass!!.text.toString())
+            user!!.reauthenticate(credential!!).addOnCompleteListener {
+                if (it.isSuccessful) {
 
 
-                        image!!.setImageResource(R.mipmap.ic_unlock)
-                        paslabel!!.setText("Sikeres bejelentkezes")
-                        Toast.makeText(applicationContext, "Sikeres", Toast.LENGTH_SHORT)
-                        paslabel!!.setTextColor(resources.getColor(R.color.slapshcolor))
-                        var intent2 = Intent(applicationContext, MessageDisplay::class.java)
-                        progressDialog!!.dismiss()
-                        startActivity(intent2)
-                        finish()
-                    } else {
-                        image!!.setImageResource(R.mipmap.ic_lock_error_round)
-                        paslabel!!.setText("Sikertelen bejelentkezes")
-                        Toast.makeText(applicationContext, "Sikertelen", Toast.LENGTH_SHORT)
-                        paslabel!!.setTextColor(Color.RED)
-                        progressDialog!!.dismiss()
-                    }
+                    image!!.setImageResource(R.mipmap.ic_unlock)
+                    paslabel!!.setText("Sikeres bejelentkezés")
+                    Toast.makeText(applicationContext, "Sikeres", Toast.LENGTH_SHORT)
+                    paslabel!!.setTextColor(resources.getColor(R.color.slapshcolor))
+                    var intent2 = Intent(applicationContext, MessageDisplay::class.java)
+                    progressDialog!!.dismiss()
+                    startActivity(intent2)
+                    finish()
+                } else {
+                    image!!.setImageResource(R.mipmap.ic_lock_error_round)
+                    paslabel!!.setText("Sikertelen bejelentkezés")
+                    Toast.makeText(applicationContext, "Sikertelen", Toast.LENGTH_SHORT)
+                    paslabel!!.setTextColor(Color.RED)
+                    progressDialog!!.dismiss()
+                }
+
 
                 }
             }
@@ -83,8 +86,8 @@ class CheckPassword : AppCompatActivity() {
             if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.M) {
                 if (FingerprintDialog.isAvailable(this)) {
                     FingerprintDialog.initialize(this)
-                        .title("Ellenorzes")
-                        .message("Hasznalja az ujlenyomatat a tovabb lepeshez")
+                        .title("Ellenőrzés")
+                        .message("Használja az újlenyomatát a továbblépéshez")
                         .callback(object : FingerprintDialogCallback {
                             override fun onAuthenticationSucceeded() {
                                 var intent2 = Intent(applicationContext, activity_send_message::class.java)

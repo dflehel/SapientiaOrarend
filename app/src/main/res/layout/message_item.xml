@@ -21,7 +21,7 @@
                 android:layout_height="match_parent">
 
             <TextView
-                    android:text="TextView"
+                    android:text="@string/messages_screen_date"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content" android:id="@+id/message_item_time_stemp_text_view"
                     app:layout_constraintTop_toTopOf="parent" android:layout_marginTop="8dp"
@@ -30,7 +30,7 @@
                     android:layout_marginEnd="8dp" android:layout_marginRight="8dp"
                     android:textColor="@color/browser_actions_bg_grey" app:layout_constraintHorizontal_bias="0.0"/>
             <TextView
-                    android:text="TextView"
+                    android:text="@string/messages_screen_sender"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content" android:id="@+id/message_ite_send_text_view"
                     android:layout_marginTop="24dp"
@@ -52,7 +52,7 @@
                 <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content"
                               android:orientation="vertical">
                     <TextView
-                            android:text="TextView"
+                            android:text="@string/messages_screen_messages"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:id="@+id/message_item_content_text_view"
