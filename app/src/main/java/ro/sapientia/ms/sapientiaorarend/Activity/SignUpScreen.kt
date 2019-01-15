@@ -74,7 +74,6 @@ class SignUpScreen : AppCompatActivity() {
         }
     }
 
-
     fun elleorzo(pas: String, pas2: String): Boolean {
         return pas.contentEquals(pas2)
     }
