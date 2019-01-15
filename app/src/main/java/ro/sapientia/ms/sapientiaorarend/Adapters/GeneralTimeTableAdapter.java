@@ -9,7 +9,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
-import ro.sapientia.ms.sapientiaorarend.Contans.AdapterContans;
+import ro.sapientia.ms.sapientiaorarend.Constants.AdapterConstants;
 import ro.sapientia.ms.sapientiaorarend.R;
 import ro.sapientia.ms.sapientiaorarend.models.Classes;
 import ro.sapientia.ms.sapientiaorarend.models.Days;
@@ -66,13 +66,13 @@ public class GeneralTimeTableAdapter extends RecyclerView.Adapter<GeneralTimeTab
 
     @Override
     public void onBindViewHolder(@NonNull GeneralTimeTableAdapter.OwnTimeTableViewHolder ownTimeTableViewHolder, int i) {
-        ownTimeTableViewHolder.daytext.setText(AdapterContans.days[i]);
-        ownTimeTableViewHolder.setdata(this.m.getD().get(this.wichweek).get(AdapterContans.days[i]).getClasses());
+        ownTimeTableViewHolder.daytext.setText(AdapterConstants.days[i]);
+        ownTimeTableViewHolder.setdata(this.m.getD().get(this.wichweek).get(AdapterConstants.days[i]).getClasses());
     }
 
     @Override
     public int getItemCount() {
-        return AdapterContans.days.length;
+        return AdapterConstants.days.length;
     }
 
     public HashMap<String, Days> getD() {

@@ -1,13 +1,13 @@
-package ro.sapientia.ms.sapientiaorarend.Contans;
+package ro.sapientia.ms.sapientiaorarend.Constants;
 
 import ro.sapientia.ms.sapientiaorarend.models.Classes;
 
 import java.util.ArrayList;
 
-public class AdapterContans {
+public class AdapterConstants {
     public final static String[] days = {"hetfo", "kedd", "szerda", "csutortok", "pentek", "szombat"};
 
-    public AdapterContans() {
+    public AdapterConstants() {
     }
 
     public ArrayList<Classes> makedata() {

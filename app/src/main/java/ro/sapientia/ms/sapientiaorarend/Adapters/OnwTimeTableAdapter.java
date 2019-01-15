@@ -8,7 +8,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
-import ro.sapientia.ms.sapientiaorarend.Contans.AdapterContans;
+import ro.sapientia.ms.sapientiaorarend.Constants.AdapterConstants;
 import ro.sapientia.ms.sapientiaorarend.R;
 import ro.sapientia.ms.sapientiaorarend.models.Classes;
 import ro.sapientia.ms.sapientiaorarend.models.Days;
@@ -71,9 +71,9 @@ public class OnwTimeTableAdapter extends RecyclerView.Adapter<OnwTimeTableAdapte
 
     @Override
     public void onBindViewHolder(@NonNull OwnTimeTableViewHolder ownTimeTableViewHolder, int i) {
-        ownTimeTableViewHolder.daytext.setText(AdapterContans.days[i]);
-        if (this.m.getD().get(this.wichweek).get(AdapterContans.days[i]) != null) {
-            ownTimeTableViewHolder.setdata(this.m.getD().get(this.wichweek).get(AdapterContans.days[i]).getClasses());
+        ownTimeTableViewHolder.daytext.setText(AdapterConstants.days[i]);
+        if (this.m.getD().get(this.wichweek).get(AdapterConstants.days[i]) != null) {
+            ownTimeTableViewHolder.setdata(this.m.getD().get(this.wichweek).get(AdapterConstants.days[i]).getClasses());
         } else {
             ownTimeTableViewHolder.setdata(new ArrayList<Classes>());
         }
@@ -81,7 +81,7 @@ public class OnwTimeTableAdapter extends RecyclerView.Adapter<OnwTimeTableAdapte
 
     @Override
     public int getItemCount() {
-        return AdapterContans.days.length;
+        return AdapterConstants.days.length;
     }
 
     public class OwnTimeTableViewHolder extends RecyclerView.ViewHolder {

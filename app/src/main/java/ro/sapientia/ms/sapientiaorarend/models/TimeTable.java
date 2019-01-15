@@ -1,6 +1,6 @@
 package ro.sapientia.ms.sapientiaorarend.models;
 
-import ro.sapientia.ms.sapientiaorarend.Contans.AdapterContans;
+import ro.sapientia.ms.sapientiaorarend.Constants.AdapterConstants;
 
 import java.io.Serializable;
 import java.util.HashMap;
@@ -12,11 +12,11 @@ public class TimeTable implements Serializable {
 
     public TimeTable() {
         this.d.put("paratlanhet", new HashMap<String, Days>());
-        for (String s : AdapterContans.days) {
+        for (String s : AdapterConstants.days) {
             this.d.get("paratlanhet").put(s, new Days());
         }
         this.d.put("paroshet", new HashMap<String, Days>());
-        for (String s : AdapterContans.days) {
+        for (String s : AdapterConstants.days) {
             this.d.get("paroshet").put(s, new Days());
         }
     }
