@@ -16,11 +16,10 @@ class OwnTimeTable : Fragment() {
     lateinit var recyclerView: RecyclerView
     var adapter = OnwTimeTableAdapter()
 
-    fun refersh(){
+    fun refersh() {
         this.recyclerView.refreshDrawableState()
         this.adapter.notifyDataSetChanged()
     }
-
 
 
     override fun onCreateView(

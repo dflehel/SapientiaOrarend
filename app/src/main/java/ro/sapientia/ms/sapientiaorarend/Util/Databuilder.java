@@ -6,9 +6,11 @@ import android.support.annotation.NonNull;
 import android.widget.TextView;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.*;
+import ro.sapientia.ms.sapientiaorarend.Adapters.MessageAdapter;
 import ro.sapientia.ms.sapientiaorarend.Fragments.GeneralTimeTable;
 import ro.sapientia.ms.sapientiaorarend.Fragments.OwnTimeTable;
 import ro.sapientia.ms.sapientiaorarend.models.Classes;
+import ro.sapientia.ms.sapientiaorarend.models.Message;
 import ro.sapientia.ms.sapientiaorarend.models.TimeTable;
 import ro.sapientia.ms.sapientiaorarend.models.User;
 
@@ -26,6 +28,33 @@ public class Databuilder {
     private OwnTimeTable ownTimeTable;
     private ProgressDialog progressDialog;
     private TextView deparmentview;
+
+
+    public Databuilder(final MessageAdapter messageAdapter, Context c) {
+        this.mdatabase = FirebaseDatabase.getInstance().getReference("/messages/" + Settings.user.getDeparment() + "/");
+        this.progressDialog = new ProgressDialog(c);
+        this.progressDialog.setMessage("Betöltés");
+        this.progressDialog.show();
+        this.mdatabase.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                for (DataSnapshot data : dataSnapshot.getChildren()) {
+                    Long time = Long.parseLong(data.getKey());
+                    Message m = data.getValue(Message.class);
+                    m.setTimestamp(time);
+                    messageAdapter.getMessages().add(0, m);
+                }
+                messageAdapter.notifyDataSetChanged();
+                progressDialog.dismiss();
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
+    }
+
 
     public Databuilder(ArrayList<Classes> classes) {
         this.classes = classes;

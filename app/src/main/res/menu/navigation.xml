@@ -3,12 +3,12 @@
 
     <item
             android:id="@+id/navigation_general_time_table"
-            android:icon="@drawable/ic_timetable"
+            android:icon="@drawable/ic_general_time_table"
             android:title="@string/navigation_screen_general"/>
 
     <item
             android:id="@+id/navigation_own_time_table"
-            android:icon="@drawable/ic_timetable"
+            android:icon="@drawable/ic_own_time_table"
             android:title="@string/navigation_screen_own"/>
 
     <item

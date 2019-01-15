@@ -1,23 +1,38 @@
 <resources>
-    <string name="app_name">Sapi orarend</string>
+    <string name="app_name">Sapi órarend</string>
     <string name="title_activity_main_screen">Sapi órarend</string>
     <string name="title_home">Home</string>
     <string name="title_dashboard">Dashboard</string>
     <string name="title_notifications">Notifications</string>
     <string name="open">Open</string>
     <string name="close">Close</string>
+
+    <!--Android Manifest-->>
+    <string name="android_manifest_login">Bejelentkező képernyő</string>
+    <string name="android_manifest_signup">Feljelentkező képernyő</string>
+    <string name="android_manifest_main">Főképernyő</string>
+    <string name="android_manifest_lunch">Ebédlő képernyő</string>
+    <string name="android_manifest_map">Térkép képernyő</string>
+    <string name="android_manifest_send_message">Üzenet kűldés képernyő</string>
+    <string name="android_manifest_settings">Beállítások képernyő</string>
+    <string name="android_manifest_received_messages">Bejövő üzenetek képernyő</string>
+    <string name="android_manifest_authentificate">Jelszó ellenőrző képernyő</string>
+
     <!-- TODO: Remove or change this placeholder text -->
+
+    <!--Profile screen string-->
     <string name="profile_screen_name">Név:</string>
     <string name="profile_screen_phone">Telefon:</string>
     <string name="profile_screen_email">E-mail:</string>
     <string name="profile_screen_class">Szak:</string>
     <string name="profile_screen_year">Évfolyam:</string>
-    <string name="profile_screen_signout">Sign Out</string>
+    <string name="profile_screen_signout">Kijelentkezés</string>
     <string name="profile_screen_null">Unspecified</string>
-
+    <string name="profile_screen_picture">Profilkép</string>
 
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="title_activity_login">Sign in</string>
+
     <!-- Strings related to login -->
     <string name="prompt_email">Email</string>
     <string name="prompt_password">Password (optional)</string>
@@ -58,7 +73,7 @@
     <string name="signup_screen_choose">Válassz szakot</string>
 
     <!--Navigation screen strings-->
-    <string name="navigation_screen_general">Általános órarend</string>
+    <string name="navigation_screen_general">Általános</string>
     <string name="navigation_screen_own">Saját órarend</string>
     <string name="navigation_screen_profile">Profil</string>
 
@@ -70,10 +85,51 @@
 
     <!--Draw menu strings-->
     <string name="draw_screen_food">Étkezde</string>
+    <string name="draw_menu_map">Térkép</string>
+    <string name="draw_menu_send_messages">Üzenet kűldése</string>
+    <string name="draw_menu_settings">Beállítások</string>
+    <string name="draw_menu_messages">Bejövő üzenetek</string>
 
     <!--Send message strings-->
     <string name="send_message_screen_text_box_hint">Üzenet</string>
     <string name="send_message_screen_send_button">Üzenet küldése</string>
     <string name="send_message_screen_choose">Válassz szakot</string>
+    <string name="send_message_screen_choose_department">Melyik csoportoknak szeretnél üzenetet kűldeni?</string>
+    <string name="send_message_screen_delete">Törlés</string>
+    <string name="send_message_screen_select_save">Mentés</string>
+    <string name="send_message_screen_select_cancel">Mégse</string>
+    <string name="send_message_screen_selecting">Szak</string>
+
+
+    <!--Password check strings-->
+    <string name="password_check_write">A továbblépéshez, kérem, hogy írja be a jelszavát!</string>
+    <string name="password_check_hint">Jelszó</string>
+    <string name="password_check_check">Ellenőrzés</string>
+    <string name="password_check_exit">Kilépés</string>
+    <string name="password_check_image">Kép</string>
+
+    <!--Messages screen string-->
+    <string name="messages_screen_messages">Üzeneteid</string>
+
+    <!--Setting screen strings-->
+    <string name="settings_screen_alarm">Ébresztő/Emlékeztető</string>
+    <string name="settings_screen_save">Mentés</string>
+
+    <!--Own timetable strings-->
+    <string name="own_timetable_weekday">Nap</string>
+    <string name="own_timetable_class_number">Terem</string>
+    <string name="own_timetable_teacher_name">Tanár</string>
+    <string name="own_timetable_start">Kezdés</string>
+    <string name="own_timetable_end">Végzés</string>
+    <string name="own_timetable_class_name">Tantárgy</string>
+
+    <!--Messages screen strings-->
+    <string name="messages_screen_date">Dátum</string>
+    <string name="messages_screen_sender">Kűldő</string>
+    <string name="messages_screen_message">Üzenet</string>
+
+
+
+
 
 </resources>

@@ -1,39 +1,45 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
       xmlns:app="http://schemas.android.com/apk/res-auto">
-        <item
-                android:id="@+id/etkezde"
-                android:title="@string/draw_screen_food"
-                android:icon="@drawable/ic_restaurant"
-                app:showAsAction="always"
-        >
+    <item
+            android:id="@+id/etkezde"
+            android:title="@string/draw_screen_food"
+            android:icon="@drawable/ic_restaurant"
+            app:showAsAction="ifRoom"
+    >
 
-        </item>
+    </item>
 
 
-        <item
-                android:id="@+id/terkep"
-                android:title="Térkép"
-                android:icon="@drawable/ic_map"
-                app:showAsAction="always"
-        >
+    <item
+            android:id="@+id/terkep"
+            android:title="@string/draw_menu_map"
+            android:icon="@drawable/ic_map"
+            app:showAsAction="ifRoom"
+    >
 
-        </item>
+    </item>
 
-        <item
-                android:id="@+id/uzenet"
-                android:title="Üzenet"
-                android:icon="@drawable/ic_message"
-                app:showAsAction="always"
-        >
+    <item
+            android:id="@+id/uzenet"
+            android:title="@string/draw_menu_send_messages"
+            android:icon="@drawable/ic_sending_message_icon"
+            app:showAsAction="ifRoom"
+    >
 
-        </item>
-        <item
-                android:id="@+id/bealitasok"
-                android:title="Beállítások"
-                android:icon="@drawable/ic_settings"
-                app:showAsAction="always"
-        >
+    </item>
+    <item
+            android:id="@+id/bealitasok"
+            android:title="@string/draw_menu_settings"
+            android:icon="@drawable/ic_settings"
+            app:showAsAction="ifRoom"
+    >
 
-        </item>
+    </item>
+    <item
+            android:id="@+id/uzenetek"
+            android:icon="@drawable/ic_message"
+            android:title="@string/draw_menu_messages"
+            app:showAsAction="ifRoom">
+    </item>
 </menu>

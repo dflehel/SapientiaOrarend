@@ -1,10 +1,12 @@
 package ro.sapientia.ms.sapientiaorarend.Activity
 
 import android.app.Dialog
+import android.app.ProgressDialog
 import android.content.BroadcastReceiver
 import android.content.Context
 import android.content.Intent
 import android.content.IntentFilter
+import android.graphics.Color
 import android.os.Bundle
 import android.support.design.widget.BottomNavigationView
 import android.support.design.widget.NavigationView
@@ -17,11 +19,16 @@ import android.support.v7.widget.RecyclerView
 import android.view.Gravity
 import android.view.Menu
 import android.view.MenuItem
-import android.widget.Toast
+import android.widget.*
+import com.google.firebase.auth.AuthCredential
+import com.google.firebase.auth.EmailAuthProvider
 import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.FirebaseDatabase
 import kotlinx.android.synthetic.main.activity_main_screen.*
+import me.aflak.libraries.callback.FingerprintDialogCallback
+import me.aflak.libraries.dialog.FingerprintDialog
 import ro.sapientia.ms.sapientiaorarend.Adapters.GeneralTimeTableAdapter
 import ro.sapientia.ms.sapientiaorarend.Adapters.SearchAdapter
 import ro.sapientia.ms.sapientiaorarend.Fragments.GeneralTimeTable
@@ -31,8 +38,6 @@ import ro.sapientia.ms.sapientiaorarend.R
 import ro.sapientia.ms.sapientiaorarend.Services.DatabaseListening
 import ro.sapientia.ms.sapientiaorarend.Util.Databuilder
 import ro.sapientia.ms.sapientiaorarend.Util.Settings
-import ro.sapientia.ms.sapientiaorarend.Activity.activity_send_message
-
 import ro.sapientia.ms.sapientiaorarend.models.Classes
 import ro.sapientia.ms.sapientiaorarend.models.User
 import java.util.*
@@ -53,8 +58,10 @@ class MainScreen : AppCompatActivity() {
     private var data: Databuilder? = null;
     private var context: Context? = this
     private var generalTimeTableAdapter: GeneralTimeTableAdapter? = null
-    private var notireciver : BroadcastReceiver? = null
+    private var notireciver: BroadcastReceiver? = null
     private var user: User? = null
+    private var progressDialog: ProgressDialog? = null
+
     companion object {
         public var iscreated: Boolean? = false
     }
@@ -99,33 +106,190 @@ class MainScreen : AppCompatActivity() {
         NavigationView.OnNavigationItemSelectedListener {
             when (it.itemId) {
                 R.id.etkezde -> {
-                    var intent2 = Intent(this, MENU::class.java)
+                    var intent2 = Intent(this, DailyMenuScreen::class.java)
                     startActivity(intent2)
                     this.drawerLayout!!.closeDrawer(Gravity.START, false)
                     true
                 }
                 R.id.terkep -> {
-                    var intent2 = Intent(this, Map::class.java)
+                    var intent2 = Intent(this, MapScreen::class.java)
                     startActivity(intent2)
                     this.drawerLayout!!.closeDrawer(Gravity.START, false)
                     true
                 }
                 R.id.uzenet -> {
-                    var intent2 = Intent(this, activity_send_message::class.java)
-                    startActivity(intent2)
+                    if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.M) {
+                        if (FingerprintDialog.isAvailable(this)) {
+                            FingerprintDialog.initialize(this)
+                                .title("Ellenőrzés")
+                                .message("Használja az újlenyomatát a továbblépéshez")
+                                .callback(object : FingerprintDialogCallback {
+                                    override fun onAuthenticationSucceeded() {
+                                        var intent2 = Intent(context, activity_send_message::class.java)
+                                        startActivity(intent2)
+                                        drawerLayout!!.closeDrawer(Gravity.START, false)
+                                    }
+
+                                    override fun onAuthenticationCancel() {
+                                        passwordformessagewritiing()
+                                    }
+                                })
+                                .show();
+                        } else {
+                            passwordformessagewritiing()
+                        }
+                    } else {
+                        passwordformessagewritiing()
+                    }
+                    true
+                }
+                R.id.bealitasok -> {
+                    var intent = Intent(this, SettingsScreen::class.java)
+                    startActivity(intent)
                     this.drawerLayout!!.closeDrawer(Gravity.START, false)
                     true
                 }
-                R.id.bealitasok->{
-                    var intent = Intent(this,SettingsScreen::class.java)
-                    startActivity(intent)
-                    this.drawerLayout!!.closeDrawer(Gravity.START,false)
+                R.id.uzenetek -> {
+                    if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.M) {
+                        if (FingerprintDialog.isAvailable(this)) {
+                            FingerprintDialog.initialize(this)
+                                .title("Ellenőrzés")
+                                .message("Használja az újlenyomatát a továbblépéshez")
+                                .callback(object : FingerprintDialogCallback {
+                                    override fun onAuthenticationSucceeded() {
+                                        var intent = Intent(context, MessageDisplay::class.java)
+                                        startActivity(intent)
+                                        drawerLayout!!.closeDrawer(Gravity.START, false)
+                                    }
+
+                                    override fun onAuthenticationCancel() {
+                                        passwordformessageview()
+                                    }
+                                })
+                                .show();
+                        } else {
+                            passwordformessageview()
+                        }
+                    } else {
+                        passwordformessageview()
+                    }
                     true
                 }
             }
             false
         }
 
+    //uzenetek megtekindese szolgalok ellenorzes
+    fun passwordformessageview() {
+        this.progressDialog = ProgressDialog(this)
+        val dialog: Dialog? = Dialog(this)
+        dialog!!.setContentView(R.layout.passwordcheck)
+        dialog!!.setTitle("Ellenőrzés")
+        var cancelbutton: Button? = dialog.findViewById<Button>(R.id.password_button_cancel)
+        var checkbutton: Button? = dialog.findViewById<Button>(R.id.password_check_passwod_button)
+        var image: ImageView? = dialog.findViewById<ImageView>(R.id.password_image)
+        var pass: EditText? = dialog.findViewById<EditText>(R.id.assword_input)
+        var paslabel: TextView? = dialog.findViewById<TextView>(R.id.password_label)
+        cancelbutton!!.setOnClickListener {
+            dialog.dismiss()
+        }
+        checkbutton!!.setOnClickListener {
+            if(pass!!.text != null && pass!!.text.length >0){
+            progressDialog!!.setMessage("Ellenőrzés folyamatban")
+            progressDialog!!.show()
+            var user: FirebaseUser? = FirebaseAuth.getInstance().currentUser
+            var credential: AuthCredential? =
+                EmailAuthProvider.getCredential(user!!.email!!, pass!!.text.toString())
+            user!!.reauthenticate(credential!!).addOnCompleteListener {
+                if (it.isSuccessful) {
+                    image!!.setImageResource(R.mipmap.ic_unlock)
+                    paslabel!!.setText("Sikeres bejelentkezés")
+                    Toast.makeText(context, "Sikeres", Toast.LENGTH_SHORT)
+                    paslabel!!.setTextColor(resources.getColor(R.color.slapshcolor))
+                    progressDialog!!.dismiss()
+                    var intent2 = Intent(context, MessageDisplay::class.java)
+                    startActivity(intent2)
+                    drawerLayout!!.closeDrawer(Gravity.START, false)
+                    dialog.dismiss()
+                } else {
+                    image!!.setImageResource(R.mipmap.ic_lock_error_round)
+                    paslabel!!.setText("Sikertelen bejelentkezés!")
+                    Toast.makeText(context, "Sikertelen", Toast.LENGTH_SHORT)
+                    paslabel!!.setTextColor(Color.RED)
+                    progressDialog!!.dismiss()
+                }
+            }
+
+            }
+            else{
+                image!!.setImageResource(R.mipmap.ic_lock_error_round)
+                paslabel!!.setText("Nem adott meg jelszót")
+                Toast.makeText(context, "Sikertelen", Toast.LENGTH_SHORT)
+                paslabel!!.setTextColor(Color.RED)
+                progressDialog!!.dismiss()
+            }
+
+
+        }
+        dialog!!.show()
+
+    }
+
+    //uzenet irashoz szukseges ellenorzes
+    fun passwordformessagewritiing() {
+        this.progressDialog = ProgressDialog(this)
+        val dialog: Dialog? = Dialog(this)
+        dialog!!.setContentView(R.layout.passwordcheck)
+        dialog!!.setTitle("Ellenőrzés")
+        var cancelbutton: Button? = dialog.findViewById<Button>(R.id.password_button_cancel)
+        var checkbutton: Button? = dialog.findViewById<Button>(R.id.password_check_passwod_button)
+        var image: ImageView? = dialog.findViewById<ImageView>(R.id.password_image)
+        var pass: EditText? = dialog.findViewById<EditText>(R.id.assword_input)
+        var paslabel: TextView? = dialog.findViewById<TextView>(R.id.password_label)
+        cancelbutton!!.setOnClickListener {
+            dialog.dismiss()
+        }
+        checkbutton!!.setOnClickListener {
+            if(pass!!.text != null && pass!!.text.length >0) {
+                progressDialog!!.setMessage("Ellenőrzés folyamatban")
+                progressDialog!!.show()
+                var user: FirebaseUser? = FirebaseAuth.getInstance().currentUser
+                var credential: AuthCredential? =
+                    EmailAuthProvider.getCredential(user!!.email!!, pass!!.text.toString())
+                user!!.reauthenticate(credential!!).addOnCompleteListener {
+                    if (it.isSuccessful) {
+
+
+                        image!!.setImageResource(R.mipmap.ic_unlock)
+                        paslabel!!.setText("Sikeres bejelentkezés")
+                        Toast.makeText(context, "Sikeres", Toast.LENGTH_SHORT)
+                        paslabel!!.setTextColor(resources.getColor(R.color.slapshcolor))
+                        var intent2 = Intent(context, activity_send_message::class.java)
+                        startActivity(intent2)
+                        progressDialog!!.dismiss()
+                        drawerLayout!!.closeDrawer(Gravity.START, false)
+                        dialog.dismiss()
+                    } else {
+                        image!!.setImageResource(R.mipmap.ic_lock_error_round)
+                        paslabel!!.setText("Sikertelen bejelentkezés")
+                        Toast.makeText(context, "Sikertelen", Toast.LENGTH_SHORT)
+                        paslabel!!.setTextColor(Color.RED)
+                        progressDialog!!.dismiss()
+                    }
+
+                }
+            }
+            else{
+                image!!.setImageResource(R.mipmap.ic_lock_error_round)
+                paslabel!!.setText("Nem adott meg jelszót")
+                Toast.makeText(context, "Sikertelen", Toast.LENGTH_SHORT)
+                paslabel!!.setTextColor(Color.RED)
+                progressDialog!!.dismiss()
+            }
+
+        }
+        dialog!!.show()
+    }
 
     /** A frament cserelest oldja meg*/
     private fun openFragment(fragment: Fragment) {
@@ -136,9 +300,18 @@ class MainScreen : AppCompatActivity() {
     }
 
 
+    override fun onStart() {
+        super.onStart()
+        this.progressDialog!!.dismiss()
+    }
+
     override fun onDestroy() {
         super.onDestroy()
         MainScreen.iscreated = false
+        //leveszem a recivert mert mar nem kell fogadjon semmit hisz halot az activity
+        if (Settings.user != null) {
+            unregisterReceiver(this.notireciver!!)
+        }
     }
 
 
@@ -155,6 +328,9 @@ class MainScreen : AppCompatActivity() {
         } else {
             setContentView(R.layout.activity_main_screen)
         }
+        this.progressDialog = ProgressDialog(this)
+        this.progressDialog!!.setMessage("Betöltés")
+        this.progressDialog!!.show()
         bottonnavigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener)
         val navigationView: NavigationView = findViewById(R.id.drawernavigation)
         navigationView.setNavigationItemSelectedListener(selector)
@@ -185,23 +361,27 @@ class MainScreen : AppCompatActivity() {
         this.drawerLayout!!.addDrawerListener(this.actionBarDrawerToggle!!)
         this.actionBarDrawerToggle!!.syncState()
         supportActionBar!!.setDisplayHomeAsUpEnabled(true)
-        var intent = Intent(this, DatabaseListening::class.java)
-        startService(intent)
 
-        val intentFilter:IntentFilter? = IntentFilter("time")
-        val revicer:BroadcastReceiver? = object : BroadcastReceiver(){
-            override fun onReceive(context: Context?, intent: Intent?) {
-                Databuilder(ownTimeTable!!, context, Settings.user)
+        //ha letezik a felhasznalo elinditon a noti fogadot es a ricivert hogy lehessen egybol updatolni az adatokat
+        if (Settings.user != null) {
+            var intent = Intent(this, DatabaseListening::class.java)
+            startService(intent)
+
+            val intentFilter: IntentFilter? = IntentFilter("time")
+            this.notireciver = object : BroadcastReceiver() {
+                override fun onReceive(context: Context?, intent: Intent?) {
+                    Databuilder(ownTimeTable!!, context, Settings.user)
+
+                }
 
             }
-
+            this.registerReceiver(this.notireciver!!, intentFilter)
         }
-        this.registerReceiver( revicer,intentFilter)
     }
 
     /** a menu activiti elinditasara szolgal*/
     fun start() {
-        var intent2 = Intent(this, MENU::class.java)
+        var intent2 = Intent(this, DailyMenuScreen::class.java)
         startActivity(intent2)
     }
 
@@ -227,7 +407,7 @@ class MainScreen : AppCompatActivity() {
         if (item.itemId == R.id.switchbetweenweeks) {
             if (item.title.toString().equals("Második hét")) {
                 item.title = "Első hét"
-                item.setIcon(resources.getDrawable(R.drawable.ic_first_week))
+                item.setIcon(resources.getDrawable(R.drawable.ic_second_week))
                 this.generalTimeTable!!.adaptar!!.wichweek = "paroshet"
                 this.generalTimeTable!!.adaptar!!.notifyDataSetChanged()
                 this.ownTimeTable!!.adapter.wichweek = "paroshet"
@@ -237,7 +417,7 @@ class MainScreen : AppCompatActivity() {
                 this.generalTimeTable!!.adaptar!!.wichweek = "paratlanhet"
                 this.generalTimeTable!!.adaptar!!.notifyDataSetChanged()
                 item.title = "Második hét"
-                item.setIcon(resources.getDrawable(R.drawable.ic_second_week))
+                item.setIcon(resources.getDrawable(R.drawable.ic_first_week))
                 this.ownTimeTable!!.adapter!!.wichweek = "paratlanhet"
                 this.ownTimeTable!!.adapter!!.notifyDataSetChanged()
 

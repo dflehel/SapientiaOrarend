@@ -5,7 +5,7 @@
                                              android:layout_height="wrap_content">
 
     <TextView
-            android:text="TextView"
+            android:text="@string/send_message_screen_selecting"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:id="@+id/search_screen_item_text" app:layout_constraintTop_toTopOf="parent"

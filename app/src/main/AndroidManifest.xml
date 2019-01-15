@@ -1,11 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
+          xmlns:tools="http://schemas.android.com/tools"
           package="ro.sapientia.ms.sapientiaorarend">
+
+    <uses-sdk tools:overrideLibrary="me.aflak.libraries"/>
 
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
     <uses-permission android:name="android.permission.INTERNET"/>
     <uses-permission android:name="android.permission.VIBRATE"/>
+    <uses-permission android:name="android.permission.USE_FINGERPRINT"/>
 
     <application
             android:allowBackup="true"
@@ -16,22 +20,39 @@
             android:theme="@style/AppTheme">
         <activity
                 android:name=".Activity.LoginScreen"
-                android:label="@string/title_activity_main_screen">
+                android:label="@string/android_manifest_login">
+        </activity>
+        <activity android:name=".Activity.SignUpScreen"
+                  android:label="@string/android_manifest_signup"/>
+        <activity android:name=".Activity.MainScreen"
+                  android:label="@string/android_manifest_main"/>
+        <activity android:name=".Activity.DailyMenuScreen"
+                  android:label="@string/android_manifest_lunch"/>
+        <activity android:name=".Activity.MapScreen"
+                  android:label="@string/android_manifest_map"/>
+
+        <service android:name=".Services.DatabaseListening"/>
+
+        <activity android:name=".Activity.activity_send_message"
+                  android:label="@string/android_manifest_send_message"/>
+        <activity android:name=".Activity.SettingsScreen"
+                  android:label="@string/android_manifest_settings">
+
+        </activity>
+        <activity android:name=".Activity.MessageDisplay"
+                  android:label="@string/android_manifest_received_messages">
+        </activity>
+        <activity
+                android:name=".Activity.SplashScreen"
+                android:theme="@style/Nobar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
 
                 <category android:name="android.intent.category.LAUNCHER"/>
             </intent-filter>
         </activity>
-        <activity android:name=".Activity.SignUpScreen"/>
-        <activity android:name=".Activity.MainScreen"/>
-        <activity android:name=".Activity.MENU"/>
-        <activity android:name=".Activity.Map"/>
-
-        <service android:name=".Services.DatabaseListening"/>
-
-        <activity android:name=".Activity.activity_send_message"/>
-        <activity android:name=".Activity.SettingsScreen">
+        <activity android:name=".Activity.CheckPassword"
+                  android:label="@string/android_manifest_authentificate">
         </activity>
     </application>
 

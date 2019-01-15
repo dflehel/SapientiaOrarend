@@ -29,10 +29,10 @@ public class ClassColorsBuilder {
                 }
                 ClassColorsBuilder.terminated = true;
                 if (ClassPathBuilder.terminated && ClassColorsBuilder.loginScreen.getTerminated()) {
-                   if(!MainScreen.Companion.getIscreated()) {
-                       ClassColorsBuilder.loginScreen.startingmainscreen();
-                   }
-                    ClassColorsBuilder.loginScreen.getProgressDialog().dismiss();
+                    if (!MainScreen.Companion.getIscreated()) {
+                        //    ClassColorsBuilder.loginScreen.startingmainscreen();
+                    }
+                    //  ClassColorsBuilder.loginScreen.getProgressDialog().dismiss();
                 }
             }
 
